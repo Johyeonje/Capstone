@@ -4,9 +4,11 @@ package com.cookandroid.attendandroidapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,57 +20,30 @@ public class attend_courseActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.attend_course);
-
+        setTitle("E-Attend");
 
     }
-
-    public static class MainActivity extends AppCompatActivity {
 
 
 
         @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_main);
-            setTitle("E-Attend");
+        public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
+            switch (item.getItemId()) {
+                case R.id.login_btn:
+                    Intent intent1 = new Intent(getApplicationContext(), loginActivity.class);
 
-            Button btn1 = findViewById(R.id.btn1);
+                    startActivity(intent1);
+                    break;
 
-            btn1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(getApplicationContext(), attendActivity.class);
-                    startActivity(intent);
-                }
-            });
+                case R.id.home_btn:
+                    Intent intent2 = new Intent(getApplicationContext(), com.cookandroid.attendandroidapp.MainActivity.class);
+                    startActivity(intent2);
+                    break;
+            }
 
-
-            Button btn2 = findViewById(R.id.btn2);
-
-            btn2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(getApplicationContext(), attend_courseActivity.class);
-                    startActivity(intent);
-                }
-            });
-
-
-            Button btn3 = findViewById(R.id.btn3);
-
-
-            btn3.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(getApplicationContext(), adminActivity.class);
-
-                    startActivity(intent);
-                }
-            });
+            return super.onOptionsItemSelected(item);
         }
-
-
 
         @Override
         public boolean onCreateOptionsMenu(Menu menu) {
@@ -77,4 +52,3 @@ public class attend_courseActivity extends AppCompatActivity {
         }
 
     }
-}
