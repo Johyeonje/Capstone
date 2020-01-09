@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#03A9F4">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:id="@+id/btn4"
+        android:layout_marginTop="100dp"
+        android:text="로그아웃>>"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:id="@+id/btn5"
+        android:text="내 정보보기>>"/>
+
+</LinearLayout>

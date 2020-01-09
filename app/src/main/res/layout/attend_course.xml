@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#03A9F4">
+
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:id="@+id/btn6"
+        android:layout_marginTop="200dp"
+        android:text="과목1"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:id="@+id/btn7"
+        android:text="과목2"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:id="@+id/btn8"
+        android:text="과목3"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:id="@+id/btn9"
+        android:text="과목4"/>
+
+
+
+
+</LinearLayout>
