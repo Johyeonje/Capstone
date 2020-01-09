@@ -38,6 +38,7 @@ public class attendActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.attend);
+        setTitle("E-Attend");
 
         final String[] course = {"과목1", "과목2", "과목3", "과목4"};
 

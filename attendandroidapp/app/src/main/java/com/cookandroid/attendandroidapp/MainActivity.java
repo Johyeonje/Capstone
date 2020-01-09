@@ -60,6 +60,20 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch(item.getItemId()) {
+            case R.id.login_btn:
+                Intent intent1 = new Intent(getApplicationContext(), loginActivity.class);
+
+                startActivity(intent1);
+                break;
+
+            case R.id.home_btn:
+                Intent intent2 = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent2);
+                break;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
