@@ -31,13 +31,13 @@ public class attendActivity extends AppCompatActivity {
 
     Button captureButton;
     Button processButton;
-    private static final int CAMERA_CAPTURE=0;
+    ImageView image;
+    private static final int CAMERA_CAPTURE=1;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.attend);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         final String[] course = {"과목1", "과목2", "과목3", "과목4"};
 
@@ -48,6 +48,7 @@ public class attendActivity extends AppCompatActivity {
         spinner.setAdapter(adapter1);
 
 
+        image = findViewById(R.id.image);
         captureButton = findViewById(R.id.captureButton);
 
         captureButton.setOnClickListener(new View.OnClickListener() {
@@ -55,65 +56,22 @@ public class attendActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
 
-                i.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File("/sdcard/image.jpg")));
                 startActivityForResult(i, CAMERA_CAPTURE);
             }
         });
-
-        processButton = findViewById(R.id.processButton);
-
-        processButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bitmap captureBmp = null;
-                File file = new File("/sdcard/image.jpg");
-                try {
-                    captureBmp = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.fromFile(file));
-                } catch(FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch(IOException e) {
-                    e.printStackTrace();
-                }
-
-                int width = captureBmp.getWidth();
-                int height = captureBmp.getHeight();
-                Bitmap tmpBmp = captureBmp.copy(Bitmap.Config.ARGB_8888,true);
-
-                for(int y = 0; y < height; y++) {
-                    for(int x = 0; x<width; x++) {
-                        int value = captureBmp.getPixel(x, y);
-                        if(value<0xff808080)
-                            tmpBmp.setPixel(x, y, 0xff000000);
-                        else
-                            tmpBmp.setPixel(x, y, 0xffffffff);
-                    }
-                }
-                ImageView image = findViewById(R.id.image);
-                image.setImageBitmap(tmpBmp);
-            }
-        });
-
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Bitmap captureBmp = null;
-
-        if(resultCode == RESULT_OK && requestCode == CAMERA_CAPTURE) {
-            File file = new File("/sdcard/image.jpg");
-            try {
-                captureBmp = MediaStore.Images.Media.getBitmap(getContentResolver(),Uri.fromFile(file));
-            } catch(FileNotFoundException e) {
-                e.printStackTrace();
-            } catch(IOException e) {
-                e.printStackTrace();
-            }
-            ImageView image = findViewById(R.id.image);
-            image.setImageBitmap(captureBmp);
+        if(resultCode == RESULT_OK)
+        {
+            Bitmap bitmap = data.getParcelableExtra("data");
+            image.setImageBitmap(bitmap);
         }
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
