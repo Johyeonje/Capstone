@@ -3,4 +3,20 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/spinner2"/>
+
+  <fragment
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:id="@+id/fragment1"/>
+
+      <FrameLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:id="@+id/fragment2or3"   />
+
+
 </LinearLayout>

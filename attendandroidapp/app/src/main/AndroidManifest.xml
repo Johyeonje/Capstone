@@ -21,6 +21,7 @@
         <activity android:name=".attend_courseActivity"/>
         <activity android:name=".attendActivity"/>
         <activity android:name=".loginActivity"/>
+        <activity android:name=".recordActivity"/>
     </application>
 
 </manifest>
