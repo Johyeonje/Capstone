@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="060df3ce-7e3f-46c4-ba1b-2c4be6748ee1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../attendandroidapp/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../attendandroidapp/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +32,7 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\anaconda\envs\tf\python.exe" />
+      <option name="SDK_HOME" value="C:\Users\USER\Anaconda3\envs\tf\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -72,14 +73,16 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="414" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1578734151507">
+    <state x="414" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1578911253503">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="414" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1578734151507" />
-    <state x="740" y="278" key="FileChooserDialogImpl" timestamp="1578736701852">
+    <state x="414" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog/1920.64.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1578911253503" />
+    <state x="740" y="278" key="FileChooserDialogImpl" timestamp="1578911245652">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="278" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1578736701852" />
+    <state x="740" y="278" key="FileChooserDialogImpl/1920.64.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1578911245652" />
     <state width="1921" height="289" key="GridCell.Tab.0.bottom" timestamp="1578736328211">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
