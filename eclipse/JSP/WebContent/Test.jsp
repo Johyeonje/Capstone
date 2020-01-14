@@ -3,6 +3,8 @@
 <%@page import="java.util.Enumeration"%>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
+<%@page import="java.io.OutputStream"%>
+<%@page import="java.io.DataOutputStream"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -14,9 +16,12 @@
 <body>
 	<%
 		//이미지를 저장할 경로 입력.
+		request.setCharacterEncoding("utf-8");
+		
 		String folderTypePath = "D:/Study/Capstone/DoNotTouch";
 		String name = new String();
 		String fileName = new String();
+		String Person[] = {"man1", "man2"};
 		int sizeLimit = 20 * 1024 * 1024; // 5메가까지 제한 넘어서면 예외발생
 		try {
 			System.out.println("연결시작 " + fileName);
@@ -29,10 +34,19 @@
 				fileName = multi.getFilesystemName(name);
 			}
 			System.out.println("이미지를 저장하였습니다. : " + fileName);
+			out.clear();
+			out = pageContext.pushBody();
+			OutputStream outputStream = response.getOutputStream();
+			DataOutputStream dos = new DataOutputStream(outputStream);
+			for (String s : Person) {
+				dos.writeUTF(s);
+			}
+			dos.close();
+			outputStream.close();
 		} catch (IOException e) {
 			out.println("안드로이드 부터 이미지를 받아옵니다.");
 		}
 	%>
-	<%= fileName %>
+
 </body>
 </html>
