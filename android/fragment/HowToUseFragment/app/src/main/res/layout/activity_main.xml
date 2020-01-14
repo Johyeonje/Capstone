@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9">
+
+        <FrameLayout
+            android:id="@+id/frameLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </FrameLayout> <!-- Fragment를 담을 수 있는 액자를 제작.-->
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:background="@drawable/btnpress"
+            android:id="@+id/btn1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <ImageView
+                android:src="@drawable/baseline_accessibility_black_18dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </ImageView>
+        </LinearLayout>
+        <LinearLayout
+            android:background="@drawable/btnpress"
+            android:id="@+id/btn2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <ImageView
+                android:src="@drawable/baseline_accessible_black_18dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </ImageView>
+        </LinearLayout>
+        <LinearLayout
+            android:background="@drawable/btnpress"
+            android:id="@+id/btn3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <ImageView
+                android:src="@drawable/baseline_accessibility_new_black_18dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </ImageView>
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+</LinearLayout>
