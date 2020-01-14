@@ -24,6 +24,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 public class MainActivity extends AppCompatActivity {
     private static final int REQ_CODE_SELECT_IMAGE = 100;
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -32,18 +39,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         checkSelfPermission();
-        if (checkSelfPermission( Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},1);
-        }
-        if (checkSelfPermission(Manifest.permission.INTERNET)
-                != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.INTERNET},1);
-        }
-        if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
-        }
         Button btn1 = (Button) findViewById(R.id.btn1);
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,8 +66,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(Void... params) {
             String result; // 요청 결과를 저장할 변수.
-            RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
-            result = requestHttpURLConnection.HttpURLConnection (url, "", fileName); // 해당 URL로 부터 결과물을 얻어온다.
+            result = HttpURLConnection (url, "", fileName); // 해당 URL로 부터 결과물을 얻어온다.
             return result;
         }
 
@@ -144,5 +138,65 @@ public class MainActivity extends AppCompatActivity {
     public void DoFileUpload(String apiUrl, String absolutePath) {
         NetworkTask networkTask = new NetworkTask(apiUrl, absolutePath);
         networkTask.execute();
+    }
+
+    public String HttpURLConnection(String urlString, String params, String fileName) {
+        String lineEnd = "\r\n";
+        String twoHyphens = "--";
+        String boundary = "*****";
+        try {
+            FileInputStream mFileInputStream = new FileInputStream(new File(fileName));
+            URL connectUrl = new URL(urlString);
+            Log.d("Test", "mFileInputStream  is " + mFileInputStream);
+            // HttpURLConnection 통신
+            HttpURLConnection conn = (HttpURLConnection) connectUrl.openConnection();
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+            conn.setUseCaches(false);
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Connection", "Keep-Alive");
+            conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
+            // write data
+            DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
+            dos.writeBytes(twoHyphens + boundary + lineEnd);
+            dos.writeBytes("Content-Disposition: form-data; name=\"uploadedfile\";filename=\"" + fileName + "\"" + lineEnd);
+            dos.writeBytes(lineEnd);
+            int bytesAvailable = mFileInputStream.available();
+            int maxBufferSize = 1024;
+            int bufferSize = Math.min(bytesAvailable, maxBufferSize);
+            byte[] buffer = new byte[bufferSize];
+            int bytesRead = mFileInputStream.read(buffer, 0, bufferSize);
+            Log.d("Test", "image byte is " + bytesRead);
+            // read image
+            while (bytesRead > 0) {
+                dos.write(buffer, 0, bufferSize);
+                bytesAvailable = mFileInputStream.available();
+                bufferSize = Math.min(bytesAvailable, maxBufferSize);
+                bytesRead = mFileInputStream.read(buffer, 0, bufferSize);
+            }
+            dos.writeBytes(lineEnd);
+            dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+            // close streams
+            Log.e("Test", "File is written");
+            mFileInputStream.close();
+            dos.flush();
+            // finish upload...
+            // get response
+            StringBuffer b;
+            try (InputStream is = conn.getInputStream()) {
+                b = new StringBuffer();
+                for (int ch = 0; (ch = is.read()) != -1; ) {
+                    b.append((char) ch);
+                }
+                is.close();
+            }
+            Log.e("Test", b.toString());
+            return b.toString();
+
+        } catch (Exception e) {
+            Log.d("Test", "exception " + e.getMessage());
+            return null;
+            // TODO: handle exception
+        }
     }
 }
