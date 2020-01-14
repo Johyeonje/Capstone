@@ -12,3 +12,4 @@
 /captures
 .externalNativeBuild
 .cxx
+CAT_data_model/mnist_train.csv
