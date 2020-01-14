@@ -3,35 +3,48 @@
 <%@page import="java.util.Enumeration"%>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
+<%@page import="java.io.OutputStream"%>
+<%@page import="java.io.DataOutputStream"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-
 	<%
-		//ÀÌ¹ÌÁö¸¦ ÀúÀåÇÒ °æ·Î ÀÔ·Â.
+		//ì´ë¯¸ì§€ë¥¼ ì €ì¥í•  ê²½ë¡œ ì…ë ¥.
+		request.setCharacterEncoding("utf-8");
+		
 		String folderTypePath = "D:/Study/Capstone/DoNotTouch";
 		String name = new String();
 		String fileName = new String();
-		int sizeLimit = 20 * 1024 * 1024; // 5¸Ş°¡±îÁö Á¦ÇÑ ³Ñ¾î¼­¸é ¿¹¿Ü¹ß»ı
+		String Person[] = {"man1", "man2"};
+		int sizeLimit = 20 * 1024 * 1024; // 5ë©”ê°€ê¹Œì§€ ì œí•œ ë„˜ì–´ì„œë©´ ì˜ˆì™¸ë°œìƒ
 		try {
-			System.out.println("¿¬°á½ÃÀÛ " + fileName);
+			System.out.println("ì—°ê²°ì‹œì‘ " + fileName);
 			MultipartRequest multi = new MultipartRequest(request, folderTypePath, sizeLimit, new DefaultFileRenamePolicy());
 			Enumeration files = multi.getFileNames();
 
-			//ÆÄÀÏ Á¤º¸°¡ ÀÖ´Ù¸é
+			//íŒŒì¼ ì •ë³´ê°€ ìˆë‹¤ë©´
 			if (files.hasMoreElements()) {
 				name = (String) files.nextElement();
 				fileName = multi.getFilesystemName(name);
 			}
-			System.out.println("ÀÌ¹ÌÁö¸¦ ÀúÀåÇÏ¿´½À´Ï´Ù. : " + fileName);
+			System.out.println("ì´ë¯¸ì§€ë¥¼ ì €ì¥í•˜ì˜€ìŠµë‹ˆë‹¤. : " + fileName);
+			out.clear();
+			out = pageContext.pushBody();
+			OutputStream outputStream = response.getOutputStream();
+			DataOutputStream dos = new DataOutputStream(outputStream);
+			for (String s : Person) {
+				dos.writeUTF(s);
+			}
+			dos.close();
+			outputStream.close();
 		} catch (IOException e) {
-			out.println("¾Èµå·ÎÀÌµå ºÎÅÍ ÀÌ¹ÌÁö¸¦ ¹Ş¾Æ¿É´Ï´Ù.");
+			out.println("ì•ˆë“œë¡œì´ë“œ ë¶€í„° ì´ë¯¸ì§€ë¥¼ ë°›ì•„ì˜µë‹ˆë‹¤.");
 		}
 	%>
 

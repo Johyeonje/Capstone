@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.StrictMode;
 import android.provider.MediaStore;
@@ -23,20 +24,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
 public class MainActivity extends AppCompatActivity {
-    String img_path=null;
     private static final int REQ_CODE_SELECT_IMAGE = 100;
-    String lineEnd = "\r\n";
-    String twoHyphens = "--";
-    String boundary = "*****";
-    FileInputStream mFileInputStream;
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +59,31 @@ public class MainActivity extends AppCompatActivity {
                 .permitNetwork().build());
     }
 
+    public class NetworkTask extends AsyncTask<Void, Void, String> {
+
+        private String url, fileName;
+
+        public NetworkTask(String url, String fileName) {
+            this.url = url;
+            this.fileName = fileName;
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            String result; // 요청 결과를 저장할 변수.
+            RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
+            result = requestHttpURLConnection.HttpURLConnection (url, "", fileName); // 해당 URL로 부터 결과물을 얻어온다.
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            //doInBackground()로 부터 리턴된 값이 onPostExecute()의 매개변수로 넘어오므로 s를 출력한다.
+            Toast.makeText(getBaseContext(), "Responce : " + s, Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private void checkSelfPermission() {
         String temp = "";
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
@@ -93,8 +107,9 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == REQ_CODE_SELECT_IMAGE) {
             if (resultCode == Activity.RESULT_OK) {
                 try {
+                    String img_path=null;
                     img_path = getImagePathToUri(data.getData()); //이미지의 URI를 얻어 경로값으로 반환.
-                    mFileInputStream = new FileInputStream(new File(img_path));
+
                     DoFileUpload("http://rbghoneroom402.iptime.org:48526/JSP/Test.jsp", img_path);  //해당 함수를 통해 이미지 전송.
                     Toast.makeText(getBaseContext(), "img_path : " + img_path, Toast.LENGTH_SHORT).show();
                     //이미지를 비트맵형식으로 반환
@@ -118,84 +133,16 @@ public class MainActivity extends AppCompatActivity {
         //사용자가 선택한 이미지의 정보를 받아옴
         String[] proj = {MediaStore.Images.Media.DATA};
         Cursor cursor = managedQuery(data, proj, null, null, null);
-
         cursor.moveToFirst();
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         //이미지의 경로 값
         String imgPath = cursor.getString(column_index);
         Log.d("test", imgPath);
-
-
-
         return imgPath;
     }
 
     public void DoFileUpload(String apiUrl, String absolutePath) {
-        HttpFileUpload(apiUrl, "", absolutePath);
-    }
-
-    public void HttpFileUpload(String urlString, String params, String fileName) {
-        try {
-
-            URL connectUrl = new URL(urlString);
-
-            Log.d("Test", "mFileInputStream  is " + mFileInputStream);
-            // HttpURLConnection 통신
-            HttpURLConnection conn = (HttpURLConnection) connectUrl.openConnection();
-            conn.setDoInput(true);
-            conn.setDoOutput(true);
-            conn.setUseCaches(false);
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Connection", "Keep-Alive");
-            conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
-            // write data
-
-            DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
-            dos.writeBytes(twoHyphens + boundary + lineEnd);
-            dos.writeBytes("Content-Disposition: form-data; name=\"uploadedfile\";filename=\"" + fileName + "\"" + lineEnd);
-            dos.writeBytes(lineEnd);
-            int bytesAvailable = mFileInputStream.available();
-            int maxBufferSize = 1024;
-            int bufferSize = Math.min(bytesAvailable, maxBufferSize);
-
-            byte[] buffer = new byte[bufferSize];
-            int bytesRead = mFileInputStream.read(buffer, 0, bufferSize);
-
-            Log.d("Test", "image byte is " + bytesRead);
-
-            // read image
-            while (bytesRead > 0) {
-                dos.write(buffer, 0, bufferSize);
-                bytesAvailable = mFileInputStream.available();
-                bufferSize = Math.min(bytesAvailable, maxBufferSize);
-                bytesRead = mFileInputStream.read(buffer, 0, bufferSize);
-            }
-
-            dos.writeBytes(lineEnd);
-            dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
-
-            // close streams
-            Log.e("Test", "File is written");
-            mFileInputStream.close();
-            dos.flush();
-            // finish upload...
-
-            // get response
-            StringBuffer b;
-            try (InputStream is = conn.getInputStream()) {
-                b = new StringBuffer();
-                for (int ch = 0; (ch = is.read()) != -1; ) {
-                    b.append((char) ch);
-                }
-                is.close();
-            }
-            Log.e("Test", b.toString());
-            Toast.makeText(getBaseContext(), "HttpFileUploadEnd" , Toast.LENGTH_SHORT).show();
-
-        } catch (Exception e) {
-            Log.d("Test", "exception " + e.getMessage());
-            // TODO: handle exception
-            Toast.makeText(getBaseContext(), "HttpFileUploadFail" , Toast.LENGTH_SHORT).show();
-        }
+        NetworkTask networkTask = new NetworkTask(apiUrl, absolutePath);
+        networkTask.execute();
     }
 }
