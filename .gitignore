@@ -13,3 +13,4 @@
 .externalNativeBuild
 .cxx
 CAT_data_model/mnist_train.csv
+Inputimage_test/mnist_train.csv
