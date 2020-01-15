@@ -4,26 +4,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="Main_Activity">
-
+    tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-    <Button
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:id="@+id/attend_btn"
-        android:text="출석체크"/>
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:id="@+id/attend_btn"
+            android:text="출석체크"/>
 
-     <Button
-         android:layout_width="200dp"
-         android:layout_height="200dp"
-         android:layout_marginLeft="10dp"
-         android:text="내 정보보기"
-         android:id="@+id/info_btn"/>
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginLeft="10dp"
+            android:text="내 정보보기"
+            android:id="@+id/info_btn"/>
 
     </LinearLayout>
 
@@ -48,7 +47,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="horizontal"
         android:layout_weight="5"
         >
