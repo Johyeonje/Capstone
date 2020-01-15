@@ -4,15 +4,17 @@ import cv2
 import skimage
 
 # Take the image file name from the command line
-file_name = input() + ".jpg"
+file_path = sys.argv[1]
+file_name = sys.argv[2]
+#file_name = input() + ".jpg"
 mod = sys.modules[__name__]
 # Create a HOG face detector using the built-in dlib class
 face_detector = dlib.get_frontal_face_detector()
 
 win = dlib.image_window()
-cvimg = cv2.imread(file_name, cv2.IMREAD_ANYCOLOR)
+cvimg = cv2.imread(file_path+"/"+file_name, cv2.IMREAD_ANYCOLOR)
 # Load the image into an array
-image = skimage.io.imread(file_name)
+image = skimage.io.imread(file_path+"/"+file_name)
 
 # Run the HOG face detector on the image data.
 # The result will be the bounding boxes of the faces in our image.
@@ -31,7 +33,7 @@ for i, face_rect in enumerate(detected_faces):
     print("- Face #{} found at Left: {} Top: {} Right: {} Bottom: {}".format(i, face_rect.left(), face_rect.top(),
                                                                              face_rect.right(), face_rect.bottom()))
     setattr(mod, 'dst_{}'.format(i), cv2.resize(crop_img, dsize=(100, 100), interpolation=cv2.INTER_AREA))
-    cv2.imwrite(str(i) + '.jpg', getattr(mod, 'dst_{}'.format(i)))
+    cv2.imwrite(file_path+"/"+str(i) + '.jpg', getattr(mod, 'dst_{}'.format(i)))
     # Draw a box around each face we found
     win.add_overlay(face_rect)
 
