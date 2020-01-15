@@ -41,30 +41,30 @@
         >
 
         <Button
-            android:id="@+id/btnUniv"
+            android:id="@+id/time_btn"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#FF0000"
-            android:text="KangWonUniv"
+            android:background="#03A9F4"
+            android:text="시간표"
             android:textColor="#000000"
             />
 
         <Button
-            android:id="@+id/btnEruri"
+            android:id="@+id/home_btn"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#FFFF00"
-            android:text="E-루리"
+            android:background="#03A9F4"
+            android:text="home"
             android:layout_weight="1"
             android:textColor="#000000" />
 
         <Button
-            android:id="@+id/btnKcloud"
+            android:id="@+id/board_btn"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#00FF00"
-            android:text="K-Cloud"
+            android:background="#03A9F4"
+            android:text="게시판"
             android:layout_weight="1"
             android:textColor="#000000" />
 

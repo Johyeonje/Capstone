@@ -26,6 +26,7 @@ public class recordActivity extends AppCompatActivity {
     private fragment1Activity fragment1;
     private fragment2Activity fragment2;
     private fragment3Activity fragment3;
+    private fragment4Activity fragment4;
     private FragmentTransaction transaction;
 
     static String select_item;
@@ -41,6 +42,7 @@ public class recordActivity extends AppCompatActivity {
         fragment1 = new fragment1Activity();
         fragment2 = new fragment2Activity();
         fragment3 = new fragment3Activity();
+        fragment4 = new fragment4Activity();
 
 
         final String[] courseList = {"과목1","과목2","과목3","과목4"};
@@ -67,6 +69,9 @@ public class recordActivity extends AppCompatActivity {
                         break;
                     case 2:
                         transaction.replace(R.id.frameLayout, fragment3).commitAllowingStateLoss();
+                        break;
+                    case 3:
+                        transaction.replace(R.id.frameLayout, fragment4).commitAllowingStateLoss();
                         break;
 
                 }
