@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Add_Board"
+    android:background="#ffffbb"
+    android:id="@+id/add_board_act">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="234dp"
+        tools:layout_editor_absoluteY="0dp"
+        android:orientation="vertical"
+        android:layout_weight="1">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="제목"
+            android:layout_weight="8">
+
+        </EditText>
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="9.1"
+            android:orientation="horizontal"
+            android:background="#ffcc00"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="게시학년"
+                android:textSize="24dp"
+                android:textAlignment="center"
+
+                ></TextView>
+            <RadioButton
+                android:id="@+id/radio_two"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:text="2학년"
+                android:textSize="24dp"
+                />
+            <RadioButton
+                android:id="@+id/radio_three"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:text="3학년"
+                android:textSize="24dp"
+                />
+            <RadioButton
+                android:id="@+id/radio_four"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:text="4학년"
+                android:textSize="24dp"
+                />
+
+
+        </RadioGroup>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="내용"
+            android:layout_weight="2">
+
+        </EditText>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="9"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/upload"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="30dp"
+            android:text="게시하기"/>
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textSize="30dp"
+            android:text="취소"/>
+
+    </LinearLayout>
+</LinearLayout>

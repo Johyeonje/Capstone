@@ -1,13 +1,16 @@
 package com.cookandroid.attendandroidapp;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +19,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -27,6 +31,8 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 
 public class attendActivity extends AppCompatActivity {
@@ -43,7 +49,7 @@ public class attendActivity extends AppCompatActivity {
         setContentView(R.layout.attend);
         setTitle("E-Attend");
 
-        final String[] course = {"선택하세요","과목1", "과목2", "과목3", "과목4"};
+        final String[] course = {"선택하세요", "과목1", "과목2", "과목3", "과목4"};
 
         Spinner spinner = findViewById(R.id.spinner1);
 
@@ -57,7 +63,7 @@ public class attendActivity extends AppCompatActivity {
         record_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),recordActivity.class);
+                Intent intent = new Intent(getApplicationContext(), recordActivity.class);
                 startActivity(intent);
             }
         });
@@ -71,11 +77,31 @@ public class attendActivity extends AppCompatActivity {
                 Intent i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
 
                 startActivityForResult(i, CAMERA_CAPTURE);
+                checkSelfPermission();
+
             }
         });
     }
 
-    @Override
+    private void checkSelfPermission() {
+        String temp = "";
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+        { temp += Manifest.permission.READ_EXTERNAL_STORAGE + " "; } //파일 쓰기 권한 확인
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+        { temp += Manifest.permission.WRITE_EXTERNAL_STORAGE + " "; }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED)
+        { temp += Manifest.permission.INTERNET + " "; }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
+        { temp += Manifest.permission.CAMERA + " "; }
+        if (TextUtils.isEmpty(temp) == false)
+        { // 권한 요청
+            ActivityCompat.requestPermissions(this, temp.trim().split(" "),1); }
+        else { // 모두 허용 상태
+            Toast.makeText(this, "권한을 모두 허용", Toast.LENGTH_SHORT).show(); }
+    }
+
+
+@Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 

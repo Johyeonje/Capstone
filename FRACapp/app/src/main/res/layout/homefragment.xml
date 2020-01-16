@@ -1,11 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#4CAF50"
-    android:id="@+id/frameLayout3">
+    android:layout_height="match_parent">
+
+<androidx.viewpager.widget.ViewPager
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    android:id="@+id/slide_container">
+
+</androidx.viewpager.widget.ViewPager>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginLeft="40dp"
+            android:id="@+id/attend_btn"
+            android:text="출석체크"/>
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginLeft="30dp"
+            android:text="내 정보보기"
+            android:id="@+id/info_btn"/>
+
+
+    </LinearLayout>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal">
+
+      <Button
+          android:layout_width="150dp"
+          android:layout_height="150dp"
+          android:layout_marginLeft="40dp"
+          android:id="@+id/coursemanage_btn"
+          android:text="수업관리"/>
+
+      <Button
+          android:layout_width="150dp"
+          android:layout_height="150dp"
+          android:text="기타"
+          android:layout_marginLeft="30dp"
+          android:id="@+id/etc_btn"/>
 
 
 
 
-</FrameLayout>
+
+
+  </LinearLayout>
+
+
+</LinearLayout>

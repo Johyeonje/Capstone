@@ -11,11 +11,20 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 public class timefragActivity extends Fragment {
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.timefragment, container, false);
+    public static Fragment newInstance() {
+        timefragActivity fragment = new timefragActivity();
+        return fragment;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.timefragment,container,false);
+    }
 }
+
+

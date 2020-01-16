@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:id="@+id/frame1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="0.1"
+        android:background="#F3F3F3">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="@drawable/capstonelogo" />
+
+        <Button
+            android:id="@+id/take_photo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:text="출석부르기"/>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="1">
+
+        <Button
+            android:text="메뉴"
+            android:id="@+id/menu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/btn_background"
+            android:layout_marginRight="1dp"
+            android:layout_marginLeft="1dp"
+            android:layout_weight="1">
+
+        </Button>
+
+        <Button
+            android:text="홈"
+            android:id="@+id/home"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/btn_background"
+            android:layout_marginRight="1dp"
+            android:layout_marginLeft="1dp"
+            android:layout_weight="1">
+        </Button>
+
+        <Button
+            android:text="관리"
+            android:id="@+id/option"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/btn_background"
+            android:layout_marginRight="1dp"
+            android:layout_marginLeft="1dp"
+            android:layout_weight="1">
+        </Button>
+
+    </LinearLayout>
+
+</LinearLayout>

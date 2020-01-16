@@ -6,79 +6,9 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:id="@+id/attend_btn"
-            android:text="출석체크"/>
-
-        <Button
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_marginLeft="10dp"
-            android:text="내 정보보기"
-            android:id="@+id/info_btn"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:orientation="horizontal">
-
-        <Button
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:id="@+id/coursemanage_btn"
-            android:text="수업관리"/>
-
-        <Button
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_marginLeft="10dp"
-            android:id="@+id/etc_btn"
-            android:text="기능"/>
-    </LinearLayout>
-
-    <LinearLayout
+    <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_weight="5"
-        >
-
-        <Button
-            android:id="@+id/time_btn"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#03A9F4"
-            android:text="시간표"
-            android:textColor="#000000"
-            />
-
-        <Button
-            android:id="@+id/home_btn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#03A9F4"
-            android:text="home"
-            android:layout_weight="1"
-            android:textColor="#000000" />
-
-        <Button
-            android:id="@+id/board_btn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#03A9F4"
-            android:text="게시판"
-            android:layout_weight="1"
-            android:textColor="#000000" />
-
-    </LinearLayout>
+        android:id="@+id/action_container"
+        android:layout_weight="1"/>
 </LinearLayout>

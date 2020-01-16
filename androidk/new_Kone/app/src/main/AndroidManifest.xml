@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.new_kone">
+    <!-- ===================================2=2=2=2=2=========================================-->
+    <uses-feature android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <!--================ 카메라의 제어, 저장소 접근 허용을 위해 꼭 넣어야된다.===2=2=2=2=2=======================-->
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".login_pageF">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!--  ===================================액티비티를 추가할때 이곳에도 추가해줘야 한다. -->
+        <activity android:name=".MainActivity" android:label="메인 페이지"/>
+        <activity android:name=".take_photoF" android:label="사진 찍기"/>
+
+        <!-- ===============================액티비티를  보여줘야할때 추가할때 이 부분에 추가요망-->
+    </application>
+
+</manifest>
