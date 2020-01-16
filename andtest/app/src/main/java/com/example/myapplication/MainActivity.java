@@ -86,8 +86,6 @@ public class MainActivity extends AppCompatActivity {
         { temp += Manifest.permission.WRITE_EXTERNAL_STORAGE + " "; }
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED)
         { temp += Manifest.permission.INTERNET + " "; }
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
-        { temp += Manifest.permission.CAMERA + " "; }
         if (TextUtils.isEmpty(temp) == false)
         { // 권한 요청
             ActivityCompat.requestPermissions(this, temp.trim().split(" "),1); }
