@@ -9,10 +9,12 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainActivity<sm> extends AppCompatActivity {
@@ -21,9 +23,6 @@ public class MainActivity<sm> extends AppCompatActivity {
     private ActionBar bar; // 액션바를 사용하기위한 선언
     private FragmentManager fm; // 프래그먼트를 관리하기위한 선언
     private ArrayList<Fragment> fList;
-    int MAX_PAGE=2;
-    Fragment cur_fragment=new Fragment();
-    private ActionBar.TabListener tabListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +30,8 @@ public class MainActivity<sm> extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setTitle("FRAC");
 
+        ViewPager viewPager=(ViewPager)findViewById(R.id.slide_container);
+        viewPager.setAdapter(new slideActivity(getSupportFragmentManager()));
         mViewPager = (ViewPager) findViewById(R.id.action_container);
         fm = getSupportFragmentManager();
         bar = getSupportActionBar();
@@ -46,6 +47,7 @@ public class MainActivity<sm> extends AppCompatActivity {
         bar.addTab(tab2);
         bar.addTab(tab3);
 
+
         fList = new ArrayList<Fragment>();
 
         fList.add(boardfragActivity.newInstance());
@@ -57,8 +59,7 @@ public class MainActivity<sm> extends AppCompatActivity {
     tabActivity adapter = new tabActivity(fm, fList);
         mViewPager.setAdapter(adapter);
 
-        ViewPager viewPager=(ViewPager)findViewById(R.id.slide_container);
-        viewPager.setAdapter(new adapter(getSupportFragmentManager()));
+
 }
 
     ViewPager.SimpleOnPageChangeListener viewPagerListener = new ViewPager.SimpleOnPageChangeListener() {
@@ -70,34 +71,24 @@ public class MainActivity<sm> extends AppCompatActivity {
         }
     };
 
-
-    private class adapter extends FragmentPagerAdapter {
-
-        public adapter(FragmentManager fm) {
-            super(fm);
-        }
+    ActionBar.TabListener tabListener = new ActionBar.TabListener() {
         @Override
-        public Fragment getItem(int position) {
-            if(position<0 || MAX_PAGE<=position)
-                return null;
-            switch (position){
-                case 0:
-                    cur_fragment=new noticeActivity();
-                    break;
-                case 1:
-                    cur_fragment=new todolistActivity();
-                    break;
-            }
-            return cur_fragment;
+        public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
         }
-        @Override
-        public int getCount() {
-            return MAX_PAGE;
-        }
-    }
-
 
         @Override
+        public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+            mViewPager.setCurrentItem(tab.getPosition());
+        }
+
+        @Override
+        public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
+        }
+    };
+
+
+
+    @Override
         public boolean onCreateOptionsMenu (Menu menu){
             getMenuInflater().inflate(R.menu.menu, menu);
             return true;

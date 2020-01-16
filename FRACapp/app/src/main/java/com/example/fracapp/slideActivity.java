@@ -4,26 +4,32 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import java.util.ArrayList;
+public class slideActivity  extends FragmentPagerAdapter{
 
-public class slideActivity extends  FragmentPagerAdapter {
+    int MAX_PAGE=2;
+    Fragment cur_fragment=new Fragment();
 
-
-    private ArrayList<Fragment> sList;
-
-
-        public slideActivity(FragmentManager sm, ArrayList<Fragment> sList) {
-            super(sm);
-            this.sList = sList;
+    public slideActivity (FragmentManager fm) {
+            super(fm);
         }
-
         @Override
         public Fragment getItem(int position) {
-            return this.sList.get(position);
+            if(position<0 || MAX_PAGE<=position)
+                return null;
+            switch (position){
+                case 0:
+                    cur_fragment=new noticeActivity();
+                    break;
+                case 1:
+                    cur_fragment=new todolistActivity();
+                    break;
+            }
+            return cur_fragment;
         }
-
         @Override
         public int getCount() {
-            return sList.size();
+            return MAX_PAGE;
         }
     }
+
+
