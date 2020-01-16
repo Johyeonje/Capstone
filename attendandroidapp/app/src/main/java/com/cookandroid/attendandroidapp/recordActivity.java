@@ -25,9 +25,11 @@ public class recordActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private fragment1Activity fragment1;
     private fragment2Activity fragment2;
+    private fragment3Activity fragment3;
+    private fragment4Activity fragment4;
     private FragmentTransaction transaction;
 
-    final String[] select_item = {""};
+    static String select_item;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,32 +41,42 @@ public class recordActivity extends AppCompatActivity {
 
         fragment1 = new fragment1Activity();
         fragment2 = new fragment2Activity();
+        fragment3 = new fragment3Activity();
+        fragment4 = new fragment4Activity();
 
 
-        final ArrayList courseList = new ArrayList();
-        courseList.add("과목1");
-        courseList.add("과목2");
-        courseList.add("과목3");
-        courseList.add("과목4");
+        final String[] courseList = {"과목1","과목2","과목3","과목4"};
 
-        Spinner spinner2 = findViewById(R.id.spinner2);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_selectable_list_item, courseList);
+
+        final Spinner spinner2 = findViewById(R.id.spinner2);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_selectable_list_item, courseList);
         spinner2.setAdapter(adapter);
 
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
-
             public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                transaction = fragmentManager.beginTransaction();
-                if ("과목1".equals(courseList)) {
-                    transaction.replace(R.id.frameLayout, fragment1).commitAllowingStateLoss();
-                } else if ("과목2".equals(courseList)) {
-                    transaction.replace(R.id.frameLayout, fragment2).commitAllowingStateLoss();
-                }
-            }
 
-            @Override
+
+                select_item = courseList[arg2];
+                transaction = fragmentManager.beginTransaction();
+                switch (arg2) {
+                    case 0:
+                        transaction.replace(R.id.frameLayout, fragment1).commitAllowingStateLoss();
+                        break;
+                    case 1:
+                        transaction.replace(R.id.frameLayout, fragment2).commitAllowingStateLoss();
+                        break;
+                    case 2:
+                        transaction.replace(R.id.frameLayout, fragment3).commitAllowingStateLoss();
+                        break;
+                    case 3:
+                        transaction.replace(R.id.frameLayout, fragment4).commitAllowingStateLoss();
+                        break;
+
+                }
+                }
+              @Override
             public void onNothingSelected(AdapterView<?> arg0) {
 
             }

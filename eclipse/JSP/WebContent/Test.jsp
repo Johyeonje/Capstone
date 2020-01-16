@@ -43,8 +43,11 @@
 			}
 			dos.close();
 			outputStream.close();
+			
+			Runtime runtime = Runtime.getRuntime();
+			Process process = runtime.exec("conda run -n dlib python "+folderTypePath+"/face.py "+folderTypePath+" "+fileName);
 		} catch (IOException e) {
-			out.println("안드로이드 부터 이미지를 받아옵니다.");
+			System.out.println("실패!");
 		}
 	%>
 
