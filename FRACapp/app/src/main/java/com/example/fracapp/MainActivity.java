@@ -30,43 +30,29 @@ public class MainActivity extends AppCompatActivity {
         homefragment = new homefragActivity();
         timefragment = new timefragActivity();
 
-        Button time_btn = findViewById(R.id.time_btn);
+    }
+        public void clickHandler (View view) {
+            transaction = fragmentManager.beginTransaction();
 
-        time_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.frameLayout1, timefragment).commitAllowingStateLoss();
+            switch (view.getId()) {
+                case R.id.time_btn:
+                    transaction.replace(R.id.frame, timefragment).commitAllowingStateLoss();
+                    break;
+                case R.id.home_btn:
+                    transaction.replace(R.id.frame, homefragment).commitAllowingStateLoss();
+                    break;
+                case R.id.board_btn:
+                    transaction.replace(R.id.frame, boardfragment).commitAllowingStateLoss();
+                    break;
             }
-        });
+        }
 
-        Button board_btn = findViewById(R.id.board_btn);
-
-        board_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.frameLayout2, boardfragment).commitAllowingStateLoss();
-            }
-        });
-
-        Button home_btn = findViewById(R.id.home_btn);
-
-        home_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.frameLayout3, homefragment).commitAllowingStateLoss();
-            }
-        });
+        @Override
+        public boolean onCreateOptionsMenu (Menu menu){
+            getMenuInflater().inflate(R.menu.menu, menu);
+            return true;
+        }
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }
-
-}
 
