@@ -4,15 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class timefragActivity extends Fragment {
+public class todolistActivity extends Fragment {
     public static Fragment newInstance() {
-        timefragActivity fragment = new timefragActivity();
+        todolistActivity fragment = new todolistActivity();
         return fragment;
     }
 
@@ -23,8 +21,7 @@ public class timefragActivity extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.timefragment,container,false);
+        return inflater.inflate(R.layout.todolist,container,false);
     }
 }
-
 

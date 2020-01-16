@@ -6,53 +6,9 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:orientation="vertical"
-        android:id="@+id/frame">
-
-
-
-    </FrameLayout>
-
-
-    <LinearLayout
+    <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_weight="5"
-        >
-
-        <Button
-            android:id="@+id/time_btn"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#03A9F4"
-            android:text="시간표"
-            android:textColor="#000000"
-            android:onClick="clickHandler" />
-
-        <Button
-            android:id="@+id/home_btn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#03A9F4"
-            android:text="home"
-            android:layout_weight="1"
-            android:textColor="#000000"
-            android:onClick="clickHandler"/>
-
-        <Button
-            android:id="@+id/board_btn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#03A9F4"
-            android:text="게시판"
-            android:layout_weight="1"
-            android:textColor="#000000"
-            android:onClick="clickHandler"/>
-
-    </LinearLayout>
+        android:id="@+id/action_container"
+        android:layout_weight="1"/>
 </LinearLayout>
