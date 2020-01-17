@@ -30,6 +30,7 @@ public class recordActivity extends AppCompatActivity {
     private FragmentTransaction transaction;
 
     static String select_item;
+    Button search_btn;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,8 +50,8 @@ public class recordActivity extends AppCompatActivity {
 
 
         final Spinner spinner2 = findViewById(R.id.spinner2);
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_selectable_list_item, courseList);
-        spinner2.setAdapter(adapter);
+        final ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_selectable_list_item, courseList);
+        spinner2.setAdapter(adapter1);
 
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -81,6 +82,7 @@ public class recordActivity extends AppCompatActivity {
 
             }
         });
+
 
 
     }

@@ -15,7 +15,7 @@
         <Button
             android:layout_width="200dp"
             android:layout_height="100dp"
-            android:layout_marginLeft="0dp"
+            android:layout_marginLeft="5dp"
             android:id="@+id/captureButton"
             android:text="촬영"/>
         <Button
