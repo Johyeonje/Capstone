@@ -30,8 +30,8 @@ public class MainActivity<sm> extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setTitle("FRAC");
 
-        ViewPager viewPager=(ViewPager)findViewById(R.id.slide_container);
-        viewPager.setAdapter(new slideActivity(getSupportFragmentManager()));
+
+
         mViewPager = (ViewPager) findViewById(R.id.action_container);
         fm = getSupportFragmentManager();
         bar = getSupportActionBar();
@@ -39,16 +39,16 @@ public class MainActivity<sm> extends AppCompatActivity {
         bar.setTitle("FACE ATTENDANCE"); //  액션바의 이름을 설정 ***
         bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-        ActionBar.Tab tab1 = bar.newTab().setText("게시판").setTabListener(tabListener);
-        ActionBar.Tab tab2 = bar.newTab().setText("홈").setTabListener(tabListener);
-        ActionBar.Tab tab3 = bar.newTab().setText("캘린더").setTabListener(tabListener);
+    ActionBar.Tab tab1 = bar.newTab().setText("게시판").setTabListener(tabListener);
+    ActionBar.Tab tab2 = bar.newTab().setText("홈").setTabListener(tabListener);
+    ActionBar.Tab tab3 = bar.newTab().setText("캘린더").setTabListener(tabListener);
 
         bar.addTab(tab1);
         bar.addTab(tab2);
         bar.addTab(tab3);
 
 
-        fList = new ArrayList<Fragment>();
+    fList = new ArrayList<Fragment>();
 
         fList.add(boardfragActivity.newInstance());
         fList.add(homefragActivity.newInstance());

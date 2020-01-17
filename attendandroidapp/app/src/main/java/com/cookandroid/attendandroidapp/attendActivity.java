@@ -42,6 +42,8 @@ public class attendActivity extends AppCompatActivity {
     ImageView image;
     Button record_btn;
     private static final int CAMERA_CAPTURE=1;
+    private String[] data1 = { "선택하세요", "과목1", "과목2", "과목3", "과목4" };
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,12 +51,11 @@ public class attendActivity extends AppCompatActivity {
         setContentView(R.layout.attend);
         setTitle("E-Attend");
 
-        final String[] course = {"선택하세요", "과목1", "과목2", "과목3", "과목4"};
 
         Spinner spinner = findViewById(R.id.spinner1);
 
         ArrayAdapter<String> adapter1;
-        adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, course);
+        adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, data1);
         spinner.setAdapter(adapter1);
 
 
@@ -111,6 +112,7 @@ public class attendActivity extends AppCompatActivity {
             image.setImageBitmap(bitmap);
         }
     }
+
 
 
 
