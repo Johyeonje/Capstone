@@ -14,7 +14,6 @@ def load_data(file_name):
 
 	return x, y
 
-
 def create_model():
 	model = tf.keras.models.Sequential()
 	model.add(tf.keras.layers.Conv2D(32, (3,3), activation='relu', padding='same'))
