@@ -22,52 +22,33 @@
 
         <Button
             android:id="@+id/take_photo"
+            style="@style/Widget.AppCompat.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:text="출석부르기"/>
-
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_weight="1">
+            android:text="출석부르기" />
 
         <Button
-            android:text="메뉴"
-            android:id="@+id/menu"
+            android:id="@+id/confirm"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/btn_background"
-            android:layout_marginRight="1dp"
-            android:layout_marginLeft="1dp"
-            android:layout_weight="1">
-
-        </Button>
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:text="출석 확인하기" />
 
         <Button
-            android:text="홈"
-            android:id="@+id/home"
+            android:id="@+id/edit_attendance"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/btn_background"
-            android:layout_marginRight="1dp"
-            android:layout_marginLeft="1dp"
-            android:layout_weight="1">
-        </Button>
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:text="출석 수정하기" />
 
         <Button
-            android:text="관리"
-            android:id="@+id/option"
+            android:id="@+id/setting"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/btn_background"
-            android:layout_marginRight="1dp"
-            android:layout_marginLeft="1dp"
-            android:layout_weight="1">
-        </Button>
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:text="설정" />
+
 
     </LinearLayout>
 
