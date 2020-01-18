@@ -3,13 +3,14 @@ import dlib
 import cv2
 import skimage
 import numpy as np
+import
 
 input_size = 100
 ouput_size = 2
 
 def load_data(file_name, i):
-    img = Image.open(file_name)
-    img.load()
+    im = cv2.imread(file_name, mode ='RGB')
+    print type(im)
     data = np.asarray(img/255, dtype="int32")
 	x = np.reshape(data, [x.shape[0], input_size, input_size])
 	x = np.expand_dims(x, -1)
@@ -20,8 +21,10 @@ def load_data(file_name, i):
 # Take the image file name from the command line
 file_path = sys.argv[1]
 file_name = sys.argv[2]
+
 #file_name = input() + ".jpg"
 mod = sys.modules[__name__]
+
 # Create a HOG face detector using the built-in dlib class
 face_detector = dlib.get_frontal_face_detector()
 
