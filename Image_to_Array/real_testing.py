@@ -1,10 +1,10 @@
 import numpy as np
 import cv2
-import dlib
 import os
 import glob
 from random import *
 import tensorflow as tf
+from tensorflow.keras import datasets, layers, models
 
 
 def load_image(file_name, mode=cv2.IMREAD_ANYCOLOR):
@@ -34,41 +34,57 @@ def setting(times, img_list, stu_num, set_x, set_y):
         cat = cv2.hconcat([first_img, second_img])
         set_x.append(cat)
         array_x = np.array(set_x)
+        array_y = np.array(set_y)
+        print(array_x.shape)
+        print(array_y)
 
-
-    return array_x, set_y
+    return array_x, array_y
 
 
 if __name__ == "__main__":
-    img_path = "./img/"
-    traing_times = 10000
-    testing_times = 1000
-    stu_num = []
-    img_list = []
+    train_img_path = "./img/"
+    test_img_path = "./test/"
+    train_times = 500
+    test_times = 50
+    test_stu_num = []
+    train_stu_num = []
+    train_img_list = []
+    test_img_list = []
     set_x = []
     set_y = []
     x_type_size = 9
 
 
     for i in range(1, x_type_size, 1):
-        all_img = glob.glob(img_path + "000" + str(i) + "/*.jpg")
-        for k in range(0, len(all_img), 1):
-            stu_num.extend(str(i))
-        img_list.extend(all_img)
+        train_all_img = glob.glob(train_img_path + "000" + str(i) + "/*.jpg")
+        for k in range(0, len(train_all_img), 1):
+            train_stu_num.extend(str(i))
+        train_img_list.extend(train_all_img)
 
-    train_images, train_labels = setting(traing_times, img_list, stu_num, set_x, set_y)
-    test_images, test_labels = setting(testing_times, img_list, stu_num, set_x, set_y)
+    for i in range(1, x_type_size, 1):
+        test_all_img = glob.glob(test_img_path + "000" + str(i) + "/*.jpg")
+        for k in range(0, len(test_all_img), 1):
+            test_stu_num.extend(str(i))
+        test_img_list.extend(test_all_img)
+
+    train_images, train_labels = setting(train_times, train_img_list, train_stu_num, set_x, set_y)
+    test_images, test_labels = setting(test_times, test_img_list, test_stu_num, set_x, set_y)
 
     # 픽셀 값을 0~1 사이로 정규화합니다.
     train_images, test_images = train_images / 255.0, test_images / 255.0
+    train_images = train_images.astype(np.float32)
+    test_images = test_images.astype(np.float32)
+    train_labels = train_labels.astype(np.float32)
+    test_labels = test_labels.astype(np.float32)
 
     # 합성곱 층(convolution layer) 만들기
     model = tf.keras.models.Sequential()
-    model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu', padding='same', input_shape=(100, 200, 3)))
-    model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu', padding='same'))
-    model.add(tf.keras.layers.MaxPooling2D((3, 3)))
-    model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu', padding='same'))
-    model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu', padding='same'))
+    model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu', padding='same', input_shape=(100, 200, 3)))
+    model.add(tf.keras.layers.MaxPooling2D((5, 5)))
+    model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu', padding='same'))
+    model.add(tf.keras.layers.MaxPooling2D((5, 5)))
+    model.add(tf.keras.layers.Conv2D(64, (5, 5), activation='relu', padding='same'))
+    model.add(tf.keras.layers.Conv2D(64, (5, 5), activation='relu', padding='same'))
 
     # 모델 구조 출력
     model.summary()
