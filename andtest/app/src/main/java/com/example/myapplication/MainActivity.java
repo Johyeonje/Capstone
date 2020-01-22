@@ -38,8 +38,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        checkSelfPermission();
 
+        checkSelfPermission();
         Button btn1 = (Button) findViewById(R.id.btn1);
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,8 +90,6 @@ public class MainActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(temp) == false)
         { // 권한 요청
             ActivityCompat.requestPermissions(this, temp.trim().split(" "),1); }
-        else { // 모두 허용 상태
-            Toast.makeText(this, "권한을 모두 허용", Toast.LENGTH_SHORT).show(); }
     }
 
     @Override
@@ -104,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
                     img_path = getImagePathToUri(data.getData()); //이미지의 URI를 얻어 경로값으로 반환.
 
                     DoFileUpload("http://rbghoneroom402.iptime.org:48526/JSP/Test.jsp", img_path);  //해당 함수를 통해 이미지 전송.
-                    Toast.makeText(getBaseContext(), "img_path : " + img_path, Toast.LENGTH_SHORT).show();
                     //이미지를 비트맵형식으로 반환
                     Bitmap image_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
                     int reWidth = (int) (getWindowManager().getDefaultDisplay().getWidth());

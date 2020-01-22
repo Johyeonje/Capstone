@@ -1,0 +1,31 @@
+create table STUDENT (
+STU_ID INT(9),
+STU_NAME VARCHAR(10),
+GRADE INT(1),
+IMAGE VARCHAR(10),
+constraint STUDENT_STU_ID_PK primary key(STU_ID)
+) ENGINE=InnoDB default charset=utf8;
+
+create table PROFESSOR (
+PRO_ID INT(9),
+PRO_NAME VARCHAR(10),
+PWD VARCHAR(20),
+constraint PROFESSOR_PRO_ID_PK primary key(PRO_ID)
+) ENGINE=InnoDB default charset=utf8;
+
+create table SUB (
+SUB_ID INT(9),
+SUB_NAME VARCHAR(10),
+PRO_ID INT(9),
+constraint SUB_SUB_ID_PK primary key(SUB_ID),
+constraint SUB_PRO_ID_FK foreign key(PRO_ID) references PROFESSOR(PRO_ID)
+) ENGINE=InnoDB default charset=utf8;
+
+
+create table LECTURE (
+SUB_ID INT(9),
+STU_ID INT(9),
+constraint LECTURE_PK primary key(SUB_ID, STU_ID),
+constraint LECTURE_SUB_ID_FK foreign key(SUB_ID) references SUB(SUB_ID),
+constraint LECTURE_STU_ID_FK foreign key(STU_ID) references STUDENT(STU_ID)
+) ENGINE=InnoDB default charset=utf8;

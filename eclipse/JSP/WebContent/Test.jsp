@@ -5,6 +5,7 @@
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@page import="java.io.OutputStream"%>
 <%@page import="java.io.DataOutputStream"%>
+<%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -21,7 +22,7 @@
 		String folderTypePath = "D:/Study/Capstone/DoNotTouch";
 		String name = new String();
 		String fileName = new String();
-		String Person[] = {"man1", "man2"};
+		String Person[] = {"man1", "man2", "man2", "man2", "man2", "man2", "man2", "man2", "man2", "man2"};
 		int sizeLimit = 20 * 1024 * 1024; // 5메가까지 제한 넘어서면 예외발생
 		try {
 			System.out.println("연결시작 " + fileName);
