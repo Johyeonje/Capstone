@@ -38,11 +38,17 @@ if __name__ == "__main__":
                 cv2.waitKey(0)
                 break
 
+        cat = cv2.hconcat([first_img, second_img])
+        cv2.imshow("2", cat)
+        cv2.waitKey(0)
+
         train_set.append(first_img)
         train_set.append(second_img)
-        if c == d:
+        if a == b:
             train_set.extend("1")
+            print(1)
         else:
             train_set.extend("0")
+            print(0)
 
-        print(train_set)
+        #print(train_set)
