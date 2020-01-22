@@ -20,18 +20,19 @@ public class fragment3Activity extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.fragment3, container, false);
-        final String[] data = {"신효정","임세민","김지윤","조다솜","황하영","김혜유"};
         Button search_btn = linearLayout.findViewById(R.id.search_btn);
+        final String[] data = {"신효정   201720550","임세민   201623570","김지윤   201724610","조다솜   201621460","황하영   201924370","김혜유   201721692"};
+
         final EditText editbox = linearLayout.findViewById(R.id.editbox);
         int nDatCnt=0;
 
         ArrayList<itemActivity> oData = new ArrayList<>();
 
 
-        for (int i=0; i<5; ++i)
+        for (int i=0; i<data.length; ++i)
         {
             itemActivity oItem = new itemActivity();
-            oItem.name = data[nDatCnt++];
+            oItem.data = data[nDatCnt++];
             oData.add(oItem);
             if (nDatCnt >= data.length) nDatCnt = 0;
         }

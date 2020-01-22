@@ -13,20 +13,21 @@
         android:layout_height="100dp"
         android:orientation="horizontal">
         <Button
-            android:layout_width="200dp"
+            android:layout_width="150dp"
             android:layout_height="100dp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="55dp"
             android:id="@+id/captureButton"
             android:text="촬영"/>
         <Button
-            android:layout_width="200dp"
+            android:layout_width="150dp"
             android:layout_height="100dp"
-            android:id="@+id/processButton"
-            android:text="처리"/>
+            android:text="인증하기"
+            android:id="@+id/processButton"/>
     </LinearLayout>
 
     <ImageView
-        android:layout_width="match_parent"
+        android:layout_width="400dp"
+        android:layout_gravity="center"
         android:layout_height="300dp"
         android:id="@+id/image"/>
 

@@ -64,11 +64,9 @@ public class adapterActivity extends BaseAdapter {
         check.setClickable(false);
 
 
-        TextView name = convertView.findViewById(R.id.name);
-        TextView number = convertView.findViewById(R.id.number);
+        TextView data = convertView.findViewById(R.id.data);
 
-        name.setText(m_oData.get(position).name);
-        number.setText(m_oData.get(position).number);
+        data.setText(m_oData.get(position).data);
 
         return convertView;
     }
