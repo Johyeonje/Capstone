@@ -27,16 +27,16 @@ def setting(times, img_list, stu_num, set_x, set_y):
                 second_img = load_image(img)  # 위에서 정해진 랜덤한 함수에 대한
 
         if stu_num[a] == stu_num[b]:
-            set_y.extend("1")
+            set_y.append([1, 0])
         else:
-            set_y.extend("0")
+            set_y.append([0, 1])
 
         cat = cv2.hconcat([first_img, second_img])
         set_x.append(cat)
         array_x = np.array(set_x)
         array_y = np.array(set_y)
         print(array_x.shape)
-        print(array_y)
+        print(array_y.shape)
 
     return array_x, array_y
 
@@ -95,7 +95,9 @@ if __name__ == "__main__":
     model.add(layers.Dense(2, activation='softmax'))
 
     # 컴파일
-    model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+    #model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+
+    model.compile(optimizer='adam', loss='sparse_categorical_crossentropy')
 
     # 실행
     model.fit(train_images, train_labels, epochs=5)
