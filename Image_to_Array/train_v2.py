@@ -77,7 +77,7 @@ if __name__ == "__main__":
     model_dir = "trained_model"
 
     # set hyper parameter
-    train_epoch_num = 100
+    train_epoch_num = 5
     train_data_num = 500
     test_data_num = 50
     learning_rate = 0.001
@@ -101,7 +101,7 @@ if __name__ == "__main__":
 
     # 컴파일
     optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate)
-    model.compile(optimizer=optimizer, loss='binary_crossentropy')
+    model.compile(optimizer=optimizer, loss='binary_crossentropy', metrics=['accuracy'])
 
     #tmp = model.predict(test_x)
     #print(tmp.shape)
