@@ -16,7 +16,8 @@ if __name__ == "__main__":					# 본 코드를 import 시에 이 코드가 자�
     face_num = input("input face number : ")
     train_img_dir = "../../FaceDataSet/"		# 현재 위치
     load_path = train_img_dir + "train/Face" + face_num
-    train_img_list = glob.glob(train_img_dir + "/*.jpg")		# .jpg로 끝나는 파일들을 모두 리스트로 읽어들임
+    train_img_list = os.listdir(load_path)
+    #train_img_list = glob.glob(train_img_dir + "/*.jpg")		# .jpg로 끝나는 파일들을 모두 리스트로 읽어들임
     #print(train_data_list)
     #exit()
     #train_img_list = ["sample.jpg"]		# 이거를 직접 하나하나 입력할 필요없이 위에 glob.glob를 사용해서 만들어주면됨
