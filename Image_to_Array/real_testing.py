@@ -95,9 +95,8 @@ if __name__ == "__main__":
     model.add(layers.Dense(2, activation='softmax'))
 
     # 컴파일
-    #model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+    model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
-    model.compile(optimizer='adam', loss='sparse_categorical_crossentropy')
 
     # 실행
     model.fit(train_images, train_labels, epochs=5)
