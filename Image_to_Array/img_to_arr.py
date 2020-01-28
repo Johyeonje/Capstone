@@ -14,8 +14,8 @@ if __name__ == "__main__":					# 본 코드를 import 시에 이 코드가 자�
     # 전부다 불러내서 4차원 배열로 만들기
 
     train_img_dir = "../../FaceDataSet/"			# 현재 위치
-    face_num = input()
-    train_img_list = glob.glob(train_img_dir+face_num + "train/*.jpg")		# .jpg로 끝나는 파일들을 모두 리스트로 읽어들임
+    face_num = input("input face number : ")
+    train_img_list = glob.glob(train_img_dir + "Face" + face_num + "/train/*.jpg")		# .jpg로 끝나는 파일들을 모두 리스트로 읽어들임
     #print(train_data_list)
     #exit()
     #train_img_list = ["sample.jpg"]		# 이거를 직접 하나하나 입력할 필요없이 위에 glob.glob를 사용해서 만들어주면됨
