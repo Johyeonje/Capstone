@@ -89,13 +89,13 @@ if __name__ == "__main__":
 
     # 컴파일
     optimizer = tf.keras.optimizers.Adam()
-    model.compile(optimizer=optimizer, loss='binary_crossentropy')
+    model.compile(optimizer=optimizer, loss='binary_crossentropy', metrics=['accuracy'])
 
     # load model
     model.load_weights(model_name)
 
     # evaluate
-    test_loss = model.evaluate(test_x, test_y)
-    print(test_loss)
+    test_loss, test_acc = model.evaluate(test_x, test_y)
+    print(test_loss, test_acc)
 
 

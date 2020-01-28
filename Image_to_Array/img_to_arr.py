@@ -13,13 +13,13 @@ if __name__ == "__main__":					# 본 코드를 import 시에 이 코드가 자�
     # 얼굴 사진 하나씩 확인해서 이름 변경
     # 전부다 불러내서 4차원 배열로 만들기
 
-    train_img_dir = "./img/"			# 현재 위치
-    train_img_list = glob.glob(train_img_dir+"*.jpg")		# .jpg로 끝나는 파일들을 모두 리스트로 읽어들임
-					# 읽어올 파일의 이름을 지정할꺼야 근데 이게 조현히히히호호제 조현우제 조현제 -> glob.glob("조현*제.jpg") 개신기! *Like DB - Like %
+    train_img_dir = "../../FaceDataSet/"			# 현재 위치
+    face_num = input()
+    train_img_list = glob.glob(train_img_dir+face_num + "train/*.jpg")		# .jpg로 끝나는 파일들을 모두 리스트로 읽어들임
     #print(train_data_list)
     #exit()
     #train_img_list = ["sample.jpg"]		# 이거를 직접 하나하나 입력할 필요없이 위에 glob.glob를 사용해서 만들어주면됨
-    save_path = "./img/"
+    save_path = train_img_dir + "crop/"
     input_size = (100, 100)			# resize 단계에서 미리 세로 가로 길이를 배열로 지정해놓는 것
 
     face_list = []				# 놀랍게도 파이썬에서는 따로 동적배열을 구현하려고 힘쓸필요없이 단순 배열 선언으로 누적 가능
@@ -38,11 +38,11 @@ if __name__ == "__main__":					# 본 코드를 import 시에 이 코드가 자�
             #print(j, left, right, top, bottom)
             face = img[top:bottom, left:right, :]		# 좌표값들을 통해서 실제 얼굴이 있는 위치를 범위로 뽑아내는 것
             face = cv2.resize(face, dsize=input_size)		# resize 단계 (dsize가 기존에 저장된 사이즈를 불러와 진행)
-            cv2.imwrite(save_path + "detected_face-" + str(i) + '-' + str(j) + ".jpg", face)
+            cv2.imwrite(save_path + "detected_face-" + str(i) + ".jpg", face)
 		# 동적 할당을 진행하는 format 같은걸 사용할 필요없이 enumerate로 사용할 수 있게된 index i, j로 얼굴마다 다른 이름을 가진 이미지를 저장할 수 있음
-            face_list.append(face)		# 이전에 선언했던 얼굴 리스트에 방금 추출하여 resize까지 끝낸 이미지 3차원 배열을 쌓아 4차원으로 만든다.
+            #face_list.append(face)		# 이전에 선언했던 얼굴 리스트에 방금 추출하여 resize까지 끝낸 이미지 3차원 배열을 쌓아 4차원으로 만든다.
 
-    print(len(face_list))  # face_list = [face1, face2, ..., face6], face=[세로, 가로, 3]
+    #print(len(face_list))  # face_list = [face1, face2, ..., face6], face=[세로, 가로, 3]
     # face_list : [train data 개수, 세로, 가로, 3]
-    train_x = np.array(face_list)  # list -> array	# face_list가 list의 형태로 되어있기 때문에 이것을 모델에 train data에 적합한 4차원 배열의 형태로 변환함
-    print(train_x.shape)			# 배열로 잘 만들어 졌는지 확인한다. (갯수, 세로, 가로, 채널)
+    #train_x = np.array(face_list)  # list -> array	# face_list가 list의 형태로 되어있기 때문에 이것을 모델에 train data에 적합한 4차원 배열의 형태로 변환함
+    #print(train_x.shape)			# 배열로 잘 만들어 졌는지 확인한다. (갯수, 세로, 가로, 채널)

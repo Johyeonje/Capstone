@@ -53,6 +53,7 @@ if __name__ == "__main__":
     set_x = []
     set_y = []
     x_type_size = 9
+    learning_rate=0.001
 
 
     for i in range(1, x_type_size, 1):
@@ -80,9 +81,9 @@ if __name__ == "__main__":
     # 합성곱 층(convolution layer) 만들기
     model = tf.keras.models.Sequential()
     model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu', padding='same', input_shape=(100, 200, 3)))
-    model.add(tf.keras.layers.MaxPooling2D((5, 5)))
+    model.add(tf.keras.layers.MaxPooling2D((3, 3)))
     model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu', padding='same'))
-    model.add(tf.keras.layers.MaxPooling2D((5, 5)))
+    model.add(tf.keras.layers.MaxPooling2D((3, 3)))
     model.add(tf.keras.layers.Conv2D(64, (5, 5), activation='relu', padding='same'))
     model.add(tf.keras.layers.Conv2D(64, (5, 5), activation='relu', padding='same'))
 
@@ -95,7 +96,8 @@ if __name__ == "__main__":
     model.add(layers.Dense(2, activation='softmax'))
 
     # 컴파일
-    model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+    optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate)
+    model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
 
     # 실행
