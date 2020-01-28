@@ -1,5 +1,12 @@
 package com.example.new_kone;
 
+//import android.support.annotation.NonNull;
+//import android.support.annotation.Nullable;
+//import android.support.annotation.RequiresApi;
+//import android.support.v4.app.ActivityCompat;
+//import android.support.v4.content.ContextCompat;
+
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.ContentValues;
@@ -13,10 +20,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,6 +29,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+//===========================================5=5=5=5=5============================================
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+//==========================================5=55=5=5=5=5=========================================
 
 import java.io.DataOutputStream;
 import java.io.File;
@@ -91,13 +104,13 @@ public class take_photoF extends Activity {
         btn_save_photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+//다음은 카메라.저장소.인터넷 사용이 허가가 안되있을때 오류가 날 수 있음으로 허가를 받고 사용하기 위해서 행하는 것.
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){// 빌드 버젼을 체크하고
                     if(checkSelfPermission(Manifest.permission.CAMERA) ==
                             PackageManager.PERMISSION_DENIED ||
-                            checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
-                                    PackageManager.PERMISSION_DENIED) {
-                        String [] permission ={Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                            checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==  // 다음에 인터넷에 사용 허가를 받는것을 추가 하였다.~~~~~~~~ 변경 된거....
+                                    PackageManager.PERMISSION_DENIED || checkSelfPermission(Manifest.permission.INTERNET) == PackageManager.PERMISSION_DENIED) {
+                        String [] permission ={Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.INTERNET};
                         requestPermissions(permission, PERMISSION_CODE);
                     }
                     else {
@@ -200,7 +213,7 @@ public class take_photoF extends Activity {
 
                     //image_bitmap 으로 받아온 이미지의 사이즈를 임의적으로 조절함. width: 400 , height: 300
                     Bitmap image_bitmap_copy = Bitmap.createScaledBitmap(image_bitmap, 400, 300, true);
-                    ImageView image = (ImageView) findViewById(R.id.imageView);  //이미지를 띄울 위젯 ID값
+                    ImageView image = (ImageView) findViewById(R.id.imageView1);  //이미지를 띄울 위젯 ID값
                     image.setImageBitmap(image_bitmap_copy);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -283,7 +296,7 @@ public class take_photoF extends Activity {
         //이미지의 경로 값
         String imgPath = cursor.getString(column_index);
         Log.d("test", imgPath);
-        return imgPath;
+        return imgPath; // imgPath를 가져온다.
     }
 
     public void DoFileUpload(String apiUrl, String absolutePath) {
@@ -316,9 +329,27 @@ public class take_photoF extends Activity {
         }
     }
 
+    private void checkSelfPermission() {
+        String temp = "";
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+        { temp += Manifest.permission.READ_EXTERNAL_STORAGE + " "; } //파일 쓰기 권한 확인
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+        { temp += Manifest.permission.WRITE_EXTERNAL_STORAGE + " "; }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED)
+        { temp += Manifest.permission.INTERNET + " "; }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
+        { temp += Manifest.permission.CAMERA + " "; }
+        if (TextUtils.isEmpty(temp) == false)
+        { // 권한 요청
+            ActivityCompat.requestPermissions(this, temp.trim().split(" "),1); }
+        else { // 모두 허용 상태
+            Toast.makeText(this, "권한을 모두 허용", Toast.LENGTH_SHORT).show(); }
+    }
+
+
 
 
 
     //========================5=5=5=5=55=5==========================================================규호형===============================================================
-//+여기에 JAVA:RequestHttpURLConnection을 넣기만함.
+//
 }

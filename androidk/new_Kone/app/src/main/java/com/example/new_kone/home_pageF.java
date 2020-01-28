@@ -1,19 +1,23 @@
 package com.example.new_kone;
 
-import android.content.Intent;
+//import android.app.Fragment;
+//import android.support.v4.app.Fragment;
+//import android.support.annotation.Nullable;
 import android.net.Uri;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 
+
 public class home_pageF extends Fragment {
 
-    public static android.support.v4.app.Fragment newInstance() {
+    public static androidx.fragment.app.Fragment newInstance() {
         home_pageF fragment = new home_pageF();
         return fragment;
     }

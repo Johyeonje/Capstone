@@ -2,11 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.new_kone">
     <!-- ===================================2=2=2=2=2=========================================-->
-    <uses-feature android:name="android.hardware.camera"
-        android:required="false" />
+   <!-- <uses-feature android:name="android.hardware.camera"
+        android:required="true"/> -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
     <!--================ 카메라의 제어, 저장소 접근 허용을 위해 꼭 넣어야된다.===2=2=2=2=2=======================-->
 
     <application
@@ -15,7 +16,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        android:requestLegacyExternalStorage="true"> <!-- API 29이상 ,android 10 부터는 보안 정책이 강화되어 외부저장소를 승인해도 안되는 경우가 있다 따라서 그 경우를 외부저장소를 사용하기 위해서
+         requestLegacyExternalStorage를 승인 해줘야한다. 위를 승인하면 29이하도 작동되고 이상도 작동된다.-->
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
         <activity android:name=".login_pageF">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
