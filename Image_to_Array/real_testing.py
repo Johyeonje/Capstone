@@ -42,28 +42,26 @@ def setting(times, img_list, stu_num, set_x, set_y):
 
 
 if __name__ == "__main__":
-    train_img_path = "./img/"
+    train_img_path = "../../FaceDataSet/crop/"
     test_img_path = "./test/"
-    train_times = 500
-    test_times = 50
+    train_times = 3000
+    test_times = 300
     test_stu_num = []
     train_stu_num = []
     train_img_list = []
     test_img_list = []
     set_x = []
     set_y = []
-    x_type_size = 9
-    learning_rate=0.001
-
+    x_type_size = 15
 
     for i in range(1, x_type_size, 1):
-        train_all_img = glob.glob(train_img_path + "000" + str(i) + "/*.jpg")
+        train_all_img = glob.glob(train_img_path + "Face" + str(i) + "/*.jpg")
         for k in range(0, len(train_all_img), 1):
             train_stu_num.extend(str(i))
         train_img_list.extend(train_all_img)
 
     for i in range(1, x_type_size, 1):
-        test_all_img = glob.glob(test_img_path + "000" + str(i) + "/*.jpg")
+        test_all_img = glob.glob(train_img_path + "Face" + str(i) + "/*.jpg")
         for k in range(0, len(test_all_img), 1):
             test_stu_num.extend(str(i))
         test_img_list.extend(test_all_img)
@@ -96,7 +94,6 @@ if __name__ == "__main__":
     model.add(layers.Dense(2, activation='softmax'))
 
     # 컴파일
-    optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate)
     model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
 
