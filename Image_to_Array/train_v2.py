@@ -80,7 +80,6 @@ if __name__ == "__main__":
     train_epoch_num = 5
     train_data_num = 500
     test_data_num = 50
-    learning_rate = 0.001
 
     # load data
     train_id_list, train_data = load_data(train_data_dir)
@@ -101,7 +100,8 @@ if __name__ == "__main__":
 
     # 컴파일
     optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate)
-    model.compile(optimizer=optimizer, loss='binary_crossentropy', metrics=['accuracy'])
+    model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+
 
     #tmp = model.predict(test_x)
     #print(tmp.shape)
@@ -117,7 +117,6 @@ if __name__ == "__main__":
     model.save_weights(model_name)
 
     # evaluate
-    test_loss = model.evaluate(test_x, test_y)
-    print(test_loss)
-
+    test_loss, test_acc = model.evaluate(test_x, test_y)
+    print(test_loss, test_acc)
 
