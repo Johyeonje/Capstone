@@ -116,6 +116,7 @@ if __name__ == "__main__":
         # evaluate
         test_loss, test_acc = model.evaluate(test_x, test_y)
         print(test_loss, test_acc)
+        del train_id_list, train_data, test_id_list, test_data, train_x, train_y, test_x, test_y
 
     # save model
     model_name = os.path.join(model_dir, "model")
