@@ -10,14 +10,16 @@ def load_image(file_name, mode=cv2.IMREAD_ANYCOLOR):
     return img
 
 
-def load_data(path):
+def load_data(path, num):
     data = dict()
     student_id_list = os.listdir(path)
     for student_id in student_id_list:
         image_name_list = os.listdir(os.path.join(path, student_id))
         data[student_id] = [load_image(os.path.join(path, student_id, image_name)) for image_name in
                                   image_name_list]
-
+        if num == 50:
+            break;
+        num = num + 1
     return student_id_list, data
 
 
@@ -80,10 +82,11 @@ if __name__ == "__main__":
     train_epoch_num = 5
     train_data_num = 500
     test_data_num = 50
+    train_num = 1
 
     # load data
-    train_id_list, train_data = load_data(train_data_dir)
-    test_id_list, test_data = load_data(test_data_dir)
+    train_id_list, train_data = load_data(train_data_dir, train_num)
+    test_id_list, test_data = load_data(test_data_dir, train_num)
     # train_id_list = ['0001', ...], 학번 리스트
     # train_data = {'0001':[img1, img2, ...], '0002':[], ...}, 이미지 딕셔너리
     print("Number of ID in train data : {}".format(len(train_id_list)))
