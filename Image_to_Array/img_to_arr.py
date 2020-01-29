@@ -16,7 +16,7 @@ if __name__ == "__main__":  # 본 코드를 import 시에 이 코드가 자동 �
     # 전부다 불러내서 4차원 배열로 만들기
 
     train_img_dir = "../../FaceDataSet/"  # 현재 위치
-    for face_num in range(3, len(os.listdir(train_img_dir+"train/")), 1):
+    for face_num in range(890, len(os.listdir(train_img_dir+"train/")), 1):
         load_path = train_img_dir + "train/Face" + str(face_num)
         # train_img_list = os.listdir(load_path)
         train_img_list = glob.glob(load_path + "/*.jpg")  # .jpg로 끝나는 파일들을 모두 리스트로 읽어들임

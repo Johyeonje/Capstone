@@ -4,22 +4,36 @@ import glob
 import tensorflow as tf
 import os
 
+CUT = 3
+i = 1
+max = 0
+
 
 def load_image(file_name, mode=cv2.IMREAD_ANYCOLOR):
     img = cv2.imread(file_name, mode)  # load 3 dimensional array    # 이미지를 3차원 배열로 읽어오는 함수
     return img
 
 
-def load_data(path, num):
+def load_data(path):
+    data = dict()
+    student_id_list_all = os.listdir(path)
+    student_id_list = [student_id_list_all[k] for k in range((i - 1) * CUT + 1, (i * CUT) + 1)]
+    for student_id in student_id_list:
+        image_name_list = os.listdir(os.path.join(path, student_id))
+        data[student_id] = [load_image(os.path.join(path, student_id, image_name)) for image_name in
+                            image_name_list]
+
+    return student_id_list, data
+
+
+def test_data(path):
     data = dict()
     student_id_list = os.listdir(path)
     for student_id in student_id_list:
         image_name_list = os.listdir(os.path.join(path, student_id))
         data[student_id] = [load_image(os.path.join(path, student_id, image_name)) for image_name in
-                                  image_name_list]
-        if num == 50:
-            break;
-        num = num + 1
+                            image_name_list]
+
     return student_id_list, data
 
 
@@ -29,14 +43,14 @@ def make_x_y(id_list, data, num, dtype=np.float32):
 
     for n in range(num):
         # 학번 랜덤 추출
-        i = np.random.randint(low=0, high=len(id_list)-1)
-        j = np.random.randint(low=0, high=len(id_list)-1)
+        i = np.random.randint(low=0, high=len(id_list) - 1)
+        j = np.random.randint(low=0, high=len(id_list) - 1)
         id_i = id_list[i]
         id_j = id_list[j]
 
         # 이미지 랜덤 추출
-        i = np.random.randint(low=0, high=len(data[id_i])-1)
-        j = np.random.randint(low=0, high=len(data[id_j])-1)
+        i = np.random.randint(low=0, high=len(data[id_i]) - 1)
+        j = np.random.randint(low=0, high=len(data[id_j]) - 1)
         img_i = data[id_i][i]
         img_j = data[id_j][j]
 
@@ -57,16 +71,20 @@ def make_x_y(id_list, data, num, dtype=np.float32):
 
 def build_model():
     model = tf.keras.models.Sequential()
-    model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu', padding='same', input_shape=(100, 200, 3)))
-    model.add(tf.keras.layers.MaxPooling2D((5, 5)))
-    model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu', padding='same'))
-    model.add(tf.keras.layers.MaxPooling2D((5, 5)))
-    model.add(tf.keras.layers.Conv2D(64, (5, 5), activation='relu', padding='same'))
-    model.add(tf.keras.layers.Conv2D(64, (5, 5), activation='relu', padding='same'))
+    model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu', padding='same', input_shape=(100, 200, 3)))
+    model.add(tf.keras.layers.MaxPooling2D((2, 2)))
+    model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu'))
+    model.add(tf.keras.layers.MaxPooling2D((2, 2)))
+    model.add(tf.keras.layers.Conv2D(128, (3, 3), activation='relu'))
+    model.add(tf.keras.layers.MaxPooling2D((2, 2)))
+    model.add(tf.keras.layers.Conv2D(256, (2, 2), activation='relu'))
+    model.add(tf.keras.layers.MaxPooling2D((2, 2)))
+    model.add(tf.keras.layers.Conv2D(512, (2, 2), activation='relu'))
 
     # 출력층(Dense) 추가
     model.add(tf.keras.layers.Flatten())
-    model.add(tf.keras.layers.Dense(64, activation='relu'))
+    model.add(tf.keras.layers.Dropout(0.55))
+    model.add(tf.keras.layers.Dense(256, activation='relu'))
     model.add(tf.keras.layers.Dense(2, activation='softmax'))
 
     return model
@@ -79,47 +97,46 @@ if __name__ == "__main__":
     model_dir = "trained_model"
 
     # set hyper parameter
-    train_epoch_num = 5
-    train_data_num = 500
-    test_data_num = 50
-    train_num = 1
+    train_epoch_num = 20
+    train_data_num = 1000
+    test_data_num = 100
+    max = len(os.listdir(train_data_dir))
 
     # load data
-    train_id_list, train_data = load_data(train_data_dir, train_num)
-    test_id_list, test_data = load_data(test_data_dir, train_num)
-    # train_id_list = ['0001', ...], 학번 리스트
-    # train_data = {'0001':[img1, img2, ...], '0002':[], ...}, 이미지 딕셔너리
-    print("Number of ID in train data : {}".format(len(train_id_list)))
-    print("Number of ID in test data : {}".format(len(test_id_list)))
+    for i in range(i, int(max / CUT), 1):
+        train_id_list, train_data = load_data(train_data_dir)
 
-    # make data set
-    train_x, train_y = make_x_y(train_id_list, train_data, train_data_num)
-    test_x, test_y = make_x_y(test_id_list, test_data, test_data_num)
-    print("Shape of train_x : {}".format(train_x.shape))
-    print("Shape of train_y : {}".format(train_y.shape))
+        # train_id_list = ['0001', ...], 학번 리스트
+        # train_data = {'0001':[img1, img2, ...], '0002':[], ...}, 이미지 딕셔너리
+        print("Number of ID in train data : {}".format(len(train_id_list)))
+        print(train_id_list)
+        # make data set
+        train_x, train_y = make_x_y(train_id_list, train_data, train_data_num)
 
-    # build model
-    model = build_model()
-
-    # 컴파일
-    optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate)
-    model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
-
-
-    #tmp = model.predict(test_x)
-    #print(tmp.shape)
-    #exit()
-
-    # train model
-    model.fit(train_x, train_y, epochs=train_epoch_num)
-
-    # save model
-    model_name = os.path.join(model_dir, "model")
-    if os.path.isdir(model_dir):
-        os.mkdir(model_dir)
-    model.save_weights(model_name)
+        print("Shape of train_x : {}".format(train_x.shape))
+        print("Shape of train_y : {}".format(train_y.shape))
+        # build model
+        model = build_model()
+        # 컴파일
+        # optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate)
+        model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+        # tmp = model.predict(test_x)
+        # print(tmp.shape)
+        # exit()
+        # train model
+        model_name = os.path.join(model_dir, "model")
+        if i != 1:
+            model.load_weights(model_name + str(i - 1))
+        model.fit(train_x, train_y, epochs=train_epoch_num)
+        # save model
+        if not(os.path.isdir(model_dir)):
+            os.mkdir(model_dir)
+        model.save_weights(model_name + str(i))
 
     # evaluate
+    test_id_list, test_data = test_data(test_data_dir)
+    print("Number of ID in test data : {}".format(len(test_id_list)))
+    test_x, test_y = make_x_y(test_id_list, test_data, test_data_num)
+
     test_loss, test_acc = model.evaluate(test_x, test_y)
     print(test_loss, test_acc)
-
