@@ -10,7 +10,7 @@ def load_image(file_name, mode=cv2.IMREAD_ANYCOLOR):
     return img
 
 
-def load_data(path, student_id_list, train_num):
+def load_data(path, train_num):
     data = dict()
     #student_id_list = os.listdir(path)
     for student_id in range(train_num, len(student_id_list), train_num + 50):
@@ -90,11 +90,12 @@ if __name__ == "__main__":
     #optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate)
     model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
-    student_id_list = os.listdir(train_data_dir)
     # load data
     for train_num in range(1, 800, 50):
-        train_id_list, train_data = load_data(train_data_dir, student_id_list, train_num)
-        test_id_list, test_data = load_data(train_data_dir, train_num)
+        student_id_list = os.listdir(train_data_dir)
+        train_id_list, train_data = load_data(train_data_dir, train_num)
+
+        test_id_list, test_data = load_data(test_data_dir, train_num)
         # train_id_list = ['0001', ...], 학번 리스트
         # train_data = {'0001':[img1, img2, ...], '0002':[], ...}, 이미지 딕셔너리
         print("Number of ID in train data : {}".format(len(train_id_list)))
