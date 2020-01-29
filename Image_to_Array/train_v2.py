@@ -10,10 +10,10 @@ def load_image(file_name, mode=cv2.IMREAD_ANYCOLOR):
     return img
 
 
-def load_data(path, train_num):
+def load_data(path):
     data = dict()
-    #student_id_list = os.listdir(path)
-    for student_id in range(train_num, len(student_id_list), train_num + 50):
+    student_id_list = os.listdir(path)
+    for student_id in student_id_list:
         image_name_list = os.listdir(os.path.join(path, student_id))
         data[student_id] = [load_image(os.path.join(path, student_id, image_name)) for image_name in
                                   image_name_list]
@@ -80,43 +80,35 @@ if __name__ == "__main__":
     train_epoch_num = 5
     train_data_num = 500
     test_data_num = 50
-    train_num = 1
 
+    # load data
+    train_id_list, train_data = load_data(train_data_dir)
+    test_id_list, test_data = load_data(test_data_dir)
+    # train_id_list = ['0001', ...], 학번 리스트
+    # train_data = {'0001':[img1, img2, ...], '0002':[], ...}, 이미지 딕셔너리
+    print("Number of ID in train data : {}".format(len(train_id_list)))
+    print("Number of ID in test data : {}".format(len(test_id_list)))
+
+    # make data set
+    train_x, train_y = make_x_y(train_id_list, train_data, train_data_num)
+    test_x, test_y = make_x_y(test_id_list, test_data, test_data_num)
+    print("Shape of train_x : {}".format(train_x.shape))
+    print("Shape of train_y : {}".format(train_y.shape))
 
     # build model
     model = build_model()
 
     # 컴파일
-    #optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate)
+    optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate)
     model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
-    # load data
-    for train_num in range(1, 800, 50):
-        student_id_list = os.listdir(train_data_dir)
-        train_id_list, train_data = load_data(train_data_dir, train_num)
 
-        test_id_list, test_data = load_data(test_data_dir, train_num)
-        # train_id_list = ['0001', ...], 학번 리스트
-        # train_data = {'0001':[img1, img2, ...], '0002':[], ...}, 이미지 딕셔너리
-        print("Number of ID in train data : {}".format(len(train_id_list)))
-        print("Number of ID in test data : {}".format(len(test_id_list)))
+    #tmp = model.predict(test_x)
+    #print(tmp.shape)
+    #exit()
 
-        # make data set
-        train_x, train_y = make_x_y(train_id_list, train_data, train_data_num)
-        test_x, test_y = make_x_y(test_id_list, test_data, test_data_num)
-        print("Shape of train_x : {}".format(train_x.shape))
-        print("Shape of train_y : {}".format(train_y.shape))
-
-        #tmp = model.predict(test_x)
-        #print(tmp.shape)
-        #exit()
-
-        # train model
-        model.fit(train_x, train_y, epochs=train_epoch_num)
-
-        # evaluate
-        test_loss, test_acc = model.evaluate(test_x, test_y)
-        print(test_loss, test_acc)
+    # train model
+    model.fit(train_x, train_y, epochs=train_epoch_num)
 
     # save model
     model_name = os.path.join(model_dir, "model")
@@ -124,4 +116,7 @@ if __name__ == "__main__":
         os.mkdir(model_dir)
     model.save_weights(model_name)
 
+    # evaluate
+    test_loss, test_acc = model.evaluate(test_x, test_y)
+    print(test_loss, test_acc)
 
