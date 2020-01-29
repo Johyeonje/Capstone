@@ -72,7 +72,7 @@ def build_model():
 
 if __name__ == "__main__":
     # set data directories
-    train_data_dir = "./img"
+    train_data_dir = "../../FaceDataSet/crop/"
     test_data_dir = "./test"
     model_dir = "trained_model"
 
