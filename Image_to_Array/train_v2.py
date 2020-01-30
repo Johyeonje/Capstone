@@ -15,8 +15,8 @@ def load_data(path):
     student_id_list = os.listdir(path)
     for student_id in student_id_list:
         image_name_list = os.listdir(os.path.join(path, student_id))
-        data[student_id] = [load_image(os.path.join(path, student_id, image_name)) for image_name in
-                                  image_name_list]
+        data[student_id] = [load_image(os.path.join(path, student_id, image_name)) for i, image_name in enumerate(
+                                  image_name_list) if i < 16]
 
     return student_id_list, data
 
