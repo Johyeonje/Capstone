@@ -38,33 +38,45 @@ def test_data(path):
 
 
 def make_x_y(id_list, data, num, dtype=np.float32):
+    c_or_n = 1
     x = list()
     y = list()
 
-    for n in range(num):
+    for c_or_n in range(num):
         # 학번 랜덤 추출
-        i = np.random.randint(low=0, high=len(id_list))
-        j = np.random.randint(low=0, high=len(id_list))
-        id_i = id_list[i]
-        id_j = id_list[j]
+        if c_or_n % 2 == 0:
+            i = np.random.randint(low=0, high=len(id_list))
+            j = np.random.randint(low=0, high=len(id_list))
+            while i==j:
+                j = np.random.randint(low=0, high=len(id_list))
+            id_i = id_list[i]
+            id_j = id_list[j]
+            # 이미지 랜덤 추출
+            i = np.random.randint(low=0, high=len(data[id_i]))
+            j = np.random.randint(low=0, high=len(data[id_j]))
+            img_i = data[id_i][i]
+            img_j = data[id_j][j]
+            # y 만들기
+            _y = [0, 1]
+        else:
+            i = np.random.randint(low=0, high=len(id_list))
+            id_i = id_list[i]
 
-        # 이미지 랜덤 추출
-        i = np.random.randint(low=0, high=len(data[id_i]))
-        j = np.random.randint(low=0, high=len(data[id_j]))
-        img_i = data[id_i][i]
-        img_j = data[id_j][j]
+            i = np.random.randint(low=0, high=len(data[id_i]))
+            j = np.random.randint(low=0, high=len(data[id_i]))
+            img_i = data[id_i][i]
+            img_j = data[id_i][j]
+            # y 만들기
+            _y = [1, 0]
+
 
         # x 만들기
         _x = cv2.hconcat([img_i, img_j])
 
-        # y 만들기
-        if id_i == id_j:
-            _y = [1, 0]
-        else:
-            _y = [0, 1]
 
         x.append(_x)
         y.append(_y)
+    print(y)
 
     return np.array(x).astype(dtype), np.array(y).astype(dtype)
 
@@ -92,8 +104,9 @@ def build_model():
 
 if __name__ == "__main__":
     # set data directories
-    train_data_dir = "../../FaceDataSet/crop/"
-    test_data_dir = "./test"
+    #train_data_dir = "../../FaceDataSet/crop/"
+    train_data_dir = "./img/"
+    test_data_dir = "./test/"
     model_dir = "trained_model"
 
     # set hyper parameter
