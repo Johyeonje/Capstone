@@ -4,7 +4,7 @@ import glob
 import tensorflow as tf
 import os
 
-CUT = 5
+CUT = 3
 i = 1
 max = 0
 
@@ -17,7 +17,7 @@ def load_image(file_name, mode=cv2.IMREAD_ANYCOLOR):
 def load_data(path):
     data = dict()
     student_id_list_all = os.listdir(path)
-    student_id_list = [student_id_list_all[k] for k in range((i - 1) * CUT, i * CUT)]
+    student_id_list = [student_id_list_all[k] for k in range((i - 1) * CUT + 1, (i * CUT) + 1)]
     for student_id in student_id_list:
         image_name_list = os.listdir(os.path.join(path, student_id))
         data[student_id] = [load_image(os.path.join(path, student_id, image_name)) for image_name in
@@ -43,14 +43,14 @@ def make_x_y(id_list, data, num, dtype=np.float32):
 
     for n in range(num):
         # 학번 랜덤 추출
-        i = np.random.randint(low=0, high=len(id_list))
-        j = np.random.randint(low=0, high=len(id_list))
+        i = np.random.randint(low=0, high=len(id_list) - 1)
+        j = np.random.randint(low=0, high=len(id_list) - 1)
         id_i = id_list[i]
         id_j = id_list[j]
 
         # 이미지 랜덤 추출
-        i = np.random.randint(low=0, high=len(data[id_i]))
-        j = np.random.randint(low=0, high=len(data[id_j]))
+        i = np.random.randint(low=0, high=len(data[id_i]) - 1)
+        j = np.random.randint(low=0, high=len(data[id_j]) - 1)
         img_i = data[id_i][i]
         img_j = data[id_j][j]
 
@@ -73,13 +73,13 @@ def build_model():
     model = tf.keras.models.Sequential()
     model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu', padding='same', input_shape=(100, 200, 3)))
     model.add(tf.keras.layers.MaxPooling2D((2, 2)))
-    model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu', padding='same'))
+    model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu'))
     model.add(tf.keras.layers.MaxPooling2D((2, 2)))
-    model.add(tf.keras.layers.Conv2D(128, (3, 3), activation='relu', padding='same'))
+    model.add(tf.keras.layers.Conv2D(128, (3, 3), activation='relu'))
     model.add(tf.keras.layers.MaxPooling2D((2, 2)))
-    model.add(tf.keras.layers.Conv2D(256, (2, 2), activation='relu', padding='same'))
+    model.add(tf.keras.layers.Conv2D(256, (2, 2), activation='relu'))
     model.add(tf.keras.layers.MaxPooling2D((2, 2)))
-    model.add(tf.keras.layers.Conv2D(512, (2, 2), activation='relu', padding='same'))
+    model.add(tf.keras.layers.Conv2D(512, (2, 2), activation='relu'))
 
     # 출력층(Dense) 추가
     model.add(tf.keras.layers.Flatten())
@@ -98,8 +98,8 @@ if __name__ == "__main__":
 
     # set hyper parameter
     train_epoch_num = 20
-    train_data_num = 10000
-    test_data_num = 1000
+    train_data_num = 1000
+    test_data_num = 100
     max = len(os.listdir(train_data_dir))
 
     # load data
