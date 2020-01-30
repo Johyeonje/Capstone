@@ -16,7 +16,7 @@ if __name__ == "__main__":  # 본 코드를 import 시에 이 코드가 자동 �
     # 전부다 불러내서 4차원 배열로 만들기
 
     train_img_dir = "../../FaceDataSet/"  # 현재 위치
-    for face_num in range(890, len(os.listdir(train_img_dir+"train/")), 1):
+    for face_num in range(1740, len(os.listdir(train_img_dir+"train/")), 1):
         load_path = train_img_dir + "train/Face" + str(face_num)
         # train_img_list = os.listdir(load_path)
         train_img_list = glob.glob(load_path + "/*.jpg")  # .jpg로 끝나는 파일들을 모두 리스트로 읽어들임
@@ -36,6 +36,8 @@ if __name__ == "__main__":  # 본 코드를 import 시에 이 코드가 자동 �
         for i, file_name in enumerate(
                 train_img_list):  # ★enumerate : ()안의 리스트를 불러오는데 index(=i)도 같이 불러오는 것이다. *Like c언어 for문
             img = load_image(file_name)  # [세로, 가로, 채널]
+            if i > 15:
+                break
 
             # print(type(img))
             # print(img.shape)			# 이미지의 사이즈 (채널 포함)
