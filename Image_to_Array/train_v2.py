@@ -4,7 +4,6 @@ import glob
 import tensorflow as tf
 import os
 
-max = 0
 
 def load_image(file_name, mode=cv2.IMREAD_ANYCOLOR):
     img = cv2.imread(file_name, mode)  # load 3 dimensional array    # 이미지를 3차원 배열로 읽어오는 함수
