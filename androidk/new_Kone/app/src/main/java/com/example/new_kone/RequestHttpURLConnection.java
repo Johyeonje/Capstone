@@ -1,9 +1,10 @@
 package com.example.new_kone;
 
-import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.util.Log;
+//import android.support.annotation.RequiresApi;
 
+import android.os.Build;
+import android.util.Log;
+import androidx.annotation.RequiresApi;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;

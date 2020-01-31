@@ -2,20 +2,30 @@ package com.example.new_kone;
 // 코드를 볼때 위에 주석문에 숫자는 순서를 얘기하며 1은 카메라 요청 허용 방법을
 // 2는 다음액티비티로 넘어가는 방법
 // 3은 카메라 사용하는 방법을 부분으로 표현하기위해 넣은 것이다.
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+//import android.support.v4.app.Fragment;
+//import android.support.v4.app.FragmentManager;
+//import android.support.v4.app.FragmentTransaction;
+//import android.support.v4.view.ViewPager;
+//import android.support.v7.app.ActionBar;
+//import android.support.v7.app.AppCompatActivity;\
 
+
+import android.os.Bundle;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {  // AppCompatActivity는 예전 버젼의 Activity이다.
 
+
+
     private ViewPager mViewPager;
-    android.support.v7.app.ActionBar bar; // 액션바를 사용하기위한 선언
+    androidx.appcompat.app.ActionBar bar;
+   // android.support.v7.app.ActionBar bar; // 액션바를 사용하기위한 선언
     private FragmentManager fm; // 프래그먼트를 관리하기위한 선언
     private ArrayList<Fragment> fList; // 위에 탭을 관리하기 위해 선언
 
@@ -27,7 +37,7 @@ public class MainActivity extends AppCompatActivity {  // AppCompatActivity는 �
         mViewPager = (ViewPager) findViewById(R.id.frag_container_);
         fm = getSupportFragmentManager();
         bar = getSupportActionBar();
-        bar.setDisplayShowTitleEnabled(true); // 액션바를 보이게
+        bar.setDisplayShowTitleEnabled(false); // 액션바를 보이게
         bar.setTitle("FACE ATTENDANCE"); //  액션바의 이름을 설정 ***
         bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
