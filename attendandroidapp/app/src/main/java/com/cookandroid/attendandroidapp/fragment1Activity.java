@@ -32,7 +32,7 @@ public class fragment1Activity extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.fragment1, container, false);
         final String[] data = {"신효정   201720550","임세민   201623570","김지윤   201724610","조다솜   201621460","황하영   201924370","김혜유   201721692"};
-        Button search_btn = linearLayout.findViewById(R.id.search_btn);
+        Button search_btn = linearLayout.findViewById(R.id.check_btn);
         final EditText editbox = linearLayout.findViewById(R.id.editbox);
         int nDatCnt=0;
 

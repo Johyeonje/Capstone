@@ -22,6 +22,15 @@ public class attend_courseActivity extends AppCompatActivity {
         setContentView(R.layout.attend_course);
         setTitle("E-Attend");
 
+        Button computer_btn = findViewById(R.id.computer_btn);
+
+        computer_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (getApplicationContext(),computercourseActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 

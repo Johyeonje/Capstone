@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -37,6 +38,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.BitSet;
 import java.util.List;
 
@@ -53,13 +55,16 @@ public class attendActivity extends AppCompatActivity {
 
     Button captureButton;
     Button processButton;
+    Button list_btn;
     ImageView image;
     Button record_btn;
+    EditText editbox3;
     private static final int REQ_CODE_SELECT_IMAGE = 100;
     private final int CAMERA_CAPTURE = 111;
-    private String[] data1 = {"선택하세요", "과목1", "과목2", "과목3", "과목4"};
+    private String[] data1 = {};
     Uri image_uri;
-
+    ArrayList<String> datalist;
+    ArrayAdapter<String> adapter1;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -70,10 +75,22 @@ public class attendActivity extends AppCompatActivity {
 
         image = findViewById(R.id.image);
         Spinner spinner = findViewById(R.id.spinner1);
+        editbox3 = findViewById(R.id.edibox3);
+        list_btn = findViewById(R.id.list_btn);
 
-        ArrayAdapter<String> adapter1;
-        adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, data1);
+        datalist = new ArrayList<String>();
+        datalist.addAll(Arrays.asList(data1));
+        adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, datalist);
         spinner.setAdapter(adapter1);
+
+
+        list_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datalist.add(0,editbox3.getText().toString());
+                adapter1.notifyDataSetChanged();
+            }
+        });
 
 
         record_btn = findViewById(R.id.record_btn);

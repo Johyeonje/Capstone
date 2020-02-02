@@ -8,26 +8,19 @@
 
 
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="80dp"
-        android:id="@+id/btn6"
-        android:layout_marginTop="200dp"
-        android:text="과목1"/>
+        android:id="@+id/make_btn"
+        android:layout_gravity="center"
+        android:text="버튼 생성"/>
+
     <Button
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:id="@+id/btn7"
-        android:text="과목2"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:id="@+id/btn8"
-        android:text="과목3"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:id="@+id/btn9"
-        android:text="과목4"/>
+        android:layout_height="70dp"
+        android:layout_marginTop="100dp"
+        android:text="컴퓨터"
+        android:id="@+id/computer_btn"/>
+
 
 
 
