@@ -1,37 +1,21 @@
 package com.cookandroid.attendandroidapp;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-
-
-public class adminActivity extends AppCompatActivity {
-
+public class myinfoActivity extends AppCompatActivity {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.admin);
-        setTitle("E-Attend");
+        setContentView(R.layout.myinfo);
 
-        Button btn5 = findViewById(R.id.btn5);
-
-        btn5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),myinfoActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     @Override
@@ -58,5 +42,4 @@ public class adminActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
-
 }
