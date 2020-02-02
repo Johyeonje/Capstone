@@ -45,21 +45,28 @@ public class fragment4Activity extends Fragment {
         search_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (editbox.getText().toString().equals("신효정")) {
-                    list4.setItemChecked(0, true);
-                } else if (editbox.getText().toString().equals("임세민")) {
-                    list4.setItemChecked(1, true);
-                } else if (editbox.getText().toString().equals("김지윤")) {
-                    list4.setItemChecked(2, true);
-                } else if (editbox.getText().toString().equals("조다솜")) {
-                    list4.setItemChecked(3, true);
-                } else if (editbox.getText().toString().equals("황하영")) {
-                    list4.setItemChecked(4, true);
-                } else if (editbox.getText().toString().equals("김혜유")) {
-                    list4.setItemChecked(5, true);
+                switch (editbox.getText().toString()) {
+
+                    case "신효정":
+                        list4.setItemChecked(0, true);
+                        break;
+                    case "임세민":
+                        list4.setItemChecked(1, true);
+                        break;
+                    case "김지윤":
+                        list4.setItemChecked(2, true);
+                        break;
+                    case "조다솜":
+                        list4.setItemChecked(3, true);
+                        break;
+                    case "황하영":
+                        list4.setItemChecked(4, true);
+                        break;
+                    case "김혜유":
+                        list4.setItemChecked(5, true);
+                        break;
                 }
             }
-
         });
 
         return linearLayout;
