@@ -54,16 +54,20 @@ def make_x_y(id_list, data, num, dtype=np.float32):
 
 def build_model():
     model = tf.keras.models.Sequential()
-    model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu', padding='same', input_shape=(100, 200, 3)))
-    model.add(tf.keras.layers.MaxPooling2D((5, 5)))
-    model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu', padding='same'))
-    model.add(tf.keras.layers.MaxPooling2D((5, 5)))
-    model.add(tf.keras.layers.Conv2D(64, (5, 5), activation='relu', padding='same'))
-    model.add(tf.keras.layers.Conv2D(64, (5, 5), activation='relu', padding='same'))
+    model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu', padding='same', input_shape=(100, 200, 3)))
+    model.add(tf.keras.layers.MaxPooling2D((2, 2)))
+    model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu'))
+    model.add(tf.keras.layers.MaxPooling2D((2, 2)))
+    model.add(tf.keras.layers.Conv2D(128, (3, 3), activation='relu'))
+    model.add(tf.keras.layers.MaxPooling2D((2, 2)))
+    model.add(tf.keras.layers.Conv2D(256, (2, 2), activation='relu'))
+    #model.add(tf.keras.layers.MaxPooling2D((2, 2)))
+    #model.add(tf.keras.layers.Conv2D(512, (2, 2), activation='relu'))
 
     # 출력층(Dense) 추가
     model.add(tf.keras.layers.Flatten())
-    model.add(tf.keras.layers.Dense(64, activation='relu'))
+    model.add(tf.keras.layers.Dropout(0.55))
+    model.add(tf.keras.layers.Dense(256, activation='relu'))
     model.add(tf.keras.layers.Dense(2, activation='softmax'))
 
     return model
