@@ -15,7 +15,7 @@ public class loginActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
-        setTitle("E-Attend");
+
     }
 
         @Override

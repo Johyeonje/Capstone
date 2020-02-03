@@ -61,7 +61,7 @@ public class attendActivity extends AppCompatActivity {
     EditText editbox3;
     private static final int REQ_CODE_SELECT_IMAGE = 100;
     private final int CAMERA_CAPTURE = 111;
-    private String[] data1 = {};
+    private String[] data1 = {"선택하세요"};
     Uri image_uri;
     ArrayList<String> datalist;
     ArrayAdapter<String> adapter1;
@@ -71,7 +71,7 @@ public class attendActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.attend);
-        setTitle("E-Attend");
+
 
         image = findViewById(R.id.image);
         Spinner spinner = findViewById(R.id.spinner1);
@@ -87,7 +87,7 @@ public class attendActivity extends AppCompatActivity {
         list_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                datalist.add(0,editbox3.getText().toString());
+                datalist.add(1,editbox3.getText().toString());
                 adapter1.notifyDataSetChanged();
             }
         });

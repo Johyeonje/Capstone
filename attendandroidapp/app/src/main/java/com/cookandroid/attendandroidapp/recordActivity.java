@@ -33,13 +33,11 @@ public class recordActivity extends AppCompatActivity {
     private FragmentTransaction transaction;
 
     static String select_item;
-    Button search_btn;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.record);
-        setTitle("E-Attend");
 
         fragmentManager = getSupportFragmentManager();
 

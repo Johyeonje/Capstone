@@ -1,54 +1,67 @@
 package com.cookandroid.attendandroidapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class computercourseActivity extends AppCompatActivity {
+public class computercourseActivity<computer> extends AppCompatActivity {
 
-    private computeradapterActivity adapter;
-    private ListView computer_list;
+    ArrayList<Computer> computer;
+    ListView computer_list;
+    computerAdapter adapter;
+    private List<String> list;
+
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.computer_course);
 
+        computer = new ArrayList<Computer>();
+        Computer course;
+        course = new Computer(R.drawable.unnamed,"신효정","201720550");
+        computer.add(course);
+        course = new Computer(R.drawable.unnamed,"임세민","201620550");
+        computer.add(course);
+        course = new Computer(R.drawable.unnamed,"조다솜","201620550");
+        computer.add(course);
+        course = new Computer(R.drawable.unnamed,"김지윤","201720550");
+        computer.add(course);
+        course = new Computer(R.drawable.unnamed,"황하영","201920550");
+        computer.add(course);
+
+        computer_list = findViewById(R.id.computer_list);
+        computerAdapter adapter = new computerAdapter(this,R.layout.computer_item,computer);
+        computer_list.setAdapter(adapter);
 
 
-            adapter = new computeradapterActivity();
-            computer_list = findViewById(R.id.computer_list);
 
-            setData();
+    }
 
-            computer_list.setAdapter(adapter);
-        }
 
-        // 보통 ListView는 통신을 통해 가져온 데이터를 보여줍니다.
-        // arrResId, titles, contents를 서버에서 가져온 데이터라고 생각하시면 됩니다.
-        private void setData () {
-            TypedArray arrResId = getResources().obtainTypedArray(R.array.resId);
-            String[] titles = getResources().getStringArray(R.array.title);
-            String[] contents = getResources().getStringArray(R.array.content);
-
-            for (int i = 0; i < arrResId.length(); i++) {
-                computerActivity dto = new computerActivity();
-                dto.setResId(arrResId.getResourceId(i, 0));
-                dto.setTitle(titles[i]);
-                dto.setContent(contents[i]);
-
-                adapter.addItem(dto);
-            }
-        }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -74,4 +87,69 @@ public class computercourseActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
+}
+
+class Computer {
+    int Icon;
+    String name;
+    String number;
+
+    Computer(int lcons, String Name, String Number) {
+        Icon = lcons;
+        name = Name;
+        number = Number;
     }
+}
+
+class computerAdapter extends BaseAdapter {
+
+    Context con;
+    LayoutInflater inflater;
+    ArrayList<Computer> arD;
+    int layout;
+
+    public computerAdapter(Context context, int alayout, ArrayList<Computer> arrD) {
+        con = context;
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        arD = arrD;
+        layout = alayout;
+    }
+
+    @Override
+    public int getCount() {
+        return arD.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return arD.get(position).name;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        if (convertView == null) {
+            convertView = inflater.inflate(layout, parent, false);
+
+        }
+        ImageView image = convertView.findViewById(R.id.stu_image);
+        image.setImageResource(arD.get(position).Icon);
+
+        TextView label = convertView.findViewById(R.id.title);
+        label.setText(arD.get(position).name);
+
+        TextView content = convertView.findViewById(R.id.content);
+        content.setText(arD.get(position).number);
+
+
+        return convertView;
+    }
+
+
+
+}

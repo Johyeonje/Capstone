@@ -25,7 +25,7 @@ public class attend_courseActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.attend_course);
-        setTitle("E-Attend");
+
 
         Button computer_btn = findViewById(R.id.computer_btn);
 

@@ -25,7 +25,7 @@
             android:textSize="40dp"/>
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="80dp"
+            android:layout_height="60dp"
             android:id="@+id/make_btn"
             android:layout_marginLeft="5dp"
             android:text="버튼 생성"/>
