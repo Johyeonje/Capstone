@@ -15,46 +15,58 @@ def load_data(path):
     student_id_list = os.listdir(path)
     for student_id in student_id_list:
         image_name_list = os.listdir(os.path.join(path, student_id))
-        data[student_id] = [load_image(os.path.join(path, student_id, image_name)) for i, image_name in enumerate(
-                                  image_name_list) if i < 16]
+        data[student_id] = [load_image(os.path.join(path, student_id, image_name)) for image_name in
+                            image_name_list]
+    return student_id_list, data
+
+
+def test_data(path):
+    data = dict()
+    student_id_list = os.listdir(path)
+    for student_id in student_id_list:
+        image_name_list = os.listdir(os.path.join(path, student_id))
+        data[student_id] = [load_image(os.path.join(path, student_id, image_name)) for image_name in
+                            image_name_list]
 
     return student_id_list, data
 
 
 def make_x_y(id_list, data, num, dtype=np.float32):
-    c_or_n = 1
     x = list()
     y = list()
 
-    for c_or_n in range(num):
+    for n in range(num):
         # 학번 랜덤 추출
-        if c_or_n % 2 == 0:
-            i = np.random.randint(low=0, high=len(id_list))
-            j = np.random.randint(low=0, high=len(id_list))
-            while i==j:
-                j = np.random.randint(low=0, high=len(id_list))
+        if n % 2 == 0:
+            i = np.random.randint(low=0, high=len(id_list) - 1)
+            j = np.random.randint(low=0, high=len(id_list) - 1)
+            while i == j:
+                j = np.random.randint(low=0, high=len(id_list) - 1)
             id_i = id_list[i]
             id_j = id_list[j]
             # 이미지 랜덤 추출
-            i = np.random.randint(low=0, high=len(data[id_i]))
-            j = np.random.randint(low=0, high=len(data[id_j]))
+            i = np.random.randint(low=0, high=len(data[id_i]) - 1)
+            j = np.random.randint(low=0, high=len(data[id_j]) - 1)
             img_i = data[id_i][i]
             img_j = data[id_j][j]
-            # y 만들기
-            _y = [0, 1]
         else:
-            i = np.random.randint(low=0, high=len(id_list))
+            i = np.random.randint(low=0, high=len(id_list) - 1)
             id_i = id_list[i]
-
-            i = np.random.randint(low=0, high=len(data[id_i]))
-            j = np.random.randint(low=0, high=len(data[id_i]))
+            id_j = id_list[i]
+            # 이미지 랜덤 추출
+            i = np.random.randint(low=0, high=len(data[id_i]) - 1)
+            j = np.random.randint(low=0, high=len(data[id_j]) - 1)
             img_i = data[id_i][i]
-            img_j = data[id_i][j]
-            # y 만들기
-            _y = [1, 0]
+            img_j = data[id_j][j]
 
         # x 만들기
         _x = cv2.hconcat([img_i, img_j])
+
+        # y 만들기
+        if id_i == id_j:
+            _y = [1, 0]
+        else:
+            _y = [0, 1]
 
         x.append(_x)
         y.append(_y)
@@ -71,8 +83,8 @@ def build_model():
     model.add(tf.keras.layers.Conv2D(128, (3, 3), activation='relu'))
     model.add(tf.keras.layers.MaxPooling2D((2, 2)))
     model.add(tf.keras.layers.Conv2D(256, (2, 2), activation='relu'))
-    #model.add(tf.keras.layers.MaxPooling2D((2, 2)))
-    #model.add(tf.keras.layers.Conv2D(512, (2, 2), activation='relu'))
+    # model.add(tf.keras.layers.MaxPooling2D((2, 2)))
+    # model.add(tf.keras.layers.Conv2D(512, (2, 2), activation='relu'))
 
     # 출력층(Dense) 추가
     model.add(tf.keras.layers.Flatten())
@@ -85,62 +97,57 @@ def build_model():
 
 if __name__ == "__main__":
     # set data directories
-    train_data_dir = "./img"
-    test_data_dir = "./test"
-    model_dir = "trained_model"
-    version = ".1.0"
-
+    train_data_dir = "../../FaceDataSet/crop/"
+    test_data_dir = "../../FaceDataSet/crop_test/"
+    model_dir = "trained_model/"
+    save_path = "../../FaceDataSet/"
 
     # set hyper parameter
     train_epoch_num = 10
     train_data_num = 10000
     test_data_num = 1000
-    repeat_time = 50
+    repeat = 1500
 
-    # build model
+    # train model
+    model_name = os.path.join(save_path + model_dir, "model")
     model = build_model()
-    model_name = os.path.join(model_dir, "model")
+    if os.path.exists(save_path + model_dir):
+        if model.load_weights(save_path + model_dir + "model"):
+            print("model loaded")
     # 컴파일
+    # optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate)
     model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
-    if os.path.exists("./trained_model/model"):
-        model.load_weights(model_name)
+
     # load data
     train_id_list, train_data = load_data(train_data_dir)
-    test_id_list, test_data = load_data(test_data_dir)
+
     # train_id_list = ['0001', ...], 학번 리스트
     # train_data = {'0001':[img1, img2, ...], '0002':[], ...}, 이미지 딕셔너리
     print("Number of ID in train data : {}".format(len(train_id_list)))
-    print("Number of ID in test data : {}".format(len(test_id_list)))
-
-    if not os.path.isdir(model_dir):
-        os.mkdir(model_dir)
+    print(train_id_list)
     # make data set
-    for i in range(repeat_time):
+    for i in range(0, repeat, 1):
         train_x, train_y = make_x_y(train_id_list, train_data, train_data_num)
+        train_x = train_x / 255.0
         print("Shape of train_x : {}".format(train_x.shape))
         print("Shape of train_y : {}".format(train_y.shape))
-        # train model
-        model = create_model()
-        model.compile(optimizer='adam',
-                      loss='sparse_categorical_crossentropy',
-                      metrics=['accuracy'])
+        print("repeating"+str(i)+"/"+str(repeat))
+        model.fit(train_x, train_y, epochs=train_epoch_num)
+    # build model
+    # tmp = model.predict(test_x)
+    # print(tmp.shape)
+    # exit()
 
-        log_dir = "../../logs/fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")  # 로그 저장 폴더명 지정
-        tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)  # 콜백 함수 만드는 것
-
-        model.fit(train_x,
-                  train_y,
-                  epochs=train_epoch_num,
-                  validation_data=(x_test, y_test),
-                  callbacks=[tensorboard_callback])
-
-    #tmp = model.predict(test_x)
-    #print(tmp.shape)
-    #exit()
-    test_x, test_y = make_x_y(test_id_list, test_data, test_data_num)
+    # save model
+    if not (os.path.isdir(save_path + model_dir)):
+        os.mkdir(save_path + model_dir)
+    model.save_weights(save_path + model_dir + "model")
 
     # evaluate
+    test_id_list, test_data = test_data(test_data_dir)
+    print("Number of ID in test data : {}".format(len(test_id_list)))
+    test_x, test_y = make_x_y(test_id_list, test_data, test_data_num)
+    test_x = test_x / 255.0
+
     test_loss, test_acc = model.evaluate(test_x, test_y)
     print(test_loss, test_acc)
-    # save model
-    model.save_weights(model_name+"ver"+version)
