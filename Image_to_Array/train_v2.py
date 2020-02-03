@@ -120,7 +120,19 @@ if __name__ == "__main__":
         print("Shape of train_x : {}".format(train_x.shape))
         print("Shape of train_y : {}".format(train_y.shape))
         # train model
-        model.fit(train_x, train_y, epochs=train_epoch_num)
+        model = create_model()
+        model.compile(optimizer='adam',
+                      loss='sparse_categorical_crossentropy',
+                      metrics=['accuracy'])
+
+        log_dir = "../../logs/fit/" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")  # 로그 저장 폴더명 지정
+        tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)  # 콜백 함수 만드는 것
+
+        model.fit(train_x,
+                  train_y,
+                  epochs=train_epoch_num,
+                  validation_data=(x_test, y_test),
+                  callbacks=[tensorboard_callback])
 
     #tmp = model.predict(test_x)
     #print(tmp.shape)
