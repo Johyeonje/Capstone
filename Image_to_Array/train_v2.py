@@ -53,30 +53,31 @@ def make_x_y(id_list, data, num, dtype=np.float32):
             # y 만들기
             _y = [1, 0]
 
-
         # x 만들기
         _x = cv2.hconcat([img_i, img_j])
 
-
         x.append(_x)
         y.append(_y)
-    print(y)
 
     return np.array(x).astype(dtype), np.array(y).astype(dtype)
 
 
 def build_model():
     model = tf.keras.models.Sequential()
-    model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu', padding='same', input_shape=(100, 200, 3)))
-    model.add(tf.keras.layers.MaxPooling2D((5, 5)))
-    model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu', padding='same'))
-    model.add(tf.keras.layers.MaxPooling2D((5, 5)))
-    model.add(tf.keras.layers.Conv2D(64, (5, 5), activation='relu', padding='same'))
-    model.add(tf.keras.layers.Conv2D(64, (5, 5), activation='relu', padding='same'))
+    model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu', padding='same', input_shape=(100, 200, 3)))
+    model.add(tf.keras.layers.MaxPooling2D((2, 2)))
+    model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu'))
+    model.add(tf.keras.layers.MaxPooling2D((2, 2)))
+    model.add(tf.keras.layers.Conv2D(128, (3, 3), activation='relu'))
+    model.add(tf.keras.layers.MaxPooling2D((2, 2)))
+    model.add(tf.keras.layers.Conv2D(256, (2, 2), activation='relu'))
+    #model.add(tf.keras.layers.MaxPooling2D((2, 2)))
+    #model.add(tf.keras.layers.Conv2D(512, (2, 2), activation='relu'))
 
     # 출력층(Dense) 추가
     model.add(tf.keras.layers.Flatten())
-    model.add(tf.keras.layers.Dense(64, activation='relu'))
+    model.add(tf.keras.layers.Dropout(0.55))
+    model.add(tf.keras.layers.Dense(256, activation='relu'))
     model.add(tf.keras.layers.Dense(2, activation='softmax'))
 
     return model
@@ -84,16 +85,25 @@ def build_model():
 
 if __name__ == "__main__":
     # set data directories
-    train_data_dir = "../../FaceDataSet/crop"
+    train_data_dir = "./img"
     test_data_dir = "./test"
     model_dir = "trained_model"
+    version = ".1.0"
+
 
     # set hyper parameter
-    train_epoch_num = 100
-    train_data_num = 500
-    test_data_num = 50
-    learning_rate = 0.001
+    train_epoch_num = 10
+    train_data_num = 10000
+    test_data_num = 1000
+    repeat_time = 50
 
+    # build model
+    model = build_model()
+    model_name = os.path.join(model_dir, "model")
+    # 컴파일
+    model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+    if os.path.exists("./trained_model/model"):
+        model.load_weights(model_name)
     # load data
     train_id_list, train_data = load_data(train_data_dir)
     test_id_list, test_data = load_data(test_data_dir)
@@ -102,34 +112,23 @@ if __name__ == "__main__":
     print("Number of ID in train data : {}".format(len(train_id_list)))
     print("Number of ID in test data : {}".format(len(test_id_list)))
 
+    if not os.path.isdir(model_dir):
+        os.mkdir(model_dir)
     # make data set
-    train_x, train_y = make_x_y(train_id_list, train_data, train_data_num)
-    test_x, test_y = make_x_y(test_id_list, test_data, test_data_num)
-    print("Shape of train_x : {}".format(train_x.shape))
-    print("Shape of train_y : {}".format(train_y.shape))
-
-    # build model
-    model = build_model()
-
-    # 컴파일
-    optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate)
-    model.compile(optimizer=optimizer, loss='binary_crossentropy')
+    for i in range(repeat_time):
+        train_x, train_y = make_x_y(train_id_list, train_data, train_data_num)
+        print("Shape of train_x : {}".format(train_x.shape))
+        print("Shape of train_y : {}".format(train_y.shape))
+        # train model
+        model.fit(train_x, train_y, epochs=train_epoch_num)
 
     #tmp = model.predict(test_x)
     #print(tmp.shape)
     #exit()
-
-    # train model
-    model.fit(train_x, train_y, epochs=train_epoch_num)
-
-    # save model
-    model_name = os.path.join(model_dir, "model")
-    if os.path.isdir(model_dir):
-        os.mkdir(model_dir)
-    model.save_weights(model_name)
+    test_x, test_y = make_x_y(test_id_list, test_data, test_data_num)
 
     # evaluate
-    test_loss = model.evaluate(test_x, test_y)
-    print(test_loss)
-
-
+    test_loss, test_acc = model.evaluate(test_x, test_y)
+    print(test_loss, test_acc)
+    # save model
+    model.save_weights(model_name+"ver"+version)
