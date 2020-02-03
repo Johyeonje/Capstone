@@ -6,21 +6,39 @@
 
     <Spinner
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
         android:id="@+id/spinner1" />
     <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:id="@+id/edibox3"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="리스트생성"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/list_btn"/>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
         <Button
             android:layout_width="150dp"
-            android:layout_height="100dp"
+            android:layout_height="50dp"
             android:layout_marginLeft="55dp"
             android:id="@+id/captureButton"
-            android:text="촬영"/>
+            android:text="촬영" />
         <Button
             android:layout_width="150dp"
-            android:layout_height="100dp"
+            android:layout_height="50dp"
             android:text="인증하기"
             android:id="@+id/processButton"/>
     </LinearLayout>
@@ -33,7 +51,7 @@
 
     <Button
         android:layout_width="150dp"
-        android:layout_height="80dp"
+        android:layout_height="50dp"
         android:layout_gravity="center"
         android:text="출석기록 보기"
         android:id="@+id/record_btn"/>

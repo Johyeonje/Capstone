@@ -184,7 +184,6 @@ public class MainActivity extends AppCompatActivity {
                 for (int ch = 0; (ch = is.read()) != -1; ) {
                     b.append((char) ch);
                 }
-                is.close();
             }
             Log.e("Test", b.toString());
             return b.toString();

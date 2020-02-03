@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,6 +23,15 @@ public class adminActivity extends AppCompatActivity {
         setContentView(R.layout.admin);
         setTitle("E-Attend");
 
+        Button btn5 = findViewById(R.id.btn5);
+
+        btn5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),myinfoActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

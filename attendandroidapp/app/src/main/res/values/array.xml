@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="resId">
+        <item>@drawable/unnamed</item>
+        <item>@drawable/unnamed</item>
+        <item>@drawable/unnamed</item>
+        <item>@drawable/unnamed</item>
+        <item>@drawable/unnamed</item>
+        <item>@drawable/unnamed</item>
+        <item>@drawable/unnamed</item>
+        <item>@drawable/unnamed</item>
+
+
+    </integer-array>
+
+    <string-array name="title">
+        <item>신효정</item>
+        <item>임세민</item>
+        <item>김지윤</item>
+        <item>조다솜</item>
+        <item>황하영</item>
+        <item>김혜유</item>
+        <item>민사윤</item>
+        <item>장혜진</item>
+
+    </string-array>
+
+    <string-array name="content">
+        <item>201720550</item>
+        <item>201621530</item>
+        <item>201712701</item>
+        <item>201635279</item>
+        <item>201947254</item>
+        <item>201712311</item>
+        <item>201728190</item>
+        <item>201756103</item>
+    </string-array>
+</resources>

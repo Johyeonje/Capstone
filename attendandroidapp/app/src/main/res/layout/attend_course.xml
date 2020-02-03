@@ -3,33 +3,39 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#03A9F4">
-
+    android:background="#03A9F4"
+    android:id="@+id/layout">
 
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:id="@+id/btn6"
-        android:layout_marginTop="200dp"
-        android:text="과목1"/>
-    <Button
+        android:layout_height="70dp"
+        android:text="컴퓨터"
+        android:id="@+id/computer_btn"/>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:id="@+id/btn7"
-        android:text="과목2"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:id="@+id/btn8"
-        android:text="과목3"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:id="@+id/btn9"
-        android:text="과목4"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="80dp"
+            android:id="@+id/edibox4"
+            android:textSize="40dp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:id="@+id/make_btn"
+            android:layout_marginLeft="5dp"
+            android:text="버튼 생성"/>
+
+
+
+    </LinearLayout>
 
 
 
 
-</LinearLayout>
+    </LinearLayout>
+
