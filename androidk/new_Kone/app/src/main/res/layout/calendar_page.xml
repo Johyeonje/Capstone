@@ -1,20 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <TextView
-        android:id="@+id/textView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#000000"
-        android:textSize="40dp"
-        android:gravity="center_horizontal"
-        android:text="이곳은 캘린더 페이지 입니다." />
+        android:layout_height="match_parent"
+        android:layout_weight="0.7">
+        <CalendarView
+            android:id="@+id/calendarView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
 
-    <Button
-        android:id="@+id/back1"
+    </LinearLayout>
+
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="뒤로가기" />
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <EditText
+            android:id="@+id/memo1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="메모를 작성해 주세요."
+            >
+        </EditText>
+
+    </LinearLayout>
+
+
 </LinearLayout>
+

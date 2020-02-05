@@ -11,6 +11,10 @@ package com.example.new_kone;
 
 
 import android.os.Bundle;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -28,6 +32,11 @@ public class MainActivity extends AppCompatActivity {  // AppCompatActivity는 �
    // android.support.v7.app.ActionBar bar; // 액션바를 사용하기위한 선언
     private FragmentManager fm; // 프래그먼트를 관리하기위한 선언
     private ArrayList<Fragment> fList; // 위에 탭을 관리하기 위해 선언
+    private WebView mWebView;
+    private WebSettings mWebSettings;
+
+
+
 
     @Override // 위에서 상속을 받는 다는 뜻
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +68,7 @@ public class MainActivity extends AppCompatActivity {  // AppCompatActivity는 �
 
         CustomFragmentPagerAdapter adapter = new CustomFragmentPagerAdapter(fm, fList);
         mViewPager.setAdapter(adapter);
+
     }
 
     ViewPager.SimpleOnPageChangeListener viewPagerListener = new ViewPager.SimpleOnPageChangeListener(){

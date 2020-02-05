@@ -36,7 +36,7 @@ public class RequestHttpURLConnection {
             dos.writeBytes("Content-Disposition: form-data; name=\"uploadedfile\";filename=\"" + fileName + "\"" + lineEnd);
             dos.writeBytes(lineEnd);
             int bytesAvailable = mFileInputStream.available();
-            int maxBufferSize = 1024;
+            int maxBufferSize = 1024; // 데이터 사이즈
             int bufferSize = Math.min(bytesAvailable, maxBufferSize);
             byte[] buffer = new byte[bufferSize];
             int bytesRead = mFileInputStream.read(buffer, 0, bufferSize);
@@ -54,7 +54,7 @@ public class RequestHttpURLConnection {
             Log.e("Test", "File is written");
             mFileInputStream.close();
             dos.flush();
-            // finish upload...
+            // finish upload.
             // get response
             StringBuffer b;
             try (InputStream is = conn.getInputStream()) {
