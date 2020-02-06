@@ -78,17 +78,19 @@ def build_model():
     model = tf.keras.models.Sequential()
     model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu', padding='same', input_shape=(100, 200, 3)))
     model.add(tf.keras.layers.MaxPooling2D((2, 2)))
-    model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu'))
+    model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu', padding='same'))
     model.add(tf.keras.layers.MaxPooling2D((2, 2)))
-    model.add(tf.keras.layers.Conv2D(128, (3, 3), activation='relu'))
+    model.add(tf.keras.layers.Conv2D(128, (3, 3), activation='relu', padding='same'))
     model.add(tf.keras.layers.MaxPooling2D((2, 2)))
-    model.add(tf.keras.layers.Conv2D(256, (2, 2), activation='relu'))
-    # model.add(tf.keras.layers.MaxPooling2D((2, 2)))
-    # model.add(tf.keras.layers.Conv2D(512, (2, 2), activation='relu'))
+    model.add(tf.keras.layers.Conv2D(256, (2, 2), activation='relu', padding='same'))
+    model.add(tf.keras.layers.Conv2D(256, (2, 2), activation='relu', padding='same'))
+    model.add(tf.keras.layers.Conv2D(256, (2, 2), activation='relu', padding='same'))
+    model.add(tf.keras.layers.Conv2D(256, (2, 2), activation='relu', padding='same'))
+    model.add(tf.keras.layers.MaxPooling2D((2, 2)))
+    model.add(tf.keras.layers.Conv2D(512, (2, 2), activation='relu', padding='same'))
 
     # 출력층(Dense) 추가
     model.add(tf.keras.layers.Flatten())
-    model.add(tf.keras.layers.Dropout(0.55))
     model.add(tf.keras.layers.Dense(256, activation='relu'))
     model.add(tf.keras.layers.Dense(2, activation='softmax'))
 
@@ -99,60 +101,63 @@ if __name__ == "__main__":
     # set data directories
     train_data_dir = "../../FaceDataSet/crop/"
     test_data_dir = "../../FaceDataSet/crop_test/"
-    model_dir = "trained_model/"
+    model_dir = "trained_model2/"
     save_path = "../../FaceDataSet/"
+    log_dir = "logs/ver4"  # tensorboard --logdir logs/ver1
 
     # set hyper parameter
-    train_epoch_num = 10
+    train_epoch_num = 400000
     train_data_num = 10000
     test_data_num = 1000
-    repeat = 100
+
+    batch_size = 100
+    summary_interval = 1
+    validation_interval = 100
+    store_interval = 5000
 
     # train model
-    model_name = os.path.join(save_path + model_dir, "model")
     model = build_model()
-    if os.path.exists(save_path + model_dir):
-        if model.load_weights(save_path + model_dir + "model"):
-            print("model loaded")
+
     # 컴파일
-    # optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate)
     model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
+    model.load_weights(save_path + model_dir + "model-epoch-99000")
+
+    print("model loaded")
     # load data
     train_id_list, train_data = load_data(train_data_dir)
-
-    # train_id_list = ['0001', ...], 학번 리스트
-    # train_data = {'0001':[img1, img2, ...], '0002':[], ...}, 이미지 딕셔너리
+    test_id_list, test_data = load_data(test_data_dir)
     print("Number of ID in train data : {}".format(len(train_id_list)))
-    print(train_id_list)
-    # make data set
-    for i in range(0, repeat, 1):
-        train_x, train_y = make_x_y(train_id_list, train_data, train_data_num)
-        train_x = train_x / 255.0
-        print("Shape of train_x : {}".format(train_x.shape))
-        print("Shape of train_y : {}".format(train_y.shape))
-        print("repeating "+str(i)+"/"+str(repeat))
-        model.fit(train_x, train_y, epochs=train_epoch_num)
-        if i % 100 == 0:
-            if not (os.path.isdir(save_path + model_dir)):
-                os.mkdir(save_path + model_dir)
-            model.save_weights(save_path + model_dir + "model")
-            model.save_weights(save_path + model_dir + "model")
-    # build model
-    # tmp = model.predict(test_x)
-    # print(tmp.shape)
-    # exit()
 
-    # save model
-    if not (os.path.isdir(save_path + model_dir)):
-        os.mkdir(save_path + model_dir)
-    model.save_weights(save_path + model_dir + "model")
+    # crate summary wirter
+    writer = tf.summary.create_file_writer(log_dir)
 
-    # evaluate
-    test_id_list, test_data = test_data(test_data_dir)
-    print("Number of ID in test data : {}".format(len(test_id_list)))
+    # test 데이터는 한번만 만듦
     test_x, test_y = make_x_y(test_id_list, test_data, test_data_num)
     test_x = test_x / 255.0
 
-    test_loss, test_acc = model.evaluate(test_x, test_y)
-    print(test_loss, test_acc)
+    for epoch in range(train_epoch_num):
+        batch_x, batch_y = make_x_y(train_id_list, train_data, batch_size)
+        batch_x /= 255.0
+
+        train_loss, train_acc = model.train_on_batch(batch_x, batch_y)
+
+        if epoch % summary_interval == 0:
+            with writer.as_default():
+                tf.summary.scalar('train_loss', train_loss, step=epoch)
+                tf.summary.scalar('train_acc', train_acc, step=epoch)
+
+        if epoch % validation_interval == 0:
+            test_loss, test_acc = model.evaluate(test_x, test_y)
+            with writer.as_default():
+                tf.summary.scalar('test_loss', test_loss, step=epoch)
+                tf.summary.scalar('test_acc', test_acc, step=epoch)
+
+        if epoch % store_interval == 0:
+            if not os.path.isdir(save_path + model_dir):
+                os.mkdir(save_path + model_dir)
+            model_name = save_path + model_dir + "model-epoch-" + str(epoch) + "_v2"
+            model.save_weights(model_name)
+            print("Model saved as {}".format(model_name))
+
+print("Epoch : {}, Train Loss : {}".format(epoch+1, '%1.2f' % train_loss))
