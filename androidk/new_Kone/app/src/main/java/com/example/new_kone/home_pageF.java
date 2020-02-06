@@ -11,11 +11,19 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 
 
 
+
 public class home_pageF extends Fragment {
+
+    private WebView mWebView;
+    private WebSettings mWebSettings;
+
 
     public static androidx.fragment.app.Fragment newInstance() {
         home_pageF fragment = new home_pageF();
@@ -33,12 +41,39 @@ public class home_pageF extends Fragment {
 
         View view = inflater.inflate(R.layout.home_page,container,false);
 
-      Button btn1 = (Button)view.findViewById(R.id.take_photo);
 
-      btn1.setOnClickListener(new View.OnClickListener() {
+        //
+      Button btn1 = (Button)view.findViewById(R.id.take_photo);
+      Button btn2 = (Button)view.findViewById(R.id.confirm);
+      Button btn3 = (Button)view.findViewById(R.id.edit_attendance);
+      Button btn4 = (Button)view.findViewById(R.id.setting);
+
+
+      mWebView = (WebView)view.findViewById(R.id.Kangwon);
+
+      mWebView.setWebViewClient(new WebViewClient());
+      mWebSettings = mWebView.getSettings();
+      mWebSettings.setJavaScriptEnabled(true);
+
+      mWebView.loadUrl("https://www.kangwon.ac.kr/www/index.do");
+
+
+
+
+
+
+      btn1.setOnClickListener(new View.OnClickListener() {  //check 에 대한 버튼 기능 추가
           @Override
           public void onClick(View v) {
-              Intent intent = new Intent(getActivity(), take_photoF.class);
+              Intent intent = new Intent(getActivity(), take_photoF.class); //
+              startActivity(intent);
+          }
+      });
+
+      btn2.setOnClickListener(new View.OnClickListener() { // confirm에 대한 버튼 기능 추가
+          @Override
+          public void onClick(View v) {
+              Intent intent = new Intent(getActivity(), confirm_the_attendF.class);
               startActivity(intent);
           }
       });

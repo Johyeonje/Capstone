@@ -88,7 +88,7 @@
 
                     <EditText
                         android:id="@+id/email_text"
-                        android:text="아이디"
+                        android:hint="아이디"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
@@ -99,7 +99,7 @@
 
                     <EditText
                         android:id="@+id/password_text"
-                        android:text="비밀번호"
+                        android:hint="비밀번호"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"

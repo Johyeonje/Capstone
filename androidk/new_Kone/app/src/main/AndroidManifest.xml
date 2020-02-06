@@ -31,6 +31,7 @@
         <!--  ===================================액티비티를 추가할때 이곳에도 추가해줘야 한다. -->
         <activity android:name=".MainActivity" android:label="메인 페이지"/>
         <activity android:name=".take_photoF" android:label="사진 찍기"/>
+        <activity android:name=".confirm_the_attendF" android:label="출석확인하기"/>
 
         <!-- ===============================액티비티를  보여줘야할때 추가할때 이 부분에 추가요망-->
     </application>

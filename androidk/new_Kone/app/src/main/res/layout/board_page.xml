@@ -3,18 +3,10 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView"
+    <WebView
+        android:id="@+id/webview2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#000000"
-        android:textSize="40dp"
-        android:gravity="center_horizontal"
-        android:text="이곳은 게시판 페이지 입니다." />
+        android:layout_height="match_parent">
+    </WebView>
 
-    <Button
-        android:id="@+id/back1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="뒤로가기" />
 </LinearLayout>
