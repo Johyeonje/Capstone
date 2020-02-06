@@ -57,7 +57,7 @@ if __name__ == "__main__":
     #input_img_path = "./RealTest/InputImg"
     cmp_img_path = "./RealTest/CmpImg"
     org_img_path = "./RealTest/OrgImg/9.jpg"
-    model_name = "../../FaceDataSet/trained_model/model"
+    model_name = "../../FaceDataSet/trained_model2/model-epoch-395000_v2"
     cmp_stu_list = []
     cmp_data_list = []
     cmp_img_list = []
@@ -104,7 +104,7 @@ if __name__ == "__main__":
 
     # load model
     model.load_weights(model_name)
-
+    print("starting predict")
     # Predict model
     prediction = model.predict(cat_set)
     for i, compare in enumerate(prediction):
