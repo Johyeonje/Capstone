@@ -32,6 +32,10 @@
         <activity android:name=".MainActivity" android:label="메인 페이지"/>
         <activity android:name=".take_photoF" android:label="사진 찍기"/>
         <activity android:name=".confirm_the_attendF" android:label="출석확인하기"/>
+        <activity android:name=".setting_pageF" android:label="설정"/>
+        <activity android:name=".version_pageF" android:label="버젼"/>
+        <activity android:name=".info_pageF" android:label="내 정보"/>
+        <activity android:name=".change_the_attendF" android:label="출석수정하기"/>
 
         <!-- ===============================액티비티를  보여줘야할때 추가할때 이 부분에 추가요망-->
     </application>

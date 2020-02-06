@@ -10,131 +10,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f55045e6-58ac-4dcf-a81d-3fc30de3322d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/caches/build_file_checksums.ser" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/caches/gradle_models.ser" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/codeStyles/Project.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/gradle.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__android_android_29.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__androidx_annotation_annotation_1_0_0_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__androidx_appcompat_appcompat_1_0_2_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__androidx_arch_core_core_common_2_0_0_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__androidx_arch_core_core_runtime_2_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__androidx_asynclayoutinflater_asynclayoutinflater_1_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__androidx_collection_collection_1_0_0_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_1_1_3_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_solver_1_1_3_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__androidx_coordinatorlayout_coordinatorlayout_1_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__androidx_core_core_1_0_1_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__androidx_cursoradapter_cursoradapter_1_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__androidx_customview_customview_1_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__androidx_documentfile_documentfile_1_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__androidx_drawerlayout_drawerlayout_1_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__androidx_fragment_fragment_1_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__androidx_interpolator_interpolator_1_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_ui_1_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_utils_1_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_common_2_0_0_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_2_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_core_2_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_runtime_2_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_viewmodel_2_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__androidx_loader_loader_1_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__androidx_localbroadcastmanager_localbroadcastmanager_1_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__androidx_print_print_1_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__androidx_slidingpanelayout_slidingpanelayout_1_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__androidx_swiperefreshlayout_swiperefreshlayout_1_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__androidx_test_core_1_1_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__androidx_test_espresso_espresso_core_3_1_1_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__androidx_test_espresso_espresso_idling_resource_3_1_1_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__androidx_test_ext_junit_1_1_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__androidx_test_monitor_1_1_1_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__androidx_test_runner_1_1_1_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_1_0_1_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__androidx_vectordrawable_vectordrawable_animated_1_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__androidx_versionedparcelable_versionedparcelable_1_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__androidx_viewpager_viewpager_1_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__com_google_code_findbugs_jsr305_2_0_1_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__com_squareup_javawriter_2_1_1_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__javax_inject_javax_inject_1_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__junit_junit_4_12_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__net_sf_kxml_kxml2_2_3_0_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_3_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__org_hamcrest_hamcrest_integration_1_3_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/libraries/Gradle__org_hamcrest_hamcrest_library_1_3_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/runConfigurations.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/proguard-rules.pro" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/src/androidTest/java/com/example/fracapp/ExampleInstrumentedTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/src/main/AndroidManifest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/src/main/java/com/example/fracapp/MainActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/src/main/java/com/example/fracapp/attendActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/src/main/java/com/example/fracapp/boardfragActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/src/main/java/com/example/fracapp/homefragActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/src/main/java/com/example/fracapp/noticeActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/src/main/java/com/example/fracapp/slideActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/src/main/java/com/example/fracapp/tabActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/src/main/java/com/example/fracapp/timefragActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/src/main/java/com/example/fracapp/todolistActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/src/main/res/layout/activity_main.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/src/main/res/layout/boardfragment.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/src/main/res/layout/homefragment.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/src/main/res/layout/notice.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/src/main/res/layout/timefragment.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/src/main/res/layout/todolist.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/src/main/res/menu/menu.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/src/main/res/values/colors.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/src/main/res/values/strings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/src/main/res/values/styles.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/app/src/test/java/com/example/fracapp/ExampleUnitTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/gradle.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/local.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FRACapp/settings.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_android_29.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../androidk/new_Kone/app/src/main/java/com/example/new_kone/change_the_attendF.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../androidk/new_Kone/app/src/main/java/com/example/new_kone/info_pageF.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../androidk/new_Kone/app/src/main/java/com/example/new_kone/list1_pageF.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../androidk/new_Kone/app/src/main/java/com/example/new_kone/list2_pageF.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../androidk/new_Kone/app/src/main/java/com/example/new_kone/list3_pageF.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../androidk/new_Kone/app/src/main/java/com/example/new_kone/list4_pageF.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../androidk/new_Kone/app/src/main/java/com/example/new_kone/list_adapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../androidk/new_Kone/app/src/main/java/com/example/new_kone/list_item.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../androidk/new_Kone/app/src/main/java/com/example/new_kone/setting_pageF.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../androidk/new_Kone/app/src/main/java/com/example/new_kone/version_pageF.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../androidk/new_Kone/app/src/main/res/drawable/unnamed.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../androidk/new_Kone/app/src/main/res/layout/change_the_attend.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../androidk/new_Kone/app/src/main/res/layout/info.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../androidk/new_Kone/app/src/main/res/layout/list1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../androidk/new_Kone/app/src/main/res/layout/list2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../androidk/new_Kone/app/src/main/res/layout/list3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../androidk/new_Kone/app/src/main/res/layout/list4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../androidk/new_Kone/app/src/main/res/layout/list_item.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../androidk/new_Kone/app/src/main/res/layout/setting.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../androidk/new_Kone/app/src/main/res/layout/version.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../androidk/new_Kone/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../androidk/new_Kone/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../androidk/new_Kone/app/src/main/java/com/example/new_kone/confirm_the_attendF.java" beforeDir="false" afterPath="$PROJECT_DIR$/../androidk/new_Kone/app/src/main/java/com/example/new_kone/confirm_the_attendF.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../androidk/new_Kone/app/src/main/java/com/example/new_kone/home_pageF.java" beforeDir="false" afterPath="$PROJECT_DIR$/../androidk/new_Kone/app/src/main/java/com/example/new_kone/home_pageF.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../androidk/new_Kone/app/src/main/res/layout/confirm_the_attend.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../androidk/new_Kone/app/src/main/res/layout/confirm_the_attend.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/adminActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/adminActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/attendActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/attendActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/attend_courseActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/attend_courseActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/computerActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/computeradapterActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/computercourseActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/computercourseActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/loginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/loginActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/recordActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/recordActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/attend_course.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/attend_course.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/computer_course.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/computer_course.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/computer_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/computer_item.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/login.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -145,7 +47,7 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_API_29" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_2_API_29" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -171,19 +73,30 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/computercourseActivity.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/attendActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1236">
-              <caret line="62" selection-start-line="62" selection-end-line="62" />
+            <state relative-caret-position="373">
+              <caret line="147" column="56" selection-start-line="147" selection-start-column="39" selection-end-line="147" selection-end-column="56" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/MainActivity.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/list_item.xml">
+          <provider editor-type-id="android-designer2" />
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="23" selection-start-line="23" selection-end-line="23" />
+            <state>
+              <caret selection-end-line="21" selection-end-column="15" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/record.xml">
+          <provider editor-type-id="android-designer2" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="418">
+              <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
             </state>
           </provider>
         </entry>
@@ -192,75 +105,61 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/fragment1Activity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="76">
+              <caret line="17" selection-start-line="17" selection-end-line="85" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment1.xml">
+          <provider editor-type-id="android-designer2" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="456">
+              <caret line="24" column="20" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/adapterActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="76">
+              <caret line="14" selection-start-line="14" selection-end-line="73" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/itemActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="38">
+              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/fragment2Activity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="76">
               <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="57">
-              <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
-            </state>
-          </provider>
-          <provider editor-type-id="android-manifest" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/recordActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="35" selection-start-line="35" selection-end-line="35" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/attendActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="799">
-              <caret line="112" column="56" selection-start-line="112" selection-start-column="56" selection-end-line="112" selection-end-column="56" />
+            <state relative-caret-position="38">
+              <caret line="49" column="39" selection-start-line="49" selection-start-column="39" selection-end-line="49" selection-end-column="39" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/myinfoActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/computer_course.xml">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment2.xml">
           <provider editor-type-id="android-designer2" />
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="14" selection-start-line="14" selection-end-line="14" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/computer_item.xml">
-          <provider editor-type-id="android-designer2" />
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="24" column="36" selection-start-line="24" selection-start-column="36" selection-end-line="24" selection-end-column="36" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/attend_courseActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="27" selection-start-line="27" selection-end-line="27" />
-            </state>
-          </provider>
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -313,14 +212,12 @@
         <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/login.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/myinfo.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/myinfoActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/attend_course.xml" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/adminActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/attend_courseActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/loginActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/recordActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/attend.xml" />
@@ -331,12 +228,14 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/computer_course.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/searchAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/computercourseActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/login.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/loginActivity.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-85" />
-    <option name="y" value="143" />
+    <option name="x" value="-10" />
+    <option name="y" value="5" />
     <option name="width" value="1300" />
     <option name="height" value="939" />
   </component>
@@ -349,6 +248,17 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="PackagesPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="attendandroidapp" type="58d84e3e:PackageViewProjectNode" />
+              <item name="app" type="616d4139:PackageViewModuleNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -367,22 +277,27 @@
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="attendandroidapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
             </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="ProjectPane" />
-      <pane id="PackagesPane">
-        <subPane>
-          <expand>
             <path>
-              <item name="attendandroidapp" type="58d84e3e:PackageViewProjectNode" />
-              <item name="app" type="616d4139:PackageViewModuleNode" />
+              <item name="attendandroidapp" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java (generated)" type="edd41e36:AndroidSourceTypeNode" />
+            </path>
+            <path>
+              <item name="attendandroidapp" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+            </path>
+            <path>
+              <item name="attendandroidapp" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -520,21 +435,21 @@
       <window_info id="Designer" order="6" />
       <window_info id="Resources Explorer" order="7" />
       <window_info id="Capture Tool" order="8" />
-      <window_info anchor="bottom" id="Run" order="0" sideWeight="0.49919093" weight="0.3290993" />
+      <window_info anchor="bottom" id="Run" order="0" sideWeight="0.49838188" weight="0.3290993" />
       <window_info anchor="bottom" id="Logcat" order="1" sideWeight="0.88106793" weight="0.2655889" />
       <window_info anchor="bottom" id="TODO" order="2" sideWeight="0.4975728" weight="0.3290993" />
       <window_info anchor="bottom" id="Debug" order="3" />
-      <window_info anchor="bottom" id="Terminal" order="4" sideWeight="0.49838188" weight="0.2655889" />
-      <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.50161815" side_tool="true" visible="true" weight="0.3290993" />
+      <window_info anchor="bottom" id="Terminal" order="4" sideWeight="0.4975728" weight="0.2655889" />
+      <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.12216829" side_tool="true" visible="true" weight="0.18244803" />
       <window_info anchor="bottom" id="Version Control" order="6" sideWeight="0.49919093" weight="0.3290993" />
-      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.88106793" weight="0.18244803" />
-      <window_info anchor="bottom" id="Android Profiler" order="8" />
+      <window_info anchor="bottom" id="Build" order="7" sideWeight="0.8778317" visible="true" weight="0.18244803" />
+      <window_info anchor="bottom" id="Android Profiler" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Find" order="9" sideWeight="0.49838188" visible="true" weight="0.3290993" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="right" id="Gradle" order="2" weight="0.32928804" />
       <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info anchor="right" id="Preview" order="4" weight="0.28317153" />
+      <window_info anchor="right" id="Preview" order="4" visible="true" weight="0.28317153" />
       <window_info anchor="right" id="Palette&#9;" order="5" />
       <window_info anchor="right" id="Assistant" order="6" weight="0.33899677" />
     </layout>
@@ -550,7 +465,6 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/checkActivity.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/RequestHttpURLActivity.java" />
     <entry file="file://$PROJECT_DIR$/app/build.gradle" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment2.xml" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment3.xml" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment4.xml" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/array.xml" />
@@ -567,8 +481,6 @@
     <entry file="file://$PROJECT_DIR$/app/build/generated/source/buildConfig/debug/com/cookandroid/attendandroidapp/BuildConfig.java" />
     <entry file="file://$PROJECT_DIR$/app/build/generated/source/buildConfig/androidTest/debug/com/cookandroid/attendandroidapp/test/BuildConfig.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/login.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/record.xml" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/myinfo.xml" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/admin.xml">
       <provider editor-type-id="android-designer2" />
@@ -578,24 +490,10 @@
       <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/adapterActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/adminActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="247">
           <caret line="23" selection-start-line="23" selection-end-line="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/fragment2Activity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -613,39 +511,51 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/itemActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/loginActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/array.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-159" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment1.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/computeradapterActivity.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/computerActivity.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/attend_course.xml">
       <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="513">
-          <caret line="27" column="15" selection-start-line="27" selection-start-column="15" selection-end-line="27" selection-end-column="15" />
+          <caret line="27" column="36" selection-start-line="27" selection-start-column="36" selection-end-line="27" selection-end-column="36" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/list_item.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/searchAdapter.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/computercourseActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="684">
+          <caret line="62" selection-start-line="62" selection-end-line="62" />
+        </state>
+      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/computeradapterActivity.java" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/computerActivity.java" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="18" selection-start-line="18" selection-end-line="18" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="15" selection-start-line="15" selection-end-line="17" selection-end-column="86" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-manifest" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/loginActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="46" column="11" selection-start-line="46" selection-start-column="11" selection-end-line="46" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/attend.xml">
       <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
@@ -654,11 +564,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/attend_course.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/login.xml">
       <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
-          <caret line="27" column="36" selection-start-line="27" selection-start-column="36" selection-end-line="27" selection-end-column="36" />
+        <state relative-caret-position="665">
+          <caret line="35" column="28" selection-start-line="35" selection-start-column="28" selection-end-line="35" selection-end-column="28" />
         </state>
       </provider>
     </entry>
@@ -687,29 +597,56 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/attend_courseActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="27" selection-start-line="27" selection-end-line="27" />
+        <state relative-caret-position="1311">
+          <caret line="81" selection-start-line="81" selection-end-line="81" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/searchAdapter.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/attendActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="53" selection-start-line="53" selection-end-line="53" selection-end-column="57" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/computercourseActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1236">
-          <caret line="62" selection-start-line="62" selection-end-line="62" />
+        <state relative-caret-position="373">
+          <caret line="147" column="56" selection-start-line="147" selection-start-column="39" selection-end-line="147" selection-end-column="56" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/fragment1Activity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="17" selection-start-line="17" selection-end-line="85" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment1.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="24" column="20" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/list_item.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="21" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/adapterActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="14" selection-start-line="14" selection-end-line="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/itemActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/fragment2Activity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="76">
           <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
@@ -718,32 +655,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/recordActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="35" selection-start-line="35" selection-end-line="35" />
+        <state relative-caret-position="38">
+          <caret line="49" column="39" selection-start-line="49" selection-start-column="39" selection-end-line="49" selection-end-column="39" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-manifest" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment2.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+      <provider editor-type-id="android-designer2" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/MainActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/record.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="23" selection-start-line="23" selection-end-line="23" />
+        <state relative-caret-position="418">
+          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/cookandroid/attendandroidapp/attendActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="799">
-          <caret line="112" column="56" selection-start-line="112" selection-start-column="56" selection-end-line="112" selection-end-column="56" />
-        </state>
-      </provider>
+      <provider editor-type-id="android-designer2" />
     </entry>
   </component>
 </project>
