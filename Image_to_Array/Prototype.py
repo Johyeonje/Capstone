@@ -24,10 +24,8 @@ def make_x_y(input_list, cmp_list, dtype=np.float32):
     for i, cmp_img in enumerate(cmp_list):
         for j, input_img in enumerate(input_list):
             _x = cv2.hconcat([cmp_img, input_img])
-            cv2.imshow(str(i)+str(j), _x)
             x.append(_x)
-    cv2.waitKey(0)
-    print(x)
+
     return np.array(x).astype(dtype)
 
 
