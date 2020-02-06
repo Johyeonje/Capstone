@@ -21,11 +21,12 @@ def make_x_y(input_list, cmp_list, dtype=np.float32):
     x = []
     _x = []
 
-    for i, input_img in enumerate(input_list):
-        for i, cmp_img in enumerate(cmp_list):
-            _x = cv2.hconcat([input_img, cmp_img])
+    for i, cmp_img in enumerate(cmp_list):
+        for j, input_img in enumerate(input_list):
+            _x = cv2.hconcat([cmp_img, input_img])
+            cv2.imshow(str(i)+str(j), _x)
             x.append(_x)
-
+    cv2.waitKey(0)
     print(x)
     return np.array(x).astype(dtype)
 
@@ -108,4 +109,6 @@ if __name__ == "__main__":
 
     # Predict model
     prediction = model.predict(cat_set)
-    print(prediction)
+    for i, compare in enumerate(prediction):
+        if compare[0] > compare[1]:
+            print(i)
