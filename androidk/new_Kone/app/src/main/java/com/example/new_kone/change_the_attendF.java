@@ -1,6 +1,5 @@
 package com.example.new_kone;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,11 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import java.util.ArrayList;
-
-public class confirm_the_attendF extends AppCompatActivity {
-
-
+public class change_the_attendF extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private list1_pageF fragment1;
     private list2_pageF fragment2;
@@ -78,3 +73,5 @@ public class confirm_the_attendF extends AppCompatActivity {
         });
     }
 }
+
+

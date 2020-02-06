@@ -78,6 +78,22 @@ public class home_pageF extends Fragment {
           }
       });
 
+      btn3.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+              Intent intent = new Intent(getActivity(),change_the_attendF.class);
+              startActivity(intent);
+          }
+      });
+
+      btn4.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+              Intent intent = new Intent(getActivity(), setting_pageF.class);
+              startActivity(intent);
+          }
+      });
+
     return view;
     }
 }
