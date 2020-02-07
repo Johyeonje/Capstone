@@ -108,5 +108,5 @@ if __name__ == "__main__":
     # Predict model
     prediction = model.predict(cat_set)
     for i, compare in enumerate(prediction):
-        if compare[0] > compare[1]:
+        if prediction[i][0] > prediction[i][1]:
             print(i)
