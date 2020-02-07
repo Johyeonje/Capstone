@@ -1,0 +1,17 @@
+train:
+  people_num: 7
+  img_num: 3
+  train_epoch_num: 20
+  learning_rate: 0.001
+  save_interval: 10
+
+data:
+  size: 100
+  data_path: cropped_images
+  train_num: 8000
+  test_num: 1000
+model:
+  emb_dims: 512
+dir:
+  chkpt_dir: chkpt
+  log_dir: logs
