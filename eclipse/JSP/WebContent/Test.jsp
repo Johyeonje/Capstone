@@ -23,30 +23,7 @@
 		String name = new String();
 		String fileName = new String();
 		String Person[] = {"man1", "man2", "man2", "man2", "man2", "man2", "man2", "man2", "man2", "man2"};
-		String subject = request.getParameter("Class_FileInputStream");
-		String a1 = new String();
-		a1 = "과목1";
-		String returns = "";
-		String type = request.getParameter("type");
-		String vision = request.getParameter("vision_write");
 		int sizeLimit = 20 * 1024 * 1024; // 5메가까지 제한 넘어서면 예외발생
-		%>
-		if (type == null) {
-		      return;
-		   }else if (type.equals("vision_write")) {
-		      System.out.println("값을받았습니다."+vision);
-		      Vision_Write vision_board = Vision_Write.getWrite();
-		      returns = vision_board.write(vision);
-		      out.println(returns);
-		      System.out.println(returns);
-		   }else if (type.equals("vision_list")) {
-		      System.out.println("값을 리턴합니다.");
-		      Vision_Board vision_board = Vision_Board.getVision_Board();
-		      returns = vision_board.select();
-		      out.println(returns);
-		     System.out.println(returns);
-		   }
-		<%
 		try {
 			System.out.println("연결시작 " + fileName);
 			MultipartRequest multi = new MultipartRequest(request, folderTypePath, sizeLimit, new DefaultFileRenamePolicy());
@@ -67,10 +44,7 @@
 			}
 			dos.close();
 			outputStream.close();
-			if(subject.equals(a1))
-			{
-				System.out.println("다음 정보가 왔습니다" + subject );
-			}
+			
 			Runtime runtime = Runtime.getRuntime();
 			Process process = runtime.exec("conda run -n dlib python "+folderTypePath+"/face.py "+folderTypePath+" "+fileName);
 		} catch (IOException e) {

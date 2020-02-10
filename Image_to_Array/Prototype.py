@@ -57,7 +57,7 @@ if __name__ == "__main__":
     #input_img_path = "./RealTest/InputImg"
     cmp_img_path = "./RealTest/CmpImg"
     org_img_path = "./RealTest/OrgImg/9.jpg"
-    model_name = "../../FaceDataSet/trained_model2/model-epoch-395000_v2"
+    model_name = "../../FaceDataSet/trained_model2/model-epoch-100000_v2"
     cmp_stu_list = []
     cmp_data_list = []
     cmp_img_list = []
@@ -65,6 +65,7 @@ if __name__ == "__main__":
 
     # set hyper parameter
     input_size = (100, 100)
+    cmp_num = 0.5
 
     # load data
     cmp_stu_list = glob.glob(cmp_img_path + "/*.jpg")  # 기존 등록되어 있던 이미지의 리스트 생성
@@ -108,5 +109,7 @@ if __name__ == "__main__":
     # Predict model
     prediction = model.predict(cat_set)
     for i, compare in enumerate(prediction):
-        if prediction[i][0] > prediction[i][1]:
+        if prediction[i][1] > cmp_num:
             print(i)
+
+    print(prediction)
