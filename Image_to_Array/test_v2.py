@@ -56,17 +56,19 @@ def build_model():
     model = tf.keras.models.Sequential()
     model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu', padding='same', input_shape=(100, 200, 3)))
     model.add(tf.keras.layers.MaxPooling2D((2, 2)))
-    model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu'))
+    model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu', padding='same'))
     model.add(tf.keras.layers.MaxPooling2D((2, 2)))
-    model.add(tf.keras.layers.Conv2D(128, (3, 3), activation='relu'))
+    model.add(tf.keras.layers.Conv2D(128, (3, 3), activation='relu', padding='same'))
     model.add(tf.keras.layers.MaxPooling2D((2, 2)))
-    model.add(tf.keras.layers.Conv2D(256, (2, 2), activation='relu'))
-    #model.add(tf.keras.layers.MaxPooling2D((2, 2)))
-    #model.add(tf.keras.layers.Conv2D(512, (2, 2), activation='relu'))
+    model.add(tf.keras.layers.Conv2D(256, (2, 2), activation='relu', padding='same'))
+    model.add(tf.keras.layers.Conv2D(256, (2, 2), activation='relu', padding='same'))
+    model.add(tf.keras.layers.Conv2D(256, (2, 2), activation='relu', padding='same'))
+    model.add(tf.keras.layers.Conv2D(256, (2, 2), activation='relu', padding='same'))
+    model.add(tf.keras.layers.MaxPooling2D((2, 2)))
+    model.add(tf.keras.layers.Conv2D(512, (2, 2), activation='relu', padding='same'))
 
     # 출력층(Dense) 추가
     model.add(tf.keras.layers.Flatten())
-    model.add(tf.keras.layers.Dropout(0.55))
     model.add(tf.keras.layers.Dense(256, activation='relu'))
     model.add(tf.keras.layers.Dense(2, activation='softmax'))
 
@@ -75,11 +77,11 @@ def build_model():
 
 if __name__ == "__main__":
     # set data directories
-    test_data_dir = "./test"
-    model_name = "trained_model/model"
+    test_data_dir = "../../FaceDataSet/crop_test/"
+    model_name = "../../FaceDataSet/trained_model2/model-epoch-100000_v2"
 
     # set hyper parameter
-    test_data_num = 50
+    test_data_num = 10000
 
     # load data
     test_id_list, test_data = load_data(test_data_dir)
@@ -89,7 +91,6 @@ if __name__ == "__main__":
 
     # build model
     model = build_model()
-    print("Yee~")
 
     # 컴파일
     optimizer = tf.keras.optimizers.Adam()
