@@ -10,13 +10,6 @@ def load_image(file_name, mode=cv2.IMREAD_ANYCOLOR):
     img = cv2.imread(file_name, mode)  # load 3 dimensional array    # 이미지를 3차원 배열로 읽어오는 함수
     return img
 
-
-def load_data(path):
-    student_id_list = os.listdir(path)
-
-    return student_id_list
-
-
 def make_x_y(input_list, cmp_list, dtype=np.float32):
     x = []
     _x = []
@@ -26,7 +19,7 @@ def make_x_y(input_list, cmp_list, dtype=np.float32):
         for j, input_img in enumerate(input_list):
             _x = cv2.hconcat([cmp_img, input_img])
             x.append(_x)
-            num_list.append(cmp_img)
+            num_list.append(cmp_stu_list[i])
 
     return np.array(x).astype(dtype), num_list
 
