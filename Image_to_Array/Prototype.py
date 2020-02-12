@@ -20,13 +20,15 @@ def load_data(path):
 def make_x_y(input_list, cmp_list, dtype=np.float32):
     x = []
     _x = []
+    num_list = []
 
     for i, cmp_img in enumerate(cmp_list):
         for j, input_img in enumerate(input_list):
             _x = cv2.hconcat([cmp_img, input_img])
             x.append(_x)
+            num_list.append(cmp_img)
 
-    return np.array(x).astype(dtype)
+    return np.array(x).astype(dtype), num_list
 
 
 def build_model():
@@ -93,7 +95,8 @@ if __name__ == "__main__":
     print(cmp_img_list.shape)
 
     # make data set
-    cat_set = make_x_y(input_img_list, cmp_img_list)
+    cat_set, num_list = make_x_y(input_img_list, cmp_img_list)
+    print(num_list)
     print("cat_set :")
     print(cat_set.shape)
     # build model
@@ -110,6 +113,7 @@ if __name__ == "__main__":
     prediction = model.predict(cat_set)
     for i, compare in enumerate(prediction):
         if prediction[i][1] > cmp_num:
-            print(i)
+            #print(i)
+            print(num_list[i])
 
-    print(prediction)
+    #print(prediction)
