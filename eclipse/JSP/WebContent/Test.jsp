@@ -6,6 +6,8 @@
 <%@page import="java.io.OutputStream"%>
 <%@page import="java.io.DataOutputStream"%>
 <%@page import="java.sql.*"%>
+<%@page import="java.io.BufferedReader"%>
+<%@page import="java.io.InputStreamReader"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -46,7 +48,19 @@
 			outputStream.close();
 			
 			Runtime runtime = Runtime.getRuntime();
-			Process process = runtime.exec("conda run -n dlib python "+folderTypePath+"/face.py "+folderTypePath+" "+fileName);
+			Process process = runtime.exec("conda run -n tf python "+folderTypePath+"/Prototype.py "+folderTypePath+" "+fileName);
+			process.waitFor();
+			BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			System.out.print("\n ## RESULT: ");
+
+			String line = null;
+
+			while ((line = br.readLine())!= null) {
+
+				System.out.println(line);
+
+			}
+
 		} catch (IOException e) {
 			System.out.println("실패!");
 		}
