@@ -41,26 +41,19 @@
 			out = pageContext.pushBody();
 			OutputStream outputStream = response.getOutputStream();
 			DataOutputStream dos = new DataOutputStream(outputStream);
-			for (String s : Person) {
-				dos.writeUTF(s);
-			}
-			dos.close();
-			outputStream.close();
-			
 			Runtime runtime = Runtime.getRuntime();
 			Process process = runtime.exec("conda run -n tf python "+folderTypePath+"/Prototype.py "+folderTypePath+" "+fileName);
 			process.waitFor();
 			BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
-			System.out.print("\n ## RESULT: ");
-
-			String line = null;
-
-			while ((line = br.readLine())!= null) {
-
-				System.out.println(line);
-
+			String s;
+			while ((s = br.readLine())!= null) {
+				dos.writeUTF(s);
+				System.out.println(s);
 			}
-
+			dos.close();
+			outputStream.close();
+			br.close();
+			process.destroy();
 		} catch (IOException e) {
 			System.out.println("실패!");
 		}

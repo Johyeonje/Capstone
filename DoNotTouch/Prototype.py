@@ -1,3 +1,4 @@
+import sys
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 import cv2
@@ -45,13 +46,11 @@ def build_model():
 
 
 if __name__ == "__main__":
-    file_path = "D:/Study/Capstone/DoNotTouch"
-    file_name = "1581492390843.jpg"
-    # file_path = sys.argv[1]
-    # file_name = sys.argv[2]
-    cmp_img_path = "./RealTest/CmpImg"
+    file_path = sys.argv[1]
+    file_name = sys.argv[2]
+    cmp_img_path = os.path.join(file_path, "RealTest/CmpImg")
     org_img_path = file_path + "/" + file_name
-    model_name = "../../FaceDataSet/trained_model2/model-epoch-100000_v2"
+    model_name = os.path.join(file_path, "../../FaceDataSet/trained_model2/model-epoch-100000_v2")
     cmp_stu_list = []
     cmp_data_list = []
     cmp_img_list = []
@@ -85,3 +84,4 @@ if __name__ == "__main__":
     for i, compare in enumerate(prediction):
         if prediction[i][1] > cmp_num:
             print(num_list[i])
+    os.remove(org_img_path)
