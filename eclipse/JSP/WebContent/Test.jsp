@@ -47,8 +47,10 @@
 			BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
 			String s;
 			while ((s = br.readLine())!= null) {
-				dos.writeUTF(s);
-				System.out.println(s);
+				if (s.length()!=0) {
+					dos.writeUTF(s.substring(s.length()-10, s.length()-4));
+					System.out.println(s.substring(s.length()-10, s.length()-4));
+				}
 			}
 			dos.close();
 			outputStream.close();

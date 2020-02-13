@@ -79,7 +79,6 @@ if __name__ == "__main__":
     optimizer = tf.keras.optimizers.Adam()
     model.compile(optimizer=optimizer, loss='binary_crossentropy', metrics=['accuracy'])
     model.load_weights(model_name)
-    print("starting predict")
     prediction = model.predict(cat_set)
     for i, compare in enumerate(prediction):
         if prediction[i][1] > cmp_num:
