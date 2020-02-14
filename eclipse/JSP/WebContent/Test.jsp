@@ -6,6 +6,8 @@
 <%@page import="java.io.OutputStream"%>
 <%@page import="java.io.DataOutputStream"%>
 <%@page import="java.sql.*"%>
+<%@page import="java.io.BufferedReader"%>
+<%@page import="java.io.InputStreamReader"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -39,14 +41,21 @@
 			out = pageContext.pushBody();
 			OutputStream outputStream = response.getOutputStream();
 			DataOutputStream dos = new DataOutputStream(outputStream);
-			for (String s : Person) {
-				dos.writeUTF(s);
+			Runtime runtime = Runtime.getRuntime();
+			Process process = runtime.exec("conda run -n tf python "+folderTypePath+"/Prototype.py "+folderTypePath+" "+fileName);
+			process.waitFor();
+			BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			String s;
+			while ((s = br.readLine())!= null) {
+				if (s.length()!=0) {
+					dos.writeUTF(s.substring(s.length()-10, s.length()-4));
+					System.out.println(s.substring(s.length()-10, s.length()-4));
+				}
 			}
 			dos.close();
 			outputStream.close();
-			
-			Runtime runtime = Runtime.getRuntime();
-			Process process = runtime.exec("conda run -n dlib python "+folderTypePath+"/face.py "+folderTypePath+" "+fileName);
+			br.close();
+			process.destroy();
 		} catch (IOException e) {
 			System.out.println("실패!");
 		}

@@ -18,8 +18,7 @@ for (x, y, w, h) in faces:
 
     cv2.imshow(str(a), getattr(mod, 'dst_{}'.format(a)))
     cv2.imwrite(str(a)+'.jpg', getattr(mod, 'dst_{}'.format(a)))
-    print("- Face #{} found at Left: {} Top: {} Right: {} Bottom: {}".format(a, y, x,
-                                                                             y+h, x+w))
+    print("- Face #{} found at Left: {} Top: {} Right: {} Bottom: {}".format(a, y, x, y+h, x+w))
     a = a + 1
 # Display the output
 img = cv2.resize(img, dsize=(0, 0), fx=0.25, fy=0.25, interpolation=cv2.INTER_LINEAR)
