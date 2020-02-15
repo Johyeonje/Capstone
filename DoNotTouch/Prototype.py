@@ -57,6 +57,7 @@ if __name__ == "__main__":
     input_data_list = []
     input_size = (100, 100)
     cmp_num = 0.5
+    trigger = 0
     cmp_stu_list = glob.glob(cmp_img_path + "/*.jpg")
     for i, cmp_stu in enumerate(cmp_stu_list):
         cmp_img = load_image(cmp_stu)
@@ -65,6 +66,7 @@ if __name__ == "__main__":
     face_detector = dlib.get_frontal_face_detector()
     detected_faces = face_detector(org_img, 1)
     for j, face_rect in enumerate(detected_faces):
+        trigger = 1
         left, right, top, bottom = face_rect.left(), face_rect.right(), face_rect.top(), face_rect.bottom()
         try:
             face = org_img[top:bottom, left:right, :]
@@ -72,6 +74,9 @@ if __name__ == "__main__":
             input_data_list.append(face)
         except Exception as ex:
             print(ex)
+    if trigger == 0:
+        os.remove(org_img_path)
+        print("얼굴 못 찾음")
     input_img_list = np.array(input_data_list)
     cmp_img_list = np.array(cmp_data_list)
     cat_set, num_list = make_x_y(input_img_list, cmp_img_list)

@@ -26,7 +26,7 @@
 		String fileName = new String();
 		int sizeLimit = 20 * 1024 * 1024; // 5메가까지 제한 넘어서면 예외발생
 		try {
-			System.out.println("연결시작 " + fileName);
+			System.out.println("연결시작 ");
 			MultipartRequest multi = new MultipartRequest(request, folderTypePath, sizeLimit, new DefaultFileRenamePolicy());
 			Enumeration files = multi.getFileNames();
 
@@ -46,9 +46,12 @@
 			BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
 			String s;
 			while ((s = br.readLine())!= null) {
-				if (s.length()!=0) {
+				if (s.length()>10) {
 					dos.writeUTF(s.substring(s.length()-10, s.length()-4));
 					System.out.println(s.substring(s.length()-10, s.length()-4));
+				} else {
+					dos.writeUTF(s);
+					System.out.println(s);
 				}
 			}
 			dos.close();

@@ -66,9 +66,11 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == Activity.RESULT_OK) {
                 try {
                     String img_path=null;
+                    String[] Person = {"man1","man2","man3","man4"};
                     img_path = getImagePathToUri(data.getData()); //이미지의 URI를 얻어 경로값으로 반환.
-
+                    DoTextUpload("http://rbghoneroom402.iptime.org:48526/JSP/text.jsp", Person);
                     DoFileUpload("http://rbghoneroom402.iptime.org:48526/JSP/Test.jsp", img_path);  //해당 함수를 통해 이미지 전송.
+
                     //이미지를 비트맵형식으로 반환
                     Bitmap image_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
                     int reWidth = (int) (getWindowManager().getDefaultDisplay().getWidth());
@@ -94,12 +96,16 @@ public class MainActivity extends AppCompatActivity {
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         //이미지의 경로 값
         String imgPath = cursor.getString(column_index);
-        Log.d("test", imgPath);
         return imgPath;
     }
 
     public void DoFileUpload(String apiUrl, String absolutePath) {
         FileUpload.NetworkTask networkTask = new FileUpload.NetworkTask(apiUrl, absolutePath);
+        networkTask.execute();
+    }
+
+    public void DoTextUpload(String apiUrl, String[] text) {
+        TextUpload.NetworkTask networkTask = new TextUpload.NetworkTask(apiUrl, text);
         networkTask.execute();
     }
 }
