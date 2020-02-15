@@ -1,6 +1,10 @@
 package com.cookandroid.attendandroidapp;
 
+import android.content.Context;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,11 +12,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class fragment1Activity extends Fragment {
@@ -20,24 +33,22 @@ public class fragment1Activity extends Fragment {
     public fragment1Activity() {
     }
 
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
-
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.fragment1, container, false);
-        final String[] data = {"man1","man2","man3","man4","man5","man6"};
         Button search_btn = linearLayout.findViewById(R.id.check_btn);
-        final EditText editbox = linearLayout.findViewById(R.id.editbox);
+        final TextView text = linearLayout.findViewById(R.id.text);
         int nDatCnt=0;
-
         ArrayList<itemActivity> oData = new ArrayList<>();
-
+        final String[] data = {"000001","000002","000003","000004","000005","000006"};
 
         for (int i=0; i<data.length; ++i)
         {
@@ -56,24 +67,24 @@ public class fragment1Activity extends Fragment {
         search_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            switch(editbox.getText().toString()) {
+            switch(text.getText().toString()) {
 
-                case "man1":
+                case "000001":
                     list1.setItemChecked(0,true);
                     break;
-                case "man2":
+                case "000002":
                     list1.setItemChecked(1,true);
                     break;
-                case "man3":
+                case "000003":
                     list1.setItemChecked(2,true);
                     break;
-                case "man4":
+                case "000004":
                     list1.setItemChecked(3,true);
                     break;
-                case "man5":
+                case "000005":
                     list1.setItemChecked(4,true);
                     break;
-                case "man6":
+                case "000006":
                     list1.setItemChecked(5,true);
                     break;
 
@@ -83,5 +94,8 @@ public class fragment1Activity extends Fragment {
 
      return linearLayout;
     }
+
+
+
 }
 

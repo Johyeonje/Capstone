@@ -27,6 +27,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.DataOutputStream;
@@ -58,13 +59,16 @@ public class attendActivity extends AppCompatActivity {
     Button list_btn;
     ImageView image;
     Button record_btn;
+    Button send_btn;
     EditText editbox3;
+    TextView text;
     private static final int REQ_CODE_SELECT_IMAGE = 100;
     private final int CAMERA_CAPTURE = 111;
     private String[] data1 = {"선택하세요"};
     Uri image_uri;
     ArrayList<String> datalist;
     ArrayAdapter<String> adapter1;
+    public String data;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -77,6 +81,8 @@ public class attendActivity extends AppCompatActivity {
         Spinner spinner = findViewById(R.id.spinner1);
         editbox3 = findViewById(R.id.edibox3);
         list_btn = findViewById(R.id.list_btn);
+        text = findViewById(R.id.text);
+
 
         datalist = new ArrayList<String>();
         datalist.addAll(Arrays.asList(data1));
@@ -154,8 +160,11 @@ public class attendActivity extends AppCompatActivity {
             super.onPostExecute(s);
             //doInBackground()로 부터 리턴된 값이 onPostExecute()의 매개변수로 넘어오므로 s를 출력한다.
             Toast.makeText(getBaseContext(), "Responce : " + s, Toast.LENGTH_SHORT).show();
+            text.setText(s);
+            data = text.getText().toString();
         }
     }
+
 
     private void checkSelfPermission() {
         String temp = "";

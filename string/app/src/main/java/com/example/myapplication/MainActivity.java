@@ -81,15 +81,14 @@ public class MainActivity extends AppCompatActivity {
             conn.setDoInput(true);
             conn.setDoOutput(true);
             conn.setUseCaches(false);
-            conn.setRequestMethod("GET");
+            conn.setRequestMethod("POST");
             conn.setRequestProperty("Connection", "Keep-Alive");
             // write data
-            br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
             StringBuffer b;
             try (InputStream is = conn.getInputStream()) {
                 b = new StringBuffer();
-                while ((data = br.readLine()) != null) {
-                    b.append(data);
+                for (int ch = 0; (ch = is.read()) != -1; ) {
+                    b.append((char) ch);
                 }
             }
             returnText = b.toString();

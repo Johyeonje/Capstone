@@ -56,4 +56,6 @@
         android:text="출석기록 보기"
         android:id="@+id/record_btn"/>
 
+
+
 </LinearLayout>
