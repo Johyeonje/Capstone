@@ -21,7 +21,7 @@ public class fragment4Activity extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.fragment4, container, false);
-        final String[] data = {"신효정   201720550","임세민   201623570","김지윤   201724610","조다솜   201621460","황하영   201924370","김혜유   201721692"};
+        final String[] data = {"man1","man2","man3","man4","man5","man6"};
         Button search_btn = linearLayout.findViewById(R.id.check_btn);
         final EditText editbox = linearLayout.findViewById(R.id.editbox);
         int nDatCnt=0;
@@ -47,22 +47,22 @@ public class fragment4Activity extends Fragment {
             public void onClick(View view) {
                 switch (editbox.getText().toString()) {
 
-                    case "신효정":
+                    case "man1":
                         list4.setItemChecked(0, true);
                         break;
-                    case "임세민":
+                    case "man2":
                         list4.setItemChecked(1, true);
                         break;
-                    case "김지윤":
+                    case "man3":
                         list4.setItemChecked(2, true);
                         break;
-                    case "조다솜":
+                    case "man4":
                         list4.setItemChecked(3, true);
                         break;
-                    case "황하영":
+                    case "man5":
                         list4.setItemChecked(4, true);
                         break;
-                    case "김혜유":
+                    case "man6":
                         list4.setItemChecked(5, true);
                         break;
                 }
