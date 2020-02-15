@@ -80,7 +80,10 @@ if __name__ == "__main__":
     model.compile(optimizer=optimizer, loss='binary_crossentropy', metrics=['accuracy'])
     model.load_weights(model_name)
     prediction = model.predict(cat_set)
+    k = None
     for i, compare in enumerate(prediction):
         if prediction[i][1] > cmp_num:
-            print(num_list[i])
+            if k != num_list[i]:
+                print(num_list[i])
+                k = num_list[i]
     os.remove(org_img_path)
