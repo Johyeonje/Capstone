@@ -1,10 +1,13 @@
 package com.example.myapplication;
 
+import android.content.Context;
 import android.os.AsyncTask;
+import android.widget.Toast;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -12,10 +15,12 @@ public class FileUpload {
     public static class NetworkTask extends AsyncTask<Void, Void, String> {
 
         private String url, fileName;
+        private Context context;
 
-        public NetworkTask(String url, String fileName) {
+        public NetworkTask(String url, String fileName, Context context) {
             this.url = url;
             this.fileName = fileName;
+            this.context = context;
         }
 
         @Override
@@ -28,6 +33,7 @@ public class FileUpload {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+            Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
             //doInBackground()로 부터 리턴된 값이 onPostExecute()의 매개변수로 넘어오므로 s를 출력한다
         }
     }
@@ -71,16 +77,19 @@ public class FileUpload {
             // finish upload...
             // get response
             StringBuffer b;
-            try (InputStream is = conn.getInputStream()) {
-                b = new StringBuffer();
-                for (int ch = 0; (ch = is.read()) != -1; ) {
-                    b.append((char) ch);
+            b = new StringBuffer();
+            DataInputStream dis = new DataInputStream(conn.getInputStream());
+            try {
+                for (String ch; (ch = dis.readUTF()) != null;)  {
+                    b.append(ch);
+                    b.append(lineEnd);
                 }
-                is.close();
+            } catch (EOFException e) {
+                b.delete(b.length()-lineEnd.length(),b.length());
             }
             return b.toString();
-
         } catch (Exception e) {
+            System.out.print(e);
             return null;
             // TODO: handle exception
         }

@@ -12,12 +12,9 @@ import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
-
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -100,12 +97,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void DoFileUpload(String apiUrl, String absolutePath) {
-        FileUpload.NetworkTask networkTask = new FileUpload.NetworkTask(apiUrl, absolutePath);
+        FileUpload.NetworkTask networkTask = new FileUpload.NetworkTask(apiUrl, absolutePath, getBaseContext());
         networkTask.execute();
     }
 
     public void DoTextUpload(String apiUrl, String[] text) {
-        TextUpload.NetworkTask networkTask = new TextUpload.NetworkTask(apiUrl, text);
+        TextUpload.NetworkTask networkTask = new TextUpload.NetworkTask(apiUrl, text, getBaseContext());
         networkTask.execute();
     }
 }

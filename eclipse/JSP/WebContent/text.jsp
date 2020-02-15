@@ -21,8 +21,8 @@
                 b.append((char) ch);
             }
             System.out.print(b.toString());
+            inputStream.close();
 		} catch (Exception e) {
-			System.out.println(e);
 			System.out.println("실패!");
 		}
 	%>

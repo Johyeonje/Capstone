@@ -49,7 +49,7 @@
 				if (s.length()>10) {
 					dos.writeUTF(s.substring(s.length()-10, s.length()-4));
 					System.out.println(s.substring(s.length()-10, s.length()-4));
-				} else {
+				} else if(s.length() != 0){
 					dos.writeUTF(s);
 					System.out.println(s);
 				}
