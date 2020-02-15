@@ -21,7 +21,7 @@ public class FileUpload {
         @Override
         protected String doInBackground(Void... params) {
             String result; // 요청 결과를 저장할 변수.
-            result = FileUpload.HttpURLConnection (url, "", fileName); // 해당 URL로 부터 결과물을 얻어온다.
+            result = HttpURLConnection(url, "", fileName); // 해당 URL로 부터 결과물을 얻어온다.
             return result;
         }
 
