@@ -1,17 +1,14 @@
 package com.cookandroid.attendandroidapp;
 
-import android.app.Notification;
+import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.textclassifier.TextClassification;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,18 +19,12 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.text.CollationElementIterator;
 import java.util.ArrayList;
 
 public class fragment1Activity extends Fragment {
-  
+
+
+
     public fragment1Activity() {
     }
 
@@ -41,6 +32,7 @@ public class fragment1Activity extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
     }
    
@@ -97,13 +89,14 @@ public class fragment1Activity extends Fragment {
         });
 
         return linearLayout;
+
     }
 
     public static class NetworkTask extends AsyncTask<Void, Void, String> {
 
         private String url, fileName;
-        private CollationElementIterator text;
-
+        private Activity linearLayout;
+        final TextView text = linearLayout.findViewById(R.id.text);
 
         public NetworkTask(String url, String fileName) {
             this.url = url;
@@ -124,6 +117,7 @@ public class fragment1Activity extends Fragment {
             //doInBackground()로 부터 리턴된 값이 onPostExecute()의 매개변수로 넘어오므로 s를 출력한다.
             Toast.makeText(getApplicationContext(),"response:"+s,Toast.LENGTH_SHORT);
             text.setText(s);
+
         }
 
         private Context getApplicationContext() {
