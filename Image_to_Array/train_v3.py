@@ -90,7 +90,7 @@ def build_model():
 
     # 출력층(Dense) 추가
     model.add(tf.keras.layers.Flatten())
-    model.add(tf.keras.layers.Dense(256, activation='relu'))
+    model.add(tf.keras.layers.Dense(64, activation='relu'))
     model.add(tf.keras.layers.Dropout(0.5))
     model.add(tf.keras.layers.Dense(2, activation='softmax'))
 
@@ -99,11 +99,11 @@ def build_model():
 
 if __name__ == "__main__":
     # set data directories
-    train_data_dir = "../../FaceDataSet/crop/"
+    train_data_dir = "../../FaceDataSet/ncrop/"
     test_data_dir = "../../FaceDataSet/crop_test/"
-    model_dir = "trained_model2/"
+    model_dir = "trained_model4/"
     save_path = "../../FaceDataSet/"
-    log_dir = "logs/ver4"  # tensorboard --logdir logs/ver1
+    log_dir = "logs/vern3"  # tensorboard --logdir logs/ver1
 
     # set hyper parameter
     train_epoch_num = 100000
@@ -156,7 +156,7 @@ if __name__ == "__main__":
         if epoch % store_interval == 0:
             if not os.path.isdir(save_path + model_dir):
                 os.mkdir(save_path + model_dir)
-            model_name = save_path + model_dir + "model-epoch-" + str(epoch) + "_v2"
+            model_name = save_path + model_dir + "model-epoch-" + str(epoch)
             model.save_weights(model_name)
             print("Model saved as {}".format(model_name))
 

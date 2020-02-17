@@ -40,7 +40,7 @@ def build_model():
 
     # 출력층(Dense) 추가
     model.add(tf.keras.layers.Flatten())
-    model.add(tf.keras.layers.Dense(256, activation='relu'))
+    model.add(tf.keras.layers.Dense(64, activation='relu'))
     model.add(tf.keras.layers.Dropout(0.5))
     model.add(tf.keras.layers.Dense(2, activation='softmax'))
 
@@ -52,7 +52,7 @@ if __name__ == "__main__":
     #input_img_path = "./RealTest/InputImg"
     cmp_img_path = "./RealTest/CmpImg"
     org_img_path = "./RealTest/OrgImg/9.jpg"
-    model_name = "../../FaceDataSet/new_trained_model/model-epoch-25000_v2"
+    model_name = "../../FaceDataSet/trained_model4/model-epoch-25000_v2"
     cmp_stu_list = []
     cmp_data_list = []
     cmp_img_list = []
