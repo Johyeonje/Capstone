@@ -85,11 +85,13 @@ def build_model():
     model.add(tf.keras.layers.MaxPooling2D((2, 2)))
     model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu', padding='same'))
     model.add(tf.keras.layers.MaxPooling2D((2, 2)))
+    model.add(tf.keras.layers.Dropout(0.25))
     model.add(tf.keras.layers.Conv2D(128, (3, 3), activation='relu', padding='same'))
 
     # 출력층(Dense) 추가
     model.add(tf.keras.layers.Flatten())
     model.add(tf.keras.layers.Dense(256, activation='relu'))
+    model.add(tf.keras.layers.Dropout(0.5))
     model.add(tf.keras.layers.Dense(2, activation='softmax'))
 
     return model
