@@ -13,12 +13,13 @@
 		//이미지를 저장할 경로 입력.
 		request.setCharacterEncoding("utf-8");
 		try {
-			System.out.println("text시작 ");
+			System.out.println("text시작");
 			StringBuffer b;
 			InputStream inputStream = request.getInputStream();
+			DataInputStream dis = new DataInputStream(inputStream);
             b = new StringBuffer();
-            for (int ch = 0; (ch = inputStream.read()) != -1; ) {
-                b.append((char) ch);
+            for (String ch; (ch = dis.readUTF()) != null;)  {
+                b.append(ch);
             }
             System.out.print(b.toString());
             inputStream.close();

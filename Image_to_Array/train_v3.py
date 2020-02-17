@@ -75,23 +75,23 @@ def make_x_y(id_list, data, num, dtype=np.float32):
 
 
 def build_model():
+    # CNN
     model = tf.keras.models.Sequential()
-    model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu', padding='same', input_shape=(100, 200, 3)))
+    model.add(tf.keras.layers.Conv2D(8, (2, 2), activation='relu', padding='same', input_shape=(200, 400, 3)))
+    model.add(tf.keras.layers.MaxPooling2D((2, 2)))
+    model.add(tf.keras.layers.Conv2D(16, (2, 2), activation='relu', padding='same'))
+    model.add(tf.keras.layers.MaxPooling2D((2, 2)))
+    model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu', padding='same'))
     model.add(tf.keras.layers.MaxPooling2D((2, 2)))
     model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu', padding='same'))
     model.add(tf.keras.layers.MaxPooling2D((2, 2)))
+    model.add(tf.keras.layers.Dropout(0.25))
     model.add(tf.keras.layers.Conv2D(128, (3, 3), activation='relu', padding='same'))
-    model.add(tf.keras.layers.MaxPooling2D((2, 2)))
-    model.add(tf.keras.layers.Conv2D(256, (2, 2), activation='relu', padding='same'))
-    model.add(tf.keras.layers.Conv2D(256, (2, 2), activation='relu', padding='same'))
-    model.add(tf.keras.layers.Conv2D(256, (2, 2), activation='relu', padding='same'))
-    model.add(tf.keras.layers.Conv2D(256, (2, 2), activation='relu', padding='same'))
-    model.add(tf.keras.layers.MaxPooling2D((2, 2)))
-    model.add(tf.keras.layers.Conv2D(512, (2, 2), activation='relu', padding='same'))
 
     # 출력층(Dense) 추가
     model.add(tf.keras.layers.Flatten())
-    model.add(tf.keras.layers.Dense(256, activation='relu'))
+    model.add(tf.keras.layers.Dense(64, activation='relu'))
+    model.add(tf.keras.layers.Dropout(0.5))
     model.add(tf.keras.layers.Dense(2, activation='softmax'))
 
     return model
@@ -99,31 +99,30 @@ def build_model():
 
 if __name__ == "__main__":
     # set data directories
-    train_data_dir = "../../FaceDataSet/crop/"
-    test_data_dir = "../../FaceDataSet/crop_test/"
-    model_dir = "trained_model2/"
+    train_data_dir = "../../FaceDataSet/aligned/"
+    test_data_dir = "../../FaceDataSet/aligned/"
+    model_dir = "trained_model8/"
     save_path = "../../FaceDataSet/"
-    log_dir = "logs/ver4"  # tensorboard --logdir logs/ver1
+    log_dir = "logs/ver8"  # tensorboard --logdir logs/ver1
 
     # set hyper parameter
-    train_epoch_num = 400000
-    train_data_num = 10000
+    train_epoch_num = 100000
     test_data_num = 1000
-
     batch_size = 100
     summary_interval = 1
     validation_interval = 100
-    store_interval = 5000
+    store_interval = 2500
 
-    # train model
+    # train model setting
     model = build_model()
 
-    # 컴파일
+    # compile setting
     model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
-    model.load_weights(save_path + model_dir + "model-epoch-99000")
+    # model load
+    #model.load_weights(save_path + model_dir + "model-epoch-99000")
+    #print("model loaded")
 
-    print("model loaded")
     # load data
     train_id_list, train_data = load_data(train_data_dir)
     test_id_list, test_data = load_data(test_data_dir)
@@ -137,6 +136,7 @@ if __name__ == "__main__":
     test_x = test_x / 255.0
 
     for epoch in range(train_epoch_num):
+
         batch_x, batch_y = make_x_y(train_id_list, train_data, batch_size)
         batch_x /= 255.0
 
@@ -156,8 +156,8 @@ if __name__ == "__main__":
         if epoch % store_interval == 0:
             if not os.path.isdir(save_path + model_dir):
                 os.mkdir(save_path + model_dir)
-            model_name = save_path + model_dir + "model-epoch-" + str(epoch) + "_v2"
+            model_name = save_path + model_dir + "model-epoch-" + str(epoch)
             model.save_weights(model_name)
             print("Model saved as {}".format(model_name))
 
-print("Epoch : {}, Train Loss : {}".format(epoch+1, '%1.2f' % train_loss))
+print("Epoch : {}, Train Loss : {}".format(epoch+1, '%1.4f' % train_loss))

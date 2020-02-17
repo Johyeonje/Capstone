@@ -50,6 +50,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 
 
 public class attendActivity extends AppCompatActivity {
@@ -62,6 +63,8 @@ public class attendActivity extends AppCompatActivity {
     Button record_btn;
     EditText editbox3;
     TextView text;
+    Button send_btn;
+
     private static final int REQ_CODE_SELECT_IMAGE = 100;
     private final int CAMERA_CAPTURE = 111;
     private String[] data1 = {"선택하세요"};
@@ -82,6 +85,8 @@ public class attendActivity extends AppCompatActivity {
         list_btn = findViewById(R.id.list_btn);
         text = findViewById(R.id.text);
 
+        send_btn = findViewById(R.id.send_btn);
+
 
         datalist = new ArrayList<String>();
         datalist.addAll(Arrays.asList(data1));
@@ -92,7 +97,7 @@ public class attendActivity extends AppCompatActivity {
         list_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                datalist.add(1,editbox3.getText().toString());
+                datalist.add(1, editbox3.getText().toString());
                 adapter1.notifyDataSetChanged();
             }
         });
@@ -122,6 +127,16 @@ public class attendActivity extends AppCompatActivity {
             }
         });
 
+        send_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text1 = text.getText().toString();
+                Intent intent2 = new Intent(attendActivity.this, recordActivity.class);
+                intent2.putExtra(text1, "text1");
+                startActivity(intent2);
+            }
+        });
+
         processButton = findViewById(R.id.processButton);
 
         processButton.setOnClickListener(new View.OnClickListener() {
@@ -137,6 +152,7 @@ public class attendActivity extends AppCompatActivity {
                 .permitDiskWrites()
                 .permitNetwork().build());
     }
+
     public class NetworkTask extends AsyncTask<Void, Void, String> {
 
         private String url, fileName;
@@ -158,13 +174,13 @@ public class attendActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             //doInBackground()로 부터 리턴된 값이 onPostExecute()의 매개변수로 넘어오므로 s를 출력한다.
-            Toast.makeText(getApplicationContext(),"response:"+s,Toast.LENGTH_SHORT);
+            Toast.makeText(getApplicationContext(), "response:" + s, Toast.LENGTH_SHORT);
             text.setText(s);
 
         }
 
 
-}
+    }
 
 
         private void checkSelfPermission() {

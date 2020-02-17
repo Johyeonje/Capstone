@@ -8,6 +8,7 @@
 <%@page import="java.sql.*"%>
 <%@page import="java.io.BufferedReader"%>
 <%@page import="java.io.InputStreamReader"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -26,7 +27,10 @@
 		String fileName = new String();
 		int sizeLimit = 20 * 1024 * 1024; // 5메가까지 제한 넘어서면 예외발생
 		try {
-			System.out.println("연결시작 ");
+			long time = System.currentTimeMillis(); 
+			SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+			String str = dayTime.format(new Date(time));
+			System.out.println("연결시작 "+str);
 			MultipartRequest multi = new MultipartRequest(request, folderTypePath, sizeLimit, new DefaultFileRenamePolicy());
 			Enumeration files = multi.getFileNames();
 
