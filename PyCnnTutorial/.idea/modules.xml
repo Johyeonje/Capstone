@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../PyCnnTutorial/.idea/PyCnnTutorial.iml" filepath="$PROJECT_DIR$/../PyCnnTutorial/.idea/PyCnnTutorial.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Convolution.iml" filepath="$PROJECT_DIR$/.idea/Convolution.iml" />
     </modules>
   </component>
 </project>

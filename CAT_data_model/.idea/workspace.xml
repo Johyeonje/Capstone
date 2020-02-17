@@ -2,9 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="060df3ce-7e3f-46c4-ba1b-2c4be6748ee1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DL_tutorial/tutorial.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PyDnnTutorial/tutorial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Convolution/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../PyCnnTutorial/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Convolution/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PyCnnTutorial/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Convolution/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PyCnnTutorial/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Convolution/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PyCnnTutorial/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Convolution/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PyCnnTutorial/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Convolution/convol.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PyCnnTutorial/convol.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,7 +28,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../DL_tutorial" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Train_input" />
   </component>
   <component name="RunManager">
     <configuration name="mnist_model" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
@@ -80,10 +84,10 @@
     </state>
     <state x="414" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1578734151507" />
     <state x="414" y="178" key="#com.intellij.execution.impl.EditConfigurationsDialog/1920.64.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1578911253503" />
-    <state x="740" y="278" key="FileChooserDialogImpl" timestamp="1581927535956">
+    <state x="740" y="278" key="FileChooserDialogImpl" timestamp="1581929006660">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="278" key="FileChooserDialogImpl/-1280.54.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1581927535956" />
+    <state x="740" y="278" key="FileChooserDialogImpl/-1280.54.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1581929006660" />
     <state x="740" y="278" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1578736701852" />
     <state x="740" y="278" key="FileChooserDialogImpl/1920.64.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1579143544615" />
     <state x="2413" y="327" key="FileChooserDialogImpl/1920.64.1280.984/0.0.1920.1040@1920.64.1280.984" timestamp="1579091015704" />
