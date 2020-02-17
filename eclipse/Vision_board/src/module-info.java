@@ -1,0 +1,2 @@
+module Vision_board {
+}
