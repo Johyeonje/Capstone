@@ -63,6 +63,7 @@ public class attendActivity extends AppCompatActivity {
     Button record_btn;
     EditText editbox3;
     TextView text;
+    Button send_btn;
     private static final int REQ_CODE_SELECT_IMAGE = 100;
     private final int CAMERA_CAPTURE = 111;
     private String[] data1 = {"선택하세요"};
@@ -82,6 +83,7 @@ public class attendActivity extends AppCompatActivity {
         editbox3 = findViewById(R.id.edibox3);
         list_btn = findViewById(R.id.list_btn);
         text = findViewById(R.id.text);
+        send_btn = findViewById(R.id.send_btn);
 
         datalist = new ArrayList<String>();
         datalist.addAll(Arrays.asList(data1));
@@ -122,6 +124,16 @@ public class attendActivity extends AppCompatActivity {
             }
         });
 
+        send_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text1 = text.getText().toString();
+                Intent intent2 = new Intent(attendActivity.this,recordActivity.class);
+                intent2.putExtra(text1,"text1");
+                startActivity(intent2);
+            }
+        });
+
         processButton = findViewById(R.id.processButton);
 
         processButton.setOnClickListener(new View.OnClickListener() {
@@ -137,6 +149,7 @@ public class attendActivity extends AppCompatActivity {
                 .permitDiskWrites()
                 .permitNetwork().build());
     }
+
 
     public class NetworkTask extends AsyncTask<Void, Void, String> {
 
@@ -161,14 +174,16 @@ public class attendActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+
             //doInBackground()로 부터 리턴된 값이 onPostExecute()의 매개변수로 넘어오므로 s를 출력한다.
-            Intent intent = new Intent(getApplicationContext(),fragment1Activity.class);
             Toast.makeText(getBaseContext(), "response:" + s, Toast.LENGTH_SHORT);
             text.setText(s);
+
         
         }
 
     }
+
 
 
         private void checkSelfPermission() {
