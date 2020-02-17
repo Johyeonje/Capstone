@@ -83,7 +83,7 @@ if __name__ == "__main__":
         except Exception as ex:
             print(ex)
     if trigger == 0:
-        #os.remove(org_img_path)
+        os.remove(org_img_path)
         print("얼굴 못 찾음")
         exit()
     input_img_list = np.array(input_data_list)
@@ -100,4 +100,4 @@ if __name__ == "__main__":
             if k != num_list[i]:
                 print(num_list[i])
                 k = num_list[i]
-    #os.remove(org_img_path)
+    os.remove(org_img_path)
