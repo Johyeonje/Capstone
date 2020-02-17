@@ -1,4 +1,0 @@
-#Wed Jan 08 13:57:20 KST 2020
-base.0=C\:\\Users\\samsung\\AndroidStudioProjects\\Cameratest\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
-path.0=classes.dex
-renamed.0=classes.dex
