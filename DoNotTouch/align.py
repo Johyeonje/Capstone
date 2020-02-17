@@ -5,18 +5,16 @@ import openface
 
 # You can download the required pre-trained face detection model here:
 # http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2
-predictor_model = "shape_predictor_68_face_landmarks.dat"
+predictor_model = "../../FaceDataSet/shape_predictor_68_face_landmarks.dat"
 
 # Take the image file name from the command line
-file_name = sys.argv[1]
-
 # Create a HOG face detector using the built-in dlib class
 face_detector = dlib.get_frontal_face_detector()
 face_pose_predictor = dlib.shape_predictor(predictor_model)
 face_aligner = openface.AlignDlib(predictor_model)
 
 # Take the image file name from the command line
-file_name = sys.argv[1]
+file_name = "D:/Study/Capstone/DoNotTouch/RealTest/OrgImg/9.jpg"
 
 # Load the image
 image = cv2.imread(file_name)
@@ -37,7 +35,7 @@ for i, face_rect in enumerate(detected_faces):
 	pose_landmarks = face_pose_predictor(image, face_rect)
 
 	# Use openface to calculate and perform the face alignment
-	alignedFace = face_aligner.align(534, image, face_rect, landmarkIndices=openface.AlignDlib.OUTER_EYES_AND_NOSE)
+	alignedFace = face_aligner.align(200, image, face_rect, landmarkIndices=openface.AlignDlib.OUTER_EYES_AND_NOSE)
 
 	# Save the aligned image to a file
 	cv2.imwrite("aligned_face_{}.jpg".format(i), alignedFace)

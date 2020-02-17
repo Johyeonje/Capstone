@@ -2,6 +2,7 @@ import numpy as np
 import cv2
 import dlib
 import glob
+import openface
 import os
 
 
@@ -15,16 +16,19 @@ if __name__ == "__main__":  # 본 코드를 import 시에 이 코드가 자동 �
     # 얼굴 사진 하나씩 확인해서 이름 변경
     # 전부다 불러내서 4차원 배열로 만들기
 
+    predictor_model ="../../FaceDataSet/shape_predictor_68_face_landmarks.dat"
     train_img_dir = "../../FaceDataSet/"  # 현재 위치
-    for face_num in range(1, len(os.listdir(train_img_dir+"train/")), 1):
+    face_detector = dlib.get_frontal_face_detector()  # dlib의 face detection 적용 -> face_rect.상하좌우 에 값이 반환되는 것으로 보임
+    face_pose_predictor = dlib.shape_predictor(predictor_model)
+    face_aligner = openface.AlignDlib(predictor_model)
+    for face_num in range(20, len(os.listdir(train_img_dir+"train/")), 1):
         load_path = train_img_dir + "train/Face" + str(face_num)
         # train_img_list = os.listdir(load_path)
         train_img_list = glob.glob(load_path + "/*.jpg")  # .jpg로 끝나는 파일들을 모두 리스트로 읽어들임
         # print(train_data_list)
         # exit()
         # train_img_list = ["sample.jpg"]		# 이거를 직접 하나하나 입력할 필요없이 위에 glob.glob를 사용해서 만들어주면됨
-        save_path = train_img_dir + "ncrop/Face" + str(face_num)
-        input_size = (100, 100)  # resize 단계에서 미리 세로 가로 길이를 배열로 지정해놓는 것
+        save_path = train_img_dir + "aligned/Face" + str(face_num)
         try:
             if not (os.path.isdir(save_path)):
                 os.makedirs(os.path.join(save_path))
@@ -32,27 +36,24 @@ if __name__ == "__main__":  # 본 코드를 import 시에 이 코드가 자동 �
             if e.errno != errno.EEXIST:
                 print("Failed to create directory!!!!!")
                 raise
-        face_list = []  # 놀랍게도 파이썬에서는 따로 동적배열을 구현하려고 힘쓸필요없이 단순 배열 선언으로 누적 가능
-        for i, file_name in enumerate(
-                train_img_list):  # ★enumerate : ()안의 리스트를 불러오는데 index(=i)도 같이 불러오는 것이다. *Like c언어 for문
-            if i >= 16:
-                img = load_image(file_name)     # [세로, 가로, 채널]
-                face_detector = dlib.get_frontal_face_detector()  # dlib의 face detection 적용 -> face_rect.상하좌우 에 값이 반환되는 것으로 보임
-                detected_faces = face_detector(img, 1)  # detected_faces에 찾아진 얼굴들에 대한 좌표가 리스트로 저장되어있음
+        for i, file_name in enumerate(train_img_list):  # ★enumerate : ()안의 리스트를 불러오는데 index(=i)도 같이 불러오는 것이다. *Like c언어 for문
+            img = load_image(file_name)     # [세로, 가로, 채널]
+            detected_faces = face_detector(img, 1)  # detected_faces에 찾아진 얼굴들에 대한 좌표가 리스트로 저장되어있음
+            for j, face_rect in enumerate(
+                    detected_faces):  # 원본 이미지에서 뽑아낸 얼굴들 리스트에 대한 좌표값들을 하나하나 이용할 시간, j에 대해 enumerate를 사용
+                left, right, top, bottom = face_rect.left(), face_rect.right(), face_rect.top(), face_rect.bottom()  # 좌우상하 값을 옮겨받는다.
 
-                for j, face_rect in enumerate(
-                        detected_faces):  # 원본 이미지에서 뽑아낸 얼굴들 리스트에 대한 좌표값들을 하나하나 이용할 시간, j에 대해 enumerate를 사용
-                    left, right, top, bottom = face_rect.left(), face_rect.right(), face_rect.top(), face_rect.bottom()  # 좌우상하 값을 옮겨받는다.
-
-                    # print(j, left, right, top, bottom)
-                    try:
-                        face = img[top:bottom, left:right, :]  # 좌표값들을 통해서 실제 얼굴이 있는 위치를 범위로 뽑아내는 것
-                        face = cv2.resize(face, dsize=input_size)  # resize 단계 (dsize가 기존에 저장된 사이즈를 불러와 진행)
-                        cv2.imwrite(save_path + "/detected_face-" + str(i) + ".jpg", face)
-                    except Exception as ex:
-                        print(ex)
-                if i >= 32:
-                    break;
+                # print(j, left, right, top, bottom)
+                try:
+                    pose_landmarks = face_pose_predictor(img, face_rect)
+                    alignedFace = face_aligner.align(200, img, face_rect, landmarkIndices=openface.AlignDlib.OUTER_EYES_AND_NOSE)
+                    # face = img[top:bottom, left:right, :]  # 좌표값들을 통해서 실제 얼굴이 있는 위치를 범위로 뽑아내는 것
+                    # face = cv2.resize(face, dsize=input_size)  # resize 단계 (dsize가 기존에 저장된 사이즈를 불러와 진행)
+                    cv2.imwrite(save_path + "/detected_face-" + str(i) + ".jpg", alignedFace)
+                except Exception as ex:
+                    print(ex)
+            if i >= 32:
+                break;
 
             # print(type(img))
             # print(img.shape)			# 이미지의 사이즈 (채널 포함)

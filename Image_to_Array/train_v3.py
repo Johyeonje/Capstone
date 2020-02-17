@@ -77,7 +77,7 @@ def make_x_y(id_list, data, num, dtype=np.float32):
 def build_model():
     # CNN
     model = tf.keras.models.Sequential()
-    model.add(tf.keras.layers.Conv2D(8, (2, 2), activation='relu', padding='same', input_shape=(100, 200, 3)))
+    model.add(tf.keras.layers.Conv2D(8, (2, 2), activation='relu', padding='same', input_shape=(200, 400, 3)))
     model.add(tf.keras.layers.MaxPooling2D((2, 2)))
     model.add(tf.keras.layers.Conv2D(16, (2, 2), activation='relu', padding='same'))
     model.add(tf.keras.layers.MaxPooling2D((2, 2)))
@@ -99,11 +99,11 @@ def build_model():
 
 if __name__ == "__main__":
     # set data directories
-    train_data_dir = "../../FaceDataSet/ncrop/"
-    test_data_dir = "../../FaceDataSet/crop_test/"
-    model_dir = "trained_model4/"
+    train_data_dir = "../../FaceDataSet/aligned/"
+    test_data_dir = "../../FaceDataSet/aligned/"
+    model_dir = "trained_model8/"
     save_path = "../../FaceDataSet/"
-    log_dir = "logs/vern3"  # tensorboard --logdir logs/ver1
+    log_dir = "logs/ver8"  # tensorboard --logdir logs/ver1
 
     # set hyper parameter
     train_epoch_num = 100000
@@ -111,7 +111,7 @@ if __name__ == "__main__":
     batch_size = 100
     summary_interval = 1
     validation_interval = 100
-    store_interval = 5000
+    store_interval = 2500
 
     # train model setting
     model = build_model()
@@ -121,7 +121,7 @@ if __name__ == "__main__":
 
     # model load
     #model.load_weights(save_path + model_dir + "model-epoch-99000")
-    print("model loaded")
+    #print("model loaded")
 
     # load data
     train_id_list, train_data = load_data(train_data_dir)
@@ -160,4 +160,4 @@ if __name__ == "__main__":
             model.save_weights(model_name)
             print("Model saved as {}".format(model_name))
 
-print("Epoch : {}, Train Loss : {}".format(epoch+1, '%1.2f' % train_loss))
+print("Epoch : {}, Train Loss : {}".format(epoch+1, '%1.4f' % train_loss))
