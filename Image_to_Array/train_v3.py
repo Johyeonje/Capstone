@@ -75,6 +75,7 @@ def make_x_y(id_list, data, num, dtype=np.float32):
 
 
 def build_model():
+    # CNN
     model = tf.keras.models.Sequential()
     model.add(tf.keras.layers.Conv2D(8, (2, 2), activation='relu', padding='same'))
     model.add(tf.keras.layers.MaxPooling2D((2, 2)))
@@ -105,21 +106,21 @@ if __name__ == "__main__":
     # set hyper parameter
     train_epoch_num = 100000
     test_data_num = 1000
-
     batch_size = 100
     summary_interval = 1
     validation_interval = 100
     store_interval = 5000
 
-    # train model
+    # train model setting
     model = build_model()
 
-    # 컴파일
+    # compile setting
     model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
+    # model load
     #model.load_weights(save_path + model_dir + "model-epoch-99000")
-
     print("model loaded")
+
     # load data
     train_id_list, train_data = load_data(train_data_dir)
     test_id_list, test_data = load_data(test_data_dir)
@@ -133,6 +134,7 @@ if __name__ == "__main__":
     test_x = test_x / 255.0
 
     for epoch in range(train_epoch_num):
+
         batch_x, batch_y = make_x_y(train_id_list, train_data, batch_size)
         batch_x /= 255.0
 
