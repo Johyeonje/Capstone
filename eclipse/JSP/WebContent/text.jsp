@@ -16,9 +16,10 @@
 			System.out.println("text시작");
 			StringBuffer b;
 			InputStream inputStream = request.getInputStream();
+			DataInputStream dis = new DataInputStream(inputStream);
             b = new StringBuffer();
-            for (int ch = 0; (ch = inputStream.read()) != -1; ) {
-                b.append((char) ch);
+            for (String ch; (ch = dis.readUTF()) != null;)  {
+                b.append(ch);
             }
             System.out.print(b.toString());
             inputStream.close();
