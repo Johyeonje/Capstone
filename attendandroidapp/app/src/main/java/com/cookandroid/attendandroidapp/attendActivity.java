@@ -3,6 +3,7 @@ package com.cookandroid.attendandroidapp;
 import android.Manifest;
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
@@ -60,7 +61,7 @@ public class attendActivity extends AppCompatActivity {
     ImageView image;
     Button record_btn;
     EditText editbox3;
-
+    TextView text;
     private static final int REQ_CODE_SELECT_IMAGE = 100;
     private final int CAMERA_CAPTURE = 111;
     private String[] data1 = {"선택하세요"};
@@ -79,7 +80,7 @@ public class attendActivity extends AppCompatActivity {
         Spinner spinner = findViewById(R.id.spinner1);
         editbox3 = findViewById(R.id.edibox3);
         list_btn = findViewById(R.id.list_btn);
-
+        text = findViewById(R.id.text);
 
 
         datalist = new ArrayList<String>();
@@ -136,6 +137,34 @@ public class attendActivity extends AppCompatActivity {
                 .permitDiskWrites()
                 .permitNetwork().build());
     }
+    public class NetworkTask extends AsyncTask<Void, Void, String> {
+
+        private String url, fileName;
+
+        public NetworkTask(String url, String fileName) {
+            this.url = url;
+            this.fileName = fileName;
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            String result; // 요청 결과를 저장할 변수.
+            result = HttpURLConnection(url, "", fileName);
+            return result;
+
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            //doInBackground()로 부터 리턴된 값이 onPostExecute()의 매개변수로 넘어오므로 s를 출력한다.
+            Toast.makeText(getApplicationContext(),"response:"+s,Toast.LENGTH_SHORT);
+            text.setText(s);
+
+        }
+
+
+}
 
 
         private void checkSelfPermission() {
@@ -197,12 +226,12 @@ public class attendActivity extends AppCompatActivity {
         }
 
         public void DoFileUpload(String apiUrl, String absolutePath) {
-            fragment1Activity.NetworkTask networkTask = new fragment1Activity.NetworkTask(apiUrl,absolutePath);
+            NetworkTask networkTask = new NetworkTask(apiUrl,absolutePath);
             networkTask.execute();
         }
 
 
-        public static String HttpURLConnection(String urlString, String params, String fileName) {
+        public String HttpURLConnection(String urlString, String params, String fileName) {
             String lineEnd = "\r\n";
             String twoHyphens = "--";
             String boundary = "*****";

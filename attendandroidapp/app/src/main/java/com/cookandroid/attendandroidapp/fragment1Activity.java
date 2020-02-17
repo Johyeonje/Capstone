@@ -24,7 +24,6 @@ import java.util.ArrayList;
 public class fragment1Activity extends Fragment {
 
 
-
     public fragment1Activity() {
     }
 
@@ -35,7 +34,7 @@ public class fragment1Activity extends Fragment {
 
         super.onCreate(savedInstanceState);
     }
-   
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -92,40 +91,6 @@ public class fragment1Activity extends Fragment {
 
     }
 
-    public static class NetworkTask extends AsyncTask<Void, Void, String> {
-
-        private String url, fileName;
-        private Activity linearLayout;
-        final TextView text = linearLayout.findViewById(R.id.text);
-
-        public NetworkTask(String url, String fileName) {
-            this.url = url;
-            this.fileName = fileName;
-        }
-
-        @Override
-        protected String doInBackground(Void... params) {
-            String result; // 요청 결과를 저장할 변수.
-            result = attendActivity.HttpURLConnection(url, "", fileName);
-            return result;
-
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            //doInBackground()로 부터 리턴된 값이 onPostExecute()의 매개변수로 넘어오므로 s를 출력한다.
-            Toast.makeText(getApplicationContext(),"response:"+s,Toast.LENGTH_SHORT);
-            text.setText(s);
-
-        }
-
-        private Context getApplicationContext() {
-            return getApplicationContext();
-        }
-    }
-
-    }
-
+}
 
 

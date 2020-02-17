@@ -47,22 +47,22 @@ public class fragment2Activity extends Fragment {
             public void onClick(View view) {
                 switch (editbox.getText().toString()) {
 
-                    case "신효정":
+                    case "man1":
                         list2.setItemChecked(0, true);
                         break;
-                    case "임세민":
+                    case "man2":
                         list2.setItemChecked(1, true);
                         break;
-                    case "김지윤":
+                    case "man3":
                         list2.setItemChecked(2, true);
                         break;
-                    case "조다솜":
+                    case "man4":
                         list2.setItemChecked(3, true);
                         break;
-                    case "황하영":
+                    case "man5":
                         list2.setItemChecked(4, true);
                         break;
-                    case "김혜유":
+                    case "man6":
                         list2.setItemChecked(5, true);
                         break;
                 }
