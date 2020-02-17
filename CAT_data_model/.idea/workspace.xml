@@ -2,13 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="060df3ce-7e3f-46c4-ba1b-2c4be6748ee1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../Image_to_Array/train_v6(sig).py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PyInputDataAlgo1/input_data_algo.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Convolution/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../PyCnnTutorial/.idea/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Convolution/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PyCnnTutorial/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Convolution/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PyCnnTutorial/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Convolution/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PyCnnTutorial/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Convolution/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PyCnnTutorial/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Convolution/convol.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PyCnnTutorial/convol.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Train_input/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../PyInputDataAlgo1/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Train_input/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PyInputDataAlgo1/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Train_input/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PyInputDataAlgo1/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Train_input/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PyInputDataAlgo1/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Train_input/train_input.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
