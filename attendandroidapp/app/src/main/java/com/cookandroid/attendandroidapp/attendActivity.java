@@ -165,8 +165,7 @@ public class attendActivity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(),fragment1Activity.class);
             Toast.makeText(getBaseContext(), "response:" + s, Toast.LENGTH_SHORT);
             text.setText(s);
-            Fragment fragment = new testFragment(); // Fragment 생성
-            // Bundle bundle = new Bundle(); bundle.putString("param1", param1); // Key, Value bundle.putString("param2", param2); // Key, Value fragment.setArguments(bundle)
+        
         }
 
     }

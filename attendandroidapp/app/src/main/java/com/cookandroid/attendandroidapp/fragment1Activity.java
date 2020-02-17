@@ -47,51 +47,52 @@ public class fragment1Activity extends Fragment {
 
         /*데이터 수신*/
 
+            for (int i = 0; i < data.length; ++i) {
+                itemActivity oItem = new itemActivity();
+                oItem.data = data[nDatCnt++];
+                oData.add(oItem);
+                if (nDatCnt >= data.length) nDatCnt = 0;
+            }
 
-        for (int i = 0; i < data.length; ++i) {
-            itemActivity oItem = new itemActivity();
-            oItem.data = data[nDatCnt++];
-            oData.add(oItem);
-            if (nDatCnt >= data.length) nDatCnt = 0;
+
+            final ListView list1 = linearLayout.findViewById(R.id.list1);
+            adapterActivity Adapter = new adapterActivity(oData);
+            list1.setAdapter(Adapter);
+            list1.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+
+            search_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    switch (textlist1.getText().toString()) {
+
+                        case "000001":
+                            list1.setItemChecked(0, true);
+                            break;
+                        case "000002":
+                            list1.setItemChecked(1, true);
+                            break;
+                        case "000003":
+                            list1.setItemChecked(2, true);
+                            break;
+                        case "000004":
+                            list1.setItemChecked(3, true);
+                            break;
+                        case "000005":
+                            list1.setItemChecked(4, true);
+                            break;
+                        case "000006":
+                            list1.setItemChecked(5, true);
+                            break;
+
+                    }
+                }
+            });
+
+            return linearLayout;
+
         }
 
 
-        final ListView list1 = linearLayout.findViewById(R.id.list1);
-        adapterActivity Adapter = new adapterActivity(oData);
-        list1.setAdapter(Adapter);
-        list1.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-
-        search_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                switch (textlist1.getText().toString()) {
-
-                    case "000001":
-                        list1.setItemChecked(0, true);
-                        break;
-                    case "000002":
-                        list1.setItemChecked(1, true);
-                        break;
-                    case "000003":
-                        list1.setItemChecked(2, true);
-                        break;
-                    case "000004":
-                        list1.setItemChecked(3, true);
-                        break;
-                    case "000005":
-                        list1.setItemChecked(4, true);
-                        break;
-                    case "000006":
-                        list1.setItemChecked(5, true);
-                        break;
-
-                }
-            }
-        });
-
-        return linearLayout;
-
-    }
 
 
 }
