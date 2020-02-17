@@ -76,18 +76,15 @@ def make_x_y(id_list, data, num, dtype=np.float32):
 
 def build_model():
     model = tf.keras.models.Sequential()
+    model.add(tf.keras.layers.Conv2D(8, (2, 2), activation='relu', padding='same'))
+    model.add(tf.keras.layers.MaxPooling2D((2, 2)))
+    model.add(tf.keras.layers.Conv2D(16, (2, 2), activation='relu', padding='same'))
+    model.add(tf.keras.layers.MaxPooling2D((2, 2)))
     model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu', padding='same', input_shape=(100, 200, 3)))
     model.add(tf.keras.layers.MaxPooling2D((2, 2)))
     model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu', padding='same'))
     model.add(tf.keras.layers.MaxPooling2D((2, 2)))
     model.add(tf.keras.layers.Conv2D(128, (3, 3), activation='relu', padding='same'))
-    model.add(tf.keras.layers.MaxPooling2D((2, 2)))
-    model.add(tf.keras.layers.Conv2D(256, (2, 2), activation='relu', padding='same'))
-    model.add(tf.keras.layers.Conv2D(256, (2, 2), activation='relu', padding='same'))
-    model.add(tf.keras.layers.Conv2D(256, (2, 2), activation='relu', padding='same'))
-    model.add(tf.keras.layers.Conv2D(256, (2, 2), activation='relu', padding='same'))
-    model.add(tf.keras.layers.MaxPooling2D((2, 2)))
-    model.add(tf.keras.layers.Conv2D(512, (2, 2), activation='relu', padding='same'))
 
     # 출력층(Dense) 추가
     model.add(tf.keras.layers.Flatten())
@@ -106,8 +103,7 @@ if __name__ == "__main__":
     log_dir = "logs/ver4"  # tensorboard --logdir logs/ver1
 
     # set hyper parameter
-    train_epoch_num = 400000
-    train_data_num = 10000
+    train_epoch_num = 100000
     test_data_num = 1000
 
     batch_size = 100
@@ -121,7 +117,7 @@ if __name__ == "__main__":
     # 컴파일
     model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
-    model.load_weights(save_path + model_dir + "model-epoch-99000")
+    #model.load_weights(save_path + model_dir + "model-epoch-99000")
 
     print("model loaded")
     # load data
