@@ -20,11 +20,11 @@
             android:id="@+id/check_btn"/>
 
     </LinearLayout>
-<ListView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/list1"
-    android:background="#03A9F4"/>
+        <ListView
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:id="@+id/list1"
+           android:background="#03A9F4"/>
 
 
 </LinearLayout>

@@ -49,12 +49,6 @@ public class recordActivity extends AppCompatActivity {
 
         final String[] courseList = {"과목1", "과목2", "과목3", "과목4"};
 
-        Intent intent = getIntent();
-        final String text1 = intent.getStringExtra("text1");
-        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,fragment1).commit();
-        Bundle bundle = new Bundle();
-        bundle.putString("text1",text1); //fragment1로 번들 전달
-        fragment1.setArguments(bundle);
 
 
         final Spinner spinner2 = findViewById(R.id.spinner2);

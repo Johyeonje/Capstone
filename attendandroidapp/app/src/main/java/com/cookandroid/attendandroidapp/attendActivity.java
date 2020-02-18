@@ -62,7 +62,7 @@ public class attendActivity extends AppCompatActivity {
     ImageView image;
     Button record_btn;
     EditText editbox3;
-    TextView text;
+    TextView texts;
     Button send_btn;
 
     private static final int REQ_CODE_SELECT_IMAGE = 100;
@@ -83,7 +83,7 @@ public class attendActivity extends AppCompatActivity {
         Spinner spinner = findViewById(R.id.spinner1);
         editbox3 = findViewById(R.id.edibox3);
         list_btn = findViewById(R.id.list_btn);
-        text = findViewById(R.id.text);
+        texts = findViewById(R.id.texts);
 
         send_btn = findViewById(R.id.send_btn);
 
@@ -113,6 +113,17 @@ public class attendActivity extends AppCompatActivity {
             }
         });
 
+        send_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text1 = texts.getText().toString();
+                Intent intent2 = new Intent(attendActivity.this,recordActivity.class);
+                intent2.putExtra(text1,"text1");
+                startActivity(intent2);
+            }
+        });
+
+
         captureButton = findViewById(R.id.captureButton);
 
         captureButton.setOnClickListener(new View.OnClickListener() {
@@ -127,15 +138,6 @@ public class attendActivity extends AppCompatActivity {
             }
         });
 
-        send_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String text1 = text.getText().toString();
-                Intent intent2 = new Intent(attendActivity.this, recordActivity.class);
-                intent2.putExtra(text1, "text1");
-                startActivity(intent2);
-            }
-        });
 
         processButton = findViewById(R.id.processButton);
 
@@ -152,6 +154,9 @@ public class attendActivity extends AppCompatActivity {
                 .permitDiskWrites()
                 .permitNetwork().build());
     }
+
+
+
 
     public class NetworkTask extends AsyncTask<Void, Void, String> {
 
@@ -175,7 +180,9 @@ public class attendActivity extends AppCompatActivity {
             super.onPostExecute(s);
             //doInBackground()로 부터 리턴된 값이 onPostExecute()의 매개변수로 넘어오므로 s를 출력한다.
             Toast.makeText(getApplicationContext(), "response:" + s, Toast.LENGTH_SHORT);
-            text.setText(s);
+            texts.setText(s);
+
+
 
         }
 
