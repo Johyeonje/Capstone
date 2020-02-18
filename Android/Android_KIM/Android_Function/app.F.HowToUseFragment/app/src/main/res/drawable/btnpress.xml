@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@android:color/darker_gray" android:state_pressed="true"></item>
+    <item android:drawable="@android:color/white"></item>
+</selector>
+
+    <!--다음 값이 눌렸을때 다크 그레이가 나올 수 있도록 하는 버튼 -->
