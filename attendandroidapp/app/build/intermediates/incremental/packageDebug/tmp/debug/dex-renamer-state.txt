@@ -1,0 +1,4 @@
+#Tue Feb 18 14:36:19 KST 2020
+base.0=C\:\\GitHub\\Capstone\\attendandroidapp\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

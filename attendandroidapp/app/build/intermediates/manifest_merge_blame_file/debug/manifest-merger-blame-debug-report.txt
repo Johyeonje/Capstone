@@ -1,0 +1,91 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.cookandroid.attendandroidapp"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="19"
+8-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="29" />
+9-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+11-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:5:5-80
+11-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:5:22-77
+12    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+12-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:6:5-81
+12-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:6:22-78
+13    <uses-permission android:name="android.permission.INTERNET" />
+13-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:7:5-67
+13-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:7:22-64
+14    <uses-permission android:name="android.permission.CAMERA" />
+14-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:8:5-64
+14-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:8:22-62
+15
+16    <application
+16-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:9:5-33:19
+17        android:allowBackup="true"
+17-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:10:9-35
+18        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+18-->[androidx.core:core:1.1.0] C:\Users\USER\.gradle\caches\transforms-2\files-2.1\e9dab9c67c1ee3668e0bbf86c6d8cbd8\core-1.1.0\AndroidManifest.xml:24:18-86
+19        android:debuggable="true"
+20        android:icon="@mipmap/ic_launcher"
+20-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:11:9-43
+21        android:label="F-Attend"
+21-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:12:9-33
+22        android:requestLegacyExternalStorage="true"
+22-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:17:9-52
+23        android:roundIcon="@drawable/face"
+23-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:13:9-43
+24        android:supportsRtl="true"
+24-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:14:9-35
+25        android:theme="@style/AppTheme"
+25-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:15:9-40
+26        android:usesCleartextTraffic="true" >
+26-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:16:9-44
+27        <uses-library
+27-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:18:9-87
+28            android:name="org.apache.http.legacy"
+28-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:18:23-60
+29            android:required="false" />
+29-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:18:61-85
+30
+31        <activity android:name="com.cookandroid.attendandroidapp.MainActivity" >
+31-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:19:9-25:20
+31-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:19:19-47
+32            <intent-filter>
+32-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:20:13-24:29
+33                <action android:name="android.intent.action.MAIN" />
+33-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:21:17-69
+33-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:21:25-66
+34
+35                <category android:name="android.intent.category.LAUNCHER" />
+35-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:23:17-77
+35-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:23:27-74
+36            </intent-filter>
+37        </activity>
+38        <activity android:name="com.cookandroid.attendandroidapp.adminActivity" />
+38-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:26:9-50
+38-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:26:19-48
+39        <activity android:name="com.cookandroid.attendandroidapp.attend_courseActivity" />
+39-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:27:9-58
+39-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:27:19-56
+40        <activity android:name="com.cookandroid.attendandroidapp.attendActivity" />
+40-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:28:9-51
+40-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:28:19-49
+41        <activity android:name="com.cookandroid.attendandroidapp.loginActivity" />
+41-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:29:9-50
+41-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:29:19-48
+42        <activity android:name="com.cookandroid.attendandroidapp.recordActivity" />
+42-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:30:9-51
+42-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:30:19-49
+43        <activity android:name="com.cookandroid.attendandroidapp.computercourseActivity" />
+43-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:31:9-59
+43-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:31:19-57
+44        <activity android:name="com.cookandroid.attendandroidapp.myinfoActivity" />
+44-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:32:9-51
+44-->C:\GitHub\Capstone\attendandroidapp\app\src\main\AndroidManifest.xml:32:19-49
+45    </application>
+46
+47</manifest>
