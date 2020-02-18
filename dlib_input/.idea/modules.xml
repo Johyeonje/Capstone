@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/dlib_input.iml" filepath="$PROJECT_DIR$/.idea/dlib_input.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../PyDlibDetection/.idea/PyDlibDetection.iml" filepath="$PROJECT_DIR$/../PyDlibDetection/.idea/PyDlibDetection.iml" />
     </modules>
   </component>
 </project>
