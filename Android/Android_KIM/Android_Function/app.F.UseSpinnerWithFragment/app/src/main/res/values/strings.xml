@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">UseSpinnerWithFragment</string>
+
+    <string-array name="fragments">
+
+        <item> FRAC </item>
+        <item> 옵션 </item>
+        <item> 메인메뉴 </item>
+
+    </string-array>
+ <!--====================== 스피너 메뉴의 이름을 바꾸려면 이곳에서 바꿔야한다.==========================-->
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
