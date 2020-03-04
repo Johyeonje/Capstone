@@ -100,7 +100,8 @@ def get_eer(y_pred, y_true):
             false_num += 1
 
     # Get Equal Error Rate
-    diff = len(y_pred); eer = 1
+    diff = len(y_pred)
+    eer = 1
     for threshold in [i*0.01 for i in range(100)]:
         false_positive_num = 0; false_negative_num = 0
         for i in range(len(y_pred)):
@@ -116,7 +117,7 @@ def get_eer(y_pred, y_true):
             diff = abs(false_positive_num - false_negative_num)
             eer = ((false_positive_num / true_num) + (false_negative_num / false_num)) / 2
 
-        return eer
+    return eer
 
 
 if __name__ == "__main__":
