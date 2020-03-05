@@ -125,11 +125,11 @@ if __name__ == "__main__":
     indir = "../../FaceDataSet/"
     train_dir = os.path.join(indir, "crop")
     test_dir = os.path.join(indir, "ncrop")
-    log_dir = "logs/ver5"
-    chkpt_dir = os.path.join(indir, "trained_model3")
+    log_dir = "logs/zinzin-ver1"
+    chkpt_dir = os.path.join(indir, "zin_trained_model1")
 
     # Set hyper parameters
-    train_epoch_num = 100000
+    train_epoch_num = 200000
     people_num = 50  # Note that (batch size) == 2 * (people_num)
     learning_rate = 0.001
 
@@ -143,6 +143,10 @@ if __name__ == "__main__":
     loss = tf.losses.BinaryCrossentropy()
     model.compile(optimizer=optimizer, loss=loss)
 
+    # Load model
+    load_path = os.path.join(chkpt_dir, "chkpt-100000")
+    model.load_weights()
+
     # Create data loaders
     train_data_loader = DataGenerator(train_dir, people_num=people_num).create_data_loader()
     test_data_loader = DataGenerator(test_dir, people_num=10).create_data_loader()
@@ -151,13 +155,13 @@ if __name__ == "__main__":
     writer = tf.summary.create_file_writer(logdir=log_dir)
 
     # training
-    for epoch, (batch_x, batch_y) in enumerate(train_data_loader.repeat()):
+    for epoch, (batch_x, batch_y) in enumerate(train_data_loader.repeat(), 100001):
         train_loss = model.train_on_batch(batch_x, batch_y)
-        train_eer = get_eer(model.predict(batch_x), batch_y)
+        #train_eer = get_eer(model.predict(batch_x), batch_y)
 
         with writer.as_default():
             tf.summary.scalar("Train Loss", train_loss, step=epoch)
-            tf.summary.scalar("Train EER", train_eer, step=epoch)
+            #tf.summary.scalar("Train EER", train_eer, step=epoch)
 
         if epoch != 0 and epoch % 1000 == 0:
             test_loss_list = []; test_eer_list = []
@@ -177,7 +181,8 @@ if __name__ == "__main__":
             filepath = os.path.join(chkpt_dir, "chkpt-" + str(epoch))
             model.save_weights(filepath)
 
-        print("Epoch : {}, Train Loss : {}, Train EER : {}".format(epoch, "%1.3f" % train_loss, "%1.3f" % train_eer))
+        #print("Epoch : {}, Train Loss : {}, Train EER : {}".format(epoch, "%1.3f" % train_loss, "%1.3f" % train_eer))
+        print("Epoch : {}, Train Loss : {}".format(epoch, "%1.3f" % train_loss))
 
         if epoch >= train_epoch_num:
             break
