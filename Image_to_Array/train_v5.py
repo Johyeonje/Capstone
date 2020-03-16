@@ -68,6 +68,7 @@ class DataGenerator:
         return dataloader
 
 
+
 def create_model():
     """ Function to create model """
     model = tf.keras.models.Sequential()
@@ -131,7 +132,7 @@ if __name__ == "__main__":
     # Set hyper parameters
     train_epoch_num = 200000
     people_num = 50  # Note that (batch size) == 2 * (people_num)
-    learning_rate = 0.001
+    learning_rate = 0.01
 
     test_data_num = 1
 
@@ -139,13 +140,17 @@ if __name__ == "__main__":
     model = create_model()
 
     # Compile model
+    # initial_lr = 0.01
+    # end_lr = 0.0001
+    # decay_steps = train_epoch_num
+    # learning_rate = tf.keras.optimizers.schedules.PolynomialDecay(initial_lr, decay_steps, end_lr)
     optimizer = tf.optimizers.Adam(learning_rate=learning_rate)
     loss = tf.losses.BinaryCrossentropy()
     model.compile(optimizer=optimizer, loss=loss)
 
     # Load model
     load_path = os.path.join(chkpt_dir, "chkpt-100000")
-    model.load_weights()
+    model.load_weights(load_path)
 
     # Create data loaders
     train_data_loader = DataGenerator(train_dir, people_num=people_num).create_data_loader()
@@ -155,7 +160,7 @@ if __name__ == "__main__":
     writer = tf.summary.create_file_writer(logdir=log_dir)
 
     # training
-    for epoch, (batch_x, batch_y) in enumerate(train_data_loader.repeat(), 100001):
+    for epoch, (batch_x, batch_y) in enumerate(train_data_loader.repeat(), 103000):
         train_loss = model.train_on_batch(batch_x, batch_y)
         #train_eer = get_eer(model.predict(batch_x), batch_y)
 
@@ -188,4 +193,3 @@ if __name__ == "__main__":
             break
 
     print("Optimization is Done!")
-

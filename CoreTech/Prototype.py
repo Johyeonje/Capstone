@@ -50,10 +50,10 @@ def build_model():
 
 
 if __name__ == "__main__":
-    # file_path = sys.argv[1]
-    # file_name = sys.argv[2]
-    file_path = "D:/Study/Capstone/CoreTech"
-    file_name = "1579970655152-0.jpg"
+    file_path = sys.argv[1]
+    file_name = sys.argv[2]
+    # file_path = "D:/Study/Capstone/CoreTech"
+    # file_name = "1579970655152-0.jpg"
     predictor_model = os.path.join(file_path, "../../FaceDataSet/shape_predictor_68_face_landmarks.dat")
     cmp_img_path = os.path.join(file_path, "RealTest/CmpImg")
     org_img_path = file_path + "/" + file_name
@@ -83,7 +83,7 @@ if __name__ == "__main__":
         except Exception as ex:
             print(ex)
     if trigger == 0:
-        os.remove(org_img_path)
+        #os.remove(org_img_path)
         print("얼굴 못 찾음")
         exit()
     input_img_list = np.array(input_data_list)
@@ -100,4 +100,4 @@ if __name__ == "__main__":
             if k != num_list[i]:
                 print(num_list[i])
                 k = num_list[i]
-    os.remove(org_img_path)
+    #os.remove(org_img_path)

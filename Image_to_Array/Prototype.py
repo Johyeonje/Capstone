@@ -21,27 +21,24 @@ def make_x_y(input_list, cmp_list, dtype=np.float32):
             x.append(_x)
             num_list.append(cmp_stu_list[i])
 
-    return np.array(x).astype(dtype), num_list
+    return np.array(x).astype(dtype), num_list, x
 
 
 def build_model():
-    # CNN
+    """ Function to create model """
     model = tf.keras.models.Sequential()
-    model.add(tf.keras.layers.Conv2D(8, (2, 2), activation='relu', padding='same', input_shape=(100, 200, 3)))
-    model.add(tf.keras.layers.MaxPooling2D((2, 2)))
-    model.add(tf.keras.layers.Conv2D(16, (2, 2), activation='relu', padding='same'))
+    model.add(tf.keras.layers.Conv2D(8, (3, 3), activation='relu', padding='same'))
     model.add(tf.keras.layers.MaxPooling2D((2, 2)))
     model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu', padding='same'))
     model.add(tf.keras.layers.MaxPooling2D((2, 2)))
-    model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu', padding='same'))
+    model.add(tf.keras.layers.Conv2D(64, (2, 2), activation='relu', padding='same'))
     model.add(tf.keras.layers.MaxPooling2D((2, 2)))
-    model.add(tf.keras.layers.Dropout(0.25))
-    model.add(tf.keras.layers.Conv2D(128, (3, 3), activation='relu', padding='same'))
+    model.add(tf.keras.layers.Conv2D(128, (2, 2), activation='relu', padding='same'))
+    model.add(tf.keras.layers.MaxPooling2D((2, 2)))
+    model.add(tf.keras.layers.Conv2D(256, (2, 2), activation='relu', padding='same'))
 
-    # 출력층(Dense) 추가
     model.add(tf.keras.layers.Flatten())
-    model.add(tf.keras.layers.Dense(64, activation='relu'))
-    model.add(tf.keras.layers.Dropout(0.5))
+    model.add(tf.keras.layers.Dense(128, activation='relu'))
     model.add(tf.keras.layers.Dense(2, activation='softmax'))
 
     return model
@@ -52,7 +49,7 @@ if __name__ == "__main__":
     #input_img_path = "./RealTest/InputImg"
     cmp_img_path = "./RealTest/CmpImg"
     org_img_path = "./RealTest/OrgImg/9.jpg"
-    model_name = "../../FaceDataSet/trained_model4/model-epoch-25000_v2"
+    model_name = "../../FaceDataSet/zin_trained_model1/chkpt-200000"
     cmp_stu_list = []
     cmp_data_list = []
     cmp_img_list = []
@@ -60,7 +57,8 @@ if __name__ == "__main__":
 
     # set hyper parameter
     input_size = (100, 100)
-    cmp_num = 0.7
+    cmp_num = 0.999
+    learning_rate = 0.01
 
     # load data
     cmp_stu_list = glob.glob(cmp_img_path + "/*.jpg")  # 기존 등록되어 있던 이미지의 리스트 생성
@@ -88,7 +86,7 @@ if __name__ == "__main__":
     print(cmp_img_list.shape)
 
     # make data set
-    cat_set, num_list = make_x_y(input_img_list, cmp_img_list)
+    cat_set, num_list, x = make_x_y(input_img_list, cmp_img_list)
     print(num_list)
     print("cat_set :")
     print(cat_set.shape)
@@ -96,7 +94,7 @@ if __name__ == "__main__":
     model = build_model()
 
     # 컴파일
-    optimizer = tf.keras.optimizers.Adam()
+    optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate)
     model.compile(optimizer=optimizer, loss='binary_crossentropy', metrics=['accuracy'])
     ####
     # load model
@@ -105,8 +103,9 @@ if __name__ == "__main__":
     # Predict model
     prediction = model.predict(cat_set)
     for i, compare in enumerate(prediction):
-        if prediction[i][1] > cmp_num:
-            #print(i)
-            cv2.imshow(str(i), cat_set[i])
+        if compare[0] > cmp_num:
+            print(i)
+            cv2.imshow(str(i), x[i])
 
-    #print(prediction)
+    print(prediction)
+    cv2.waitKey(0)
