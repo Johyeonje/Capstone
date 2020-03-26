@@ -103,6 +103,7 @@ def get_eer(y_pred, y_true):
     # Get Equal Error Rate
     diff = len(y_pred)
     eer = 1
+    last_threshold = 0
     for threshold in [i*0.01 for i in range(100)]:
         false_positive_num = 0; false_negative_num = 0
         for i in range(len(y_pred)):
@@ -117,8 +118,9 @@ def get_eer(y_pred, y_true):
         if diff > abs(false_positive_num - false_negative_num):
             diff = abs(false_positive_num - false_negative_num)
             eer = ((false_positive_num / true_num) + (false_negative_num / false_num)) / 2
+            last_threshold = threshold
 
-    return eer
+    return eer, last_threshold
 
 
 if __name__ == "__main__":
@@ -174,7 +176,7 @@ if __name__ == "__main__":
                 if i == test_data_num: break
                 y_pred = model.predict(batch_x)
                 test_loss = loss(batch_y, y_pred)
-                test_eer = get_eer(y_pred, batch_y)
+                test_eer, threshold = get_eer(y_pred, batch_y)
                 test_loss_list.append(test_loss)
                 test_eer_list.append(test_eer)
 

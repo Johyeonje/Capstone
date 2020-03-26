@@ -57,7 +57,7 @@ if __name__ == "__main__":
 
     # set hyper parameter
     input_size = (100, 100)
-    cmp_num = 0.999
+    threshold = 0.999
     learning_rate = 0.01
 
     # load data
@@ -103,7 +103,7 @@ if __name__ == "__main__":
     # Predict model
     prediction = model.predict(cat_set)
     for i, compare in enumerate(prediction):
-        if compare[0] > cmp_num:
+        if compare[0] > threshold:
             print(i)
             cv2.imshow(str(i), x[i])
 
