@@ -1,0 +1,9 @@
+로그인
+select EXISTS (select * from PROFESSOR where PRO_ID = %PRO_ID% AND PWD = %PWD%) as success
+성공 여부가 0,1로 나옴
+
+로그인 성공시 과목 출력
+SELECT SUB_ID, SUB_NAME FROM SUB WHERE PRO_ID = %PRO_ID%
+
+과목 선택시 
+SELECT STU_ID FROM LECTURE WHERE SUB_ID = %SUB_ID%

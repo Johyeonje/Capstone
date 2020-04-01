@@ -21,7 +21,6 @@ constraint SUB_SUB_ID_PK primary key(SUB_ID),
 constraint SUB_PRO_ID_FK foreign key(PRO_ID) references PROFESSOR(PRO_ID)
 ) ENGINE=InnoDB default charset=utf8;
 
-
 create table LECTURE (
 SUB_ID INT(9),
 STU_ID INT(9),

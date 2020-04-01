@@ -38,7 +38,7 @@ public class TextUpload {
     public static String HttpURLConnection(String urlString, String params, String[] text) {
         try {
             URL url = new URL(urlString);
-            HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
+            HttpURLConnection urlConn = (HttpURLConnection) url.openConnection()
 
             // [2-1]. urlConn 설정.
             urlConn.setDoInput(true);
