@@ -109,6 +109,7 @@ if __name__ == "__main__":
     #         print(i)
     #         cv2.imshow(str(i), x[i])
     compare.reshape(7,9)
+    compare = np.max(compare, axis=1)
     print(compare)
     print(prediction)
     cv2.waitKey(0)
