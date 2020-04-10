@@ -57,7 +57,7 @@ if __name__ == "__main__":
 
     # set hyper parameter
     input_size = (100, 100)
-    threshold = 0.999
+    threshold = 0.765
     learning_rate = 0.01
 
     # load data
@@ -102,11 +102,13 @@ if __name__ == "__main__":
     print("starting predict")
     # Predict model
     prediction = model.predict(cat_set)
+
     compare = np.max(prediction, axis=1)
     # for i, compare in enumerate(prediction):
     #     if compare[0] > threshold:
     #         print(i)
     #         cv2.imshow(str(i), x[i])
+    compare.reshape(7,9)
     print(compare)
     print(prediction)
     cv2.waitKey(0)
