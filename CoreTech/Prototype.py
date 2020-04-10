@@ -29,41 +29,37 @@ def make_x_y(input_list, cmp_list, dtype=np.float32):
 def build_model():
     # CNN
     model = tf.keras.models.Sequential()
-    model.add(tf.keras.layers.Conv2D(8, (2, 2), activation='relu', padding='same', input_shape=(200, 400, 3)))
-    model.add(tf.keras.layers.MaxPooling2D((2, 2)))
-    model.add(tf.keras.layers.Conv2D(16, (2, 2), activation='relu', padding='same'))
+    model.add(tf.keras.layers.Conv2D(8, (3, 3), activation='relu', padding='same'))
     model.add(tf.keras.layers.MaxPooling2D((2, 2)))
     model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu', padding='same'))
     model.add(tf.keras.layers.MaxPooling2D((2, 2)))
-    model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu', padding='same'))
+    model.add(tf.keras.layers.Conv2D(64, (2, 2), activation='relu', padding='same'))
     model.add(tf.keras.layers.MaxPooling2D((2, 2)))
-    model.add(tf.keras.layers.Dropout(0.25))
-    model.add(tf.keras.layers.Conv2D(128, (3, 3), activation='relu', padding='same'))
+    model.add(tf.keras.layers.Conv2D(128, (2, 2), activation='relu', padding='same'))
+    model.add(tf.keras.layers.MaxPooling2D((2, 2)))
+    model.add(tf.keras.layers.Conv2D(256, (2, 2), activation='relu', padding='same'))
 
-    # 출력층(Dense) 추가
     model.add(tf.keras.layers.Flatten())
-    model.add(tf.keras.layers.Dense(64, activation='relu'))
-    model.add(tf.keras.layers.Dropout(0.5))
+    model.add(tf.keras.layers.Dense(128, activation='relu'))
     model.add(tf.keras.layers.Dense(2, activation='softmax'))
 
     return model
 
 
 if __name__ == "__main__":
-    file_path = sys.argv[1]
-    file_name = sys.argv[2]
-    # file_path = "D:/Study/Capstone/CoreTech"
-    # file_name = "1579970655152-0.jpg"
+    # file_path = sys.argv[1]
+    # file_name = sys.argv[2]
+    file_path = "D:/Study/Capstone/CoreTech"
+    file_name = "1579970655152-0.jpg"
     predictor_model = os.path.join(file_path, "../../FaceDataSet/shape_predictor_68_face_landmarks.dat")
     cmp_img_path = os.path.join(file_path, "RealTest/CmpImg")
     org_img_path = file_path + "/" + file_name
-    model_name = os.path.join(file_path, "../../FaceDataSet/trained_model8/model-epoch-5000")
+    model_name = os.path.join(file_path, "../../FaceDataSet/zin_trained_model1/chkpt-200000")
     cmp_stu_list = []
     cmp_data_list = []
     cmp_img_list = []
     input_data_list = []
     cmp_num = 0
-        exit()
     input_img_list = np.array(input_data_list)
     cmp_img_list = np.array(cmp_data_list)
     cat_set, num_list = make_x_y(input_img_list, cmp_img_list)

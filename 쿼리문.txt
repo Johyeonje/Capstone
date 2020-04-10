@@ -7,3 +7,5 @@ SELECT SUB_ID, SUB_NAME FROM SUB WHERE PRO_ID = %PRO_ID%
 
 과목 선택시 
 SELECT STU_ID FROM LECTURE WHERE SUB_ID = %SUB_ID%
+
+select stu_id, stu_name from student where stu_id IN (select stu_id from lecture where sub_id = %sub_id%)

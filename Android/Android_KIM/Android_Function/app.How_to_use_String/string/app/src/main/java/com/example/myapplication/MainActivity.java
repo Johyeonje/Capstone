@@ -3,6 +3,7 @@ package com.example.myapplication;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -31,14 +33,14 @@ public class MainActivity extends AppCompatActivity {
     String MSG;
     TextView text;
     EditText send;
-    String url = "http://rbghoneroom402.iptime.org:48526/JSP/Test.jsp";
+    String url = "http://rbghoneroom402.iptime.org:48526/JSP/text.jsp";
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        final String[] str = {"str", "str1"};
 
         button = findViewById(R.id.button);
         button2 = findViewById(R.id.button2);
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NetworkTask networkTask = new NetworkTask(url);
+                NetworkTask networkTask = new NetworkTask(url, str);
                 networkTask.execute();
             }
         });
@@ -58,118 +60,67 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 MSG = text.getText().toString();
-                NetworkTask networkTask = new NetworkTask(url);
+                NetworkTask networkTask = new NetworkTask(url, str);
                 networkTask.execute();
             }
         });
 
 
     }
-    public class NetworkTask extends AsyncTask<String, Void, String> {
+    public static class NetworkTask extends AsyncTask<Void, Void, String> {
 
         private String url;
-        String sendMSG;
+        private String[] text;
+        private Context context;
 
-
-        public NetworkTask(String url) {
+        public NetworkTask(String url, String[] text) {
             this.url = url;
+            this.text = text;
         }
-    @Override
-    protected String doInBackground(String... strings) {
-        String result; // 요청 결과를 저장할 변수.
 
-        result = HttpURLConnection("http://rbghoneroom402.iptime.org:48526/JSP/text.jsp");// 해당 URL로 부터 결과물을 얻어온다.
-        try {
-            String str;
-            URL url = new URL(result); // 다음 데이터를 보낼 JSP가 실행되는 주소를 입력하면 된다.
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            conn.setRequestMethod("POST");//데이터를 POST 방식으로 전송합니다.
-            conn.setDoInput(true);
-            conn.setDoOutput(true);
-            conn.setRequestProperty("Connection", "Keep-Alive");
-            conn.setRequestProperty("Cache-Control", "no-cache");
-            conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=*****;charset=utf-8");
+        @Override
+        protected String doInBackground(Void... params) {
+            String result; // 요청 결과를 저장할 변수.
+            result = HttpURLConnection (url, "", text); // 해당 URL로 부터 결과물을 얻어온다.
+            return result;
+        }
 
-            OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
-            //DataOutputStream osw = new DataOutputStream(conn.getOutputStream());
-            sendMSG = "messege=";
-            //sendMSG = "id="+strings[0]+"&pwd="+strings[1];//보낼 정보인데요. GET방식으로 작성합니다. ex) "id=rain483&pwd=1234";
-            //회원가입처럼 보낼 데이터가 여러 개일 경우 &로 구분하여 작성합니다.
-            osw.write("hi");
-/*
-            osw.writeBytes("Content-Disposition: form-data; name=\"hangul\"");
-            //한글 부분만 writeUTF 을 사용하여 전송하면 깨지지않고 보낼 수 있다.
-            osw.writeBytes("Content-Disposition: form-data; name=\"hangul\"");
-            osw.writeBytes(sendMSG);//OutputStreamWriter에 담아 전송합니다.
-            osw.writeUTF("한글");
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            //doInBackground()로 부터 리턴된 값이 onPostExecute()의 매개변수로 넘어오므로 s를 출력한다
+        }
+    }
 
- */
-            osw.flush();
-            //jsp와 통신이 정상적으로 되었을 때 할 코드들입니다.
-            if(conn.getResponseCode() == conn.HTTP_OK) {
-                InputStreamReader tmp = new InputStreamReader(conn.getInputStream(), "UTF-8");
-                BufferedReader reader = new BufferedReader(tmp);
-                StringBuffer buffer = new StringBuffer();
-                //jsp에서 보낸 값을 받겠죠?
-                while ((str = reader.readLine()) != null) {
-                    buffer.append(str);
+        public static String HttpURLConnection(String urlString, String params, String[] text) {
+            try {
+                URL url = new URL(urlString);
+                HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
+
+                // [2-1]. urlConn 설정.
+                urlConn.setDoInput(true);
+                urlConn.setDoOutput(true);
+                urlConn.setUseCaches(false);
+                urlConn.setRequestMethod("POST"); // URL 요청에 대한 메소드 설정 : POST.
+                urlConn.setRequestProperty("Accept-Charset", "UTF-8"); // Accept-Charset 설정.
+                urlConn.setRequestProperty("Context_Type", "text/html; charset=UTF-8");
+
+                // [2-2]. parameter 전달 및 데이터 읽어오기.
+                OutputStream os = urlConn.getOutputStream();
+                DataOutputStream dos = new DataOutputStream(os);
+                for (String s : text) {
+                    dos.writeUTF(s);
+//                os.write(s.getBytes("UTF-8"));
+//                os.write("\r\n".getBytes("UTF-8"));
                 }
-
-            } else {
-                Log.i("통신 결과", conn.getResponseCode()+"에러");
-                // 통신이 실패했을 때 실패한 이유를 알기 위해 로그를 찍습니다.
+                os.flush(); // 출력 스트림을 플러시(비운다)하고 버퍼링 된 모든 출력 바이트를 강제 실행.
+                os.close(); // 출력 스트림을 닫고 모든 시스템 자원을 해제.
+                return null;
+            } catch (Exception e) {
+                return null;
+                // TODO: handle exception
             }
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-
-        return result;
-    }
-    @Override
-    protected void onPostExecute(String s) {
-        super.onPostExecute(s);
-        //doInBackground()로 부터 리턴된 값이 onPostExecute()의 매개변수로 넘어오므로 s를 출력한다.
-      text.setText(s);
-    }
-}
-
-    public String HttpURLConnection(String Uri) {
-
-        BufferedReader br = null;
-        String returnText = "";
-        String data = "";
-        try {
-
-            URL connectUrl = new URL(Uri);
-            // HttpURLConnection 통신
-            HttpURLConnection conn = (HttpURLConnection) connectUrl.openConnection();
-            conn.setDoInput(true);
-            conn.setDoOutput(true);
-            conn.setUseCaches(false);
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Connection", "Keep-Alive");
-            // write data
-            StringBuffer b;
-            try (InputStream is = conn.getInputStream()) {
-                b = new StringBuffer();
-                for (int ch = 0; (ch = is.read()) != -1; ) {
-                    b.append((char) ch);
-                }
-            }
-            returnText = b.toString();
-
-        } catch (Exception e) {
-            return null;
-            // TODO: handle exception
-        }
-
-        return returnText;
-
-    }
 
 // ==========================================11=====11==========11=======11===============문자를 보내기 위해서=====
 /*

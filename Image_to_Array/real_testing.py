@@ -61,7 +61,7 @@ if __name__ == "__main__":
         train_img_list.extend(train_all_img)
 
     for i in range(1, x_type_size, 1):
-        test_all_img = glob.glob(train_img_path + "Face" + str(i) + "/*.jpg")
+        test_all_img = glob.glob(test_img_path + "Face" + str(i) + "/*.jpg")
         for k in range(0, len(test_all_img), 1):
             test_stu_num.extend(str(i))
         test_img_list.extend(test_all_img)
