@@ -102,10 +102,11 @@ if __name__ == "__main__":
     print("starting predict")
     # Predict model
     prediction = model.predict(cat_set)
-    for i, compare in enumerate(prediction):
-        if compare[0] > threshold:
-            print(i)
-            cv2.imshow(str(i), x[i])
-
+    compare = np.max(prediction, axis=1)
+    # for i, compare in enumerate(prediction):
+    #     if compare[0] > threshold:
+    #         print(i)
+    #         cv2.imshow(str(i), x[i])
+    print(compare)
     print(prediction)
     cv2.waitKey(0)
