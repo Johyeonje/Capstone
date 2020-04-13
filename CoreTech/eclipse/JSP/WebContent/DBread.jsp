@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" import="java.sql.*"
+<%@ page language="java" contentType="text/html; charset=UTF-8" import="java.sql.*"
     pageEncoding="UTF-8"%>
+<%@page import="java.io.OutputStream"%>
+<%@page import="java.io.DataOutputStream"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +22,7 @@
 		conn = DriverManager.getConnection(jdbc_url,"capstone", "1q2w3e4r");
 		//String sql = "insert into lecture values(?,?)";
 		String login = "select EXISTS (select * from PROFESSOR where PRO_ID = '" + PRO_ID + "' AND PWD = '" + PWD + "') as success";
-		String sub = "SELECT SUB_ID, SUB_NAME FROM SUB WHERE PRO_ID = " + PRO_ID;
+		String sub = "SELECT SUB_ID, SUB_NAME FROM SUB";
 		pstmt = conn.prepareStatement(login);
 		rs = pstmt.executeQuery();
 		int success=0;
@@ -32,12 +34,15 @@
 			System.out.println("로그인 성공");
 			pstmt = conn.prepareStatement(sub);
 			rs = pstmt.executeQuery();
-			while(rs.next())
-			{
+			OutputStream outputStream = response.getOutputStream();
+			DataOutputStream dos = new DataOutputStream(outputStream);
+			while (rs.next()) {
 				String SUB_ID = rs.getString(1);
 				String SUB_NAME = rs.getString(2);
-				System.out.println(SUB_ID + "\t" + SUB_NAME);
+				dos.writeUTF(SUB_ID + "\t" + SUB_NAME);
 			}
+			dos.close();
+			outputStream.close();
 		}
 		else
 			System.out.println("로그인 실패");

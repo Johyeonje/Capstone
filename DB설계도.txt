@@ -6,6 +6,9 @@ IMAGE VARCHAR(10),
 constraint STUDENT_STU_ID_PK primary key(STU_ID)
 ) ENGINE=InnoDB default charset=utf8;
 
+ALTER TABLE `capstonedb`.`student` 
+CHANGE COLUMN `IMAGE` `IMAGE` VARCHAR(30) NULL DEFAULT NULL ;
+
 create table PROFESSOR (
 PRO_ID INT(9),
 PRO_NAME VARCHAR(10),
@@ -28,3 +31,6 @@ constraint LECTURE_PK primary key(SUB_ID, STU_ID),
 constraint LECTURE_SUB_ID_FK foreign key(SUB_ID) references SUB(SUB_ID),
 constraint LECTURE_STU_ID_FK foreign key(STU_ID) references STUDENT(STU_ID)
 ) ENGINE=InnoDB default charset=utf8;
+
+ALTER TABLE `capstonedb`.`lecture` 
+CHANGE COLUMN `` `FLAG` INT(1) NULL DEFAULT 0 ;
