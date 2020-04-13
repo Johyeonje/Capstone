@@ -18,6 +18,8 @@ def make_x_y(input_list, cmp_list, dtype=np.float32):
     for i, cmp_img in enumerate(cmp_list):
         for j, input_img in enumerate(input_list):
             _x = cv2.hconcat([cmp_img, input_img])
+            cv2.imshow(str(i)+str(j), _x)
+            cv2.waitKey(0)
             x.append(_x)
             num_list.append(cmp_stu_list[i])
 
@@ -48,7 +50,7 @@ if __name__ == "__main__":
     # set data directories
     #input_img_path = "./RealTest/InputImg"
     cmp_img_path = "./RealTest/CmpImg"
-    org_img_path = "./RealTest/OrgImg/9.jpg"
+    org_img_path = "./RealTest/OrgImg/5.jpg"
     model_name = "../../FaceDataSet/zin_trained_model1/chkpt-200000"
     cmp_stu_list = []
     cmp_data_list = []
@@ -75,6 +77,8 @@ if __name__ == "__main__":
         try:
             face = org_img[top:bottom, left:right, :]  # 좌표값들을 통해서 실제 얼굴이 있는 위치를 범위로 뽑아내는 것
             face = cv2.resize(face, dsize=input_size)  # resize 단계 (dsize가 기존에 저장된 사이즈를 불러와 진행)
+            cv2.imshow("1", face)
+            cv2.waitKey(0)
             input_data_list.append(face)
         except Exception as ex:
             print(ex)
@@ -103,14 +107,9 @@ if __name__ == "__main__":
     # Predict model
     prediction = model.predict(cat_set)
 
-    compare = np.max(prediction, axis=1)
-    # for i, compare in enumerate(prediction):
-    #     if compare[0] > threshold:
-    #         print(i)
-    #         cv2.imshow(str(i), x[i])
-    compare.reshape(7,9)
-    print(compare)
-    compare2 = np.max(compare, axis=1)
-    print(compare2)
+    for i, compare in enumerate(prediction):
+        if compare[0] > compare[1]:
+            print(i)
+
     print(prediction)
     cv2.waitKey(0)

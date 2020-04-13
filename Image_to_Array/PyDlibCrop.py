@@ -17,7 +17,7 @@ if __name__ == "__main__":  # 본 코드를 import 시에 이 코드가 자동 �
 
     train_img_dir = "../../FaceDataSet/"  # 현재 위치
     for face_num in range(1, len(os.listdir(train_img_dir+"train/")), 1):
-        load_path = train_img_dir + "train/Face" + str(face_num)
+        load_path = "./RealTest/OrgImg"
         # train_img_list = os.listdir(load_path)
         train_img_list = glob.glob(load_path + "/*.jpg")  # .jpg로 끝나는 파일들을 모두 리스트로 읽어들임
         # print(train_data_list)
