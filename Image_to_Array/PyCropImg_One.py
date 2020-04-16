@@ -20,6 +20,7 @@ if __name__ == "__main__":
     face_detector = dlib.get_frontal_face_detector()
     face_pose_predictor = dlib.shape_predictor(predictor_model)
     face_aligner = openface.AlignDlib(predictor_model)
+    detected_faces = face_detector(img, 1)
     for i, face_rect in enumerate(detected_faces):
         left, right, top, bottom = face_lect.left(), face_rect.right(), face_rect.top(), face_rect.bottom()
 
