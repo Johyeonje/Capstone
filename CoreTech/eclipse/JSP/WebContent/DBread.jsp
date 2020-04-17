@@ -41,6 +41,7 @@
 				String SUB_NAME = rs.getString(2);
 				dos.writeUTF(SUB_ID + "\t" + SUB_NAME);
 			}
+			dos.flush();
 			dos.close();
 			outputStream.close();
 		}

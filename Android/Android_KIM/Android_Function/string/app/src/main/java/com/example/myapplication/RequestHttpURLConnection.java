@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.content.ContentValues;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -66,14 +67,15 @@ public class RequestHttpURLConnection {
             urlConn.setRequestMethod("POST");
             urlConn.setRequestProperty("Accept_charset" , "UTF-8");
             urlConn.setRequestProperty("Context_Type","application/x-www-form-urlencoded;charset=UTF-8");
-
+            String[] text = {"가나다","라마바"};
             //[2-2]. parameter 전달 및 데이터 읽어온다.
-            String strParams = sbParams.toString();
-            OutputStream os = urlConn.getOutputStream();
-            os.write(strParams.getBytes("UTF-8"));
-            os.flush();
-            os.close();
-
+            DataOutputStream dos = new DataOutputStream(urlConn.getOutputStream());
+            // [2-2]. parameter 전달 및 데이터 읽어오기.
+            for (String s : text) {
+                dos.writeUTF(s);
+            }
+            dos.flush(); // 출력 스트림을 플러시(비운다)하고 버퍼링 된 모든 출력 바이트를 강제 실행.
+            dos.close(); // 출력 스트림을 닫고 모든 시스템 자원을 해제.
             //[2-3]. 연결 요청 확인.
             //실패시 null을 리턴하고 매서드를 종료하게 한다.
             if(urlConn.getResponseCode() != HttpURLConnection.HTTP_OK)

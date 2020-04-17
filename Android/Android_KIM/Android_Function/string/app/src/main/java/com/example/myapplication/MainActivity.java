@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     String MSG;
     TextView text,text1;
     EditText send;
-    String url = "http://rbghoneroom402.iptime.org:48526/JSP/text.jsp";
+    String url = "http://rbghoneroom402.iptime.org:48526/JSP/Text.jsp";
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override

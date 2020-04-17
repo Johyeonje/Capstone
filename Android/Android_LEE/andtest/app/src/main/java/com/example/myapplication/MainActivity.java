@@ -27,14 +27,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final String[] Person = {"man1","man2","man3","man4"};
+        final String[] Person = {"a","b","c","d"};
         checkSelfPermission();
         Button btn1 = (Button) findViewById(R.id.btn1);
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DoDBRead("http://rbghoneroom402.iptime.org:48526/JSP/DBread.jsp");
-                DoTextUpload("http://rbghoneroom402.iptime.org:48526/JSP/text.jsp", Person);
+                //DoDBRead("http://rbghoneroom402.iptime.org:48526/JSP/DBread.jsp");
+                DoTextUpload("http://rbghoneroom402.iptime.org:48526/JSP/Text.jsp", Person);
 //                Intent intent = new Intent(Intent.ACTION_PICK);
 //                intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
 //                startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
                 String img_path = null;
 
                 img_path = getImagePathToUri(data.getData()); //이미지의 URI를 얻어 경로값으로 반환.
-                //DoTextUpload("http://rbghoneroom402.iptime.org:48526/JSP/text.jsp", Person);
                 DoFileUpload("http://rbghoneroom402.iptime.org:48526/JSP/Test.jsp", img_path);  //해당 함수를 통해 이미지 전송.
 
                 //이미지를 비트맵형식으로 반환

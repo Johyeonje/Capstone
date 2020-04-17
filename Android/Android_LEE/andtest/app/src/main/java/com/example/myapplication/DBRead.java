@@ -4,10 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.EOFException;
-import java.io.File;
-import java.io.FileInputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -51,9 +48,6 @@ public class DBRead {
             conn.setRequestProperty("Connection", "Keep-Alive");
             conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
             // write data
-            DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
-            dos.writeBytes(twoHyphens + boundary + lineEnd);
-            dos.writeBytes(lineEnd);
             StringBuffer b;
             b = new StringBuffer();
             DataInputStream dis = new DataInputStream(conn.getInputStream());

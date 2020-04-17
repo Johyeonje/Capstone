@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     String MSG;
     TextView text;
     EditText send;
-    String url = "http://rbghoneroom402.iptime.org:48526/JSP/text.jsp";
+    String url = "http://rbghoneroom402.iptime.org:48526/JSP/Text.jsp";
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
                 OutputStreamWriter dos1= new OutputStreamWriter(conn.getOutputStream());
 
                 if(sendMsg.equals("vision_write")){
-                    sendMsg = "vision_write="+strings[0]+"&type="+strings[1]; //다음 전달 받은 값이 vision_write라는 값이 왔다? 그럼 넘겨준다,
+                    sendMsg = "vision_write="+strings[0]+"&type="+strings[1];//다음 전달 받은 값이 vision_write라는 값이 왔다? 그럼 넘겨준다,
                 }else if(sendMsg.equals("vision_list")){
                     sendMsg = "&type="+strings[0];
                 }

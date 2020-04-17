@@ -21,7 +21,6 @@
 	<%
 		//이미지를 저장할 경로 입력.
 		request.setCharacterEncoding("utf-8");
-		
 		String folderTypePath = "D:/Study/Capstone/CoreTech";
 		String name = new String();
 		String fileName = new String();
