@@ -24,7 +24,6 @@ class DataGenerator:
     def __init__(self, indir, people_num=7):
         self.indir = indir
         self.people_num = people_num
-
         self.id_list = os.listdir(indir)
 
     def generator(self):
@@ -68,7 +67,6 @@ class DataGenerator:
         return dataloader
 
 
-
 def create_model():
     """ Function to create model """
     model = tf.keras.models.Sequential()
@@ -81,6 +79,9 @@ def create_model():
     model.add(tf.keras.layers.Conv2D(128, (2, 2), activation='relu', padding='same'))
     model.add(tf.keras.layers.MaxPooling2D((2, 2)))
     model.add(tf.keras.layers.Conv2D(256, (2, 2), activation='relu', padding='same'))
+    #Switch add 512 layer at ver0417
+    model.add(tf.keras.layers.MaxPooling2D((2, 2)))
+    model.add(tf.keras.layers.Conv2D(512, (2, 2), activation='relu', padding='same'))
 
     model.add(tf.keras.layers.Flatten())
     model.add(tf.keras.layers.Dense(128, activation='relu'))
@@ -126,14 +127,15 @@ def get_eer(y_pred, y_true):
 if __name__ == "__main__":
     # Set data directories
     indir = "../../FaceDataSet/"
-    train_dir = os.path.join(indir, "crop")
+    train_dir = os.path.join(indir, "aligned")
     test_dir = os.path.join(indir, "ncrop")
-    log_dir = "logs/zinzin-ver1"
-    chkpt_dir = os.path.join(indir, "zin_trained_model1")
+    log_dir = "logs/ver0417"
+    chkpt_dir = os.path.join(indir, "trained_model0417")
 
     # Set hyper parameters
     train_epoch_num = 200000
-    people_num = 50  # Note that (batch size) == 2 * (people_num)
+    # Switch 50 -> 20 at ver0417
+    people_num = 20  # Note that (batch size) == 2 * (people_num)
     learning_rate = 0.01
 
     test_data_num = 1
@@ -151,8 +153,8 @@ if __name__ == "__main__":
     model.compile(optimizer=optimizer, loss=loss)
 
     # Load model
-    load_path = os.path.join(chkpt_dir, "chkpt-100000")
-    model.load_weights(load_path)
+    #load_path = os.path.join(chkpt_dir, "chkpt-100000")
+    #model.load_weights(load_path)
 
     # Create data loaders
     train_data_loader = DataGenerator(train_dir, people_num=people_num).create_data_loader()
@@ -162,7 +164,7 @@ if __name__ == "__main__":
     writer = tf.summary.create_file_writer(logdir=log_dir)
 
     # training
-    for epoch, (batch_x, batch_y) in enumerate(train_data_loader.repeat(), 103000):
+    for epoch, (batch_x, batch_y) in enumerate(train_data_loader.repeat()):
         train_loss = model.train_on_batch(batch_x, batch_y)
         #train_eer = get_eer(model.predict(batch_x), batch_y)
 
