@@ -24,28 +24,28 @@ class FaceEmbedder(tf.keras.Model):
         # Create network
         # 여기부터 ~
         self.conv1 = tf.keras.Sequential([
-            tf.keras.layers.Conv2D(filters=32, kernel_size=3, activation=None),
+            tf.keras.layers.Conv2D(filters=8, kernel_size=3, activation=None),
+            tf.keras.layers.ReLU(),
+            tf.keras.layers.Conv2D(filters=8, kernel_size=3, activation=None),
             tf.keras.layers.ReLU()
         ])
         self.batch_norm1 = tf.keras.layers.BatchNormalization()
 
         self.conv2 = tf.keras.Sequential([
-            tf.keras.layers.Conv2D(filters=64, kernel_size=3, activation=None),
+            tf.keras.layers.Conv2D(filters=16, kernel_size=3, activation=None),
             tf.keras.layers.ReLU(),
-            tf.keras.layers.Conv2D(filters=128, kernel_size=3, activation=None),
+            tf.keras.layers.Conv2D(filters=16, kernel_size=3, activation=None),
             tf.keras.layers.ReLU()
         ])
         self.batch_norm2 = tf.keras.layers.BatchNormalization()
 
         self.conv3 = tf.keras.Sequential([
-            tf.keras.layers.Conv2D(filters=256, kernel_size=3, activation=None),
+            tf.keras.layers.Conv2D(filters=32, kernel_size=3, activation=None),
             tf.keras.layers.ReLU(),
-            tf.keras.layers.Conv2D(filters=512, kernel_size=3, activation=None),
+            tf.keras.layers.Conv2D(filters=64, kernel_size=3, activation=None),
             tf.keras.layers.ReLU()
         ])
         self.batch_norm3 = tf.keras.layers.BatchNormalization()
-        #self.conv3 = ...
-        #self.batch_norm3 = tf.keras.layers.BatchNormalization()
 
         # 여기까지 수정 가능
 
