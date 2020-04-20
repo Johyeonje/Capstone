@@ -5,7 +5,6 @@
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@page import="java.io.OutputStream"%>
 <%@page import="java.io.DataOutputStream"%>
-<%@page import="java.sql.*"%>
 <%@page import="java.io.BufferedReader"%>
 <%@page import="java.io.InputStreamReader"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -15,7 +14,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 </head>
 <body>
 	<%
@@ -65,6 +63,5 @@
 			System.out.println("실패!");
 		}
 	%>
-
 </body>
 </html>
