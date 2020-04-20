@@ -23,6 +23,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--data_dir", default="../../FaceDataSet/ncrop", help="Data directory")
     parser.add_argument("--chkpt_dir", default="../../FaceDataSet/train_model0420")
+    parser.add_argument("--log_dir", default="./logs/logs0420")
     parser.add_argument("--train_person_num", default=5, type=int, help="하나의 훈련용 배치를 구성할 사람의 수")
     parser.add_argument("--train_face_num", default=3, type=int, help="하나의 훈련용 배치를 구성할 사람마다 사용할 얼굴 사진의 수")
     #parser.add_argument("--test_person_num", default=5, type=int, help="하나의 평가용 배치를 구성할 사람의 수")
@@ -62,7 +63,7 @@ if __name__ == "__main__":
     batch_y = np.reshape(batch_y, [args.train_person_num*args.train_face_num, args.train_person_num])
 
     # Create summary writer
-    writer = tf.summary.create_file_writer(logdir=log_dir)
+    writer = tf.summary.create_file_writer(logdir=args.log_dir)
 
     # Train
     for epoch in range(10):
