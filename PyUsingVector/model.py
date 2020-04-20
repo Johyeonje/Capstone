@@ -25,12 +25,18 @@ class FaceEmbedder(tf.keras.Model):
         # 여기부터 ~
         self.conv1 = tf.keras.Sequential([
             tf.keras.layers.Conv2D(filters=32, kernel_size=3, activation=None),
+            tf.keras.layers.ReLU(),
+            tf.keras.layers.Conv2D(filters=64, kernel_size=3, activation=None),
+            tf.keras.layers.ReLU(),
+            tf.keras.layers.Conv2D(filters=128, kernel_size=3, activation=None),
             tf.keras.layers.ReLU()
         ])
         self.batch_norm1 = tf.keras.layers.BatchNormalization()
 
         self.conv2 = tf.keras.Sequential([
-            tf.keras.layers.Conv2D(filters=32, kernel_size=3, activation=None),
+            tf.keras.layers.Conv2D(filters=256, kernel_size=3, activation=None),
+            tf.keras.layers.ReLU(),
+            tf.keras.layers.Conv2D(filters=512, kernel_size=3, activation=None),
             tf.keras.layers.ReLU()
         ])
         self.batch_norm2 = tf.keras.layers.BatchNormalization()
