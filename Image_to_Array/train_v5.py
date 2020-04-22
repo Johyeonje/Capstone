@@ -8,8 +8,8 @@ import tensorflow as tf
 
 
 # Set global variables
-width = 100
-height = 100
+width = 200
+height = 200
 n_channels = 3
 
 
@@ -128,7 +128,7 @@ if __name__ == "__main__":
     # Set data directories
     indir = "../../FaceDataSet/"
     train_dir = os.path.join(indir, "aligned")
-    test_dir = os.path.join(indir, "ncrop")
+    test_dir = os.path.join(indir, "aligned_test")
     log_dir = "logs/ver0417"
     chkpt_dir = os.path.join(indir, "trained_model0417")
 

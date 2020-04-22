@@ -2,11 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@page import="java.io.OutputStream"%>
 <%@page import="java.io.DataOutputStream"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 </head>
 <body>
 <%
@@ -18,6 +19,10 @@
 	String PRO_ID = "10001";
 	String PWD = "10001";
 	try{
+		String lineEnd = "\r\n";
+		long time = System.currentTimeMillis(); 
+		SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		String str = dayTime.format(new Date(time));
 		Class.forName(jdbc_driver);
 		conn = DriverManager.getConnection(jdbc_url,"capstone", "1q2w3e4r");
 		//String sql = "insert into lecture values(?,?)";

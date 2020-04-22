@@ -33,18 +33,19 @@ public class MainActivity extends AppCompatActivity {
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //DoDBRead("http://rbghoneroom402.iptime.org:48526/JSP/DBread.jsp");
-                DoTextUpload("http://rbghoneroom402.iptime.org:48526/JSP/Text.jsp", Person);
+//                DoDBRead("http://rbghoneroom402.iptime.org:48526/JSP/DBread.jsp");
+//                DoTextUpload("http://rbghoneroom402.iptime.org:48526/JSP/Text.jsp", Person);
 //                Intent intent = new Intent(Intent.ACTION_PICK);
 //                intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
 //                startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
+                DoLogin("http://rbghoneroom402.iptime.org:48526/JSP/Login.jsp", "10001","10001");
             }
         });
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                 .permitDiskReads()
                 .permitDiskWrites()
                 .permitNetwork().build());
-    }
+}
 
     private void checkSelfPermission() {
         String temp = "";
@@ -107,6 +108,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void DoDBRead(String apiUrl) {
         DBRead.NetworkTask networkTask = new DBRead.NetworkTask(apiUrl, getBaseContext());
+        networkTask.execute();
+    }
+
+    public void DoLogin(String apiUrl,String ID, String PWD) {
+        Login.NetworkTask networkTask = new Login.NetworkTask(apiUrl, ID, PWD, getBaseContext());
         networkTask.execute();
     }
 }
