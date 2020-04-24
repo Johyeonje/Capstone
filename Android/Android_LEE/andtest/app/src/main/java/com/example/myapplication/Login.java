@@ -11,8 +11,7 @@ import java.net.URL;
 public class Login {
     public static class NetworkTask extends AsyncTask<Void, Void, String> {
 
-        private String url;
-        private String ID, PWD;
+        private String url, ID, PWD;
         private Context context;
 
         public NetworkTask(String url, String ID, String PWD, Context context) {
@@ -32,12 +31,12 @@ public class Login {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);       //doInBackground()로 부터 리턴된 값이 onPostExecute()의 매개변수로 넘어오므로 s를 출력한다
-            Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
         }
     }
 
     public static String HttpURLConnection(String urlString, String params, String ID, String PWD) {
         String lineEnd = "\r\n";
+        String cookie = null;
         try {
             URL connectUrl = new URL(urlString);
             HttpURLConnection conn = (HttpURLConnection) connectUrl.openConnection();
@@ -51,23 +50,27 @@ public class Login {
             // [2-2]. parameter 전달 및 데이터 읽어오기.
             dos.writeUTF(ID);
             dos.writeUTF(PWD);
+            String cookieTemp = conn.getHeaderField("Set-Cookie");
+            if (cookieTemp != null)
+            {
+                cookie = cookieTemp;
+            }
             if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
                 return null;
-
             StringBuffer b;
             b = new StringBuffer();
             DataInputStream dis = new DataInputStream(conn.getInputStream());
-            try {
-                for (String ch; (ch = dis.readUTF()) != null;)  {
-                    b.append(ch);
-                    b.append(lineEnd);
-                }
-            } catch (EOFException e) {
-                b.delete(b.length()-lineEnd.length(),b.length());
-            }
+//            try {
+//                for (String ch; (ch = dis.readUTF()) != null;)  {
+//                    b.append(ch);
+//                    b.append(lineEnd);
+//                }
+//            } catch (EOFException e) {
+//                b.delete(b.length()-lineEnd.length(),b.length());
+//            }
             dos.flush(); // 출력 스트림을 플러시(비운다)하고 버퍼링 된 모든 출력 바이트를 강제 실행.
             dos.close(); // 출력 스트림을 닫고 모든 시스템 자원을 해제.
-            return b.toString();
+            return cookie;
         } catch (Exception e) {
             return null;
             // TODO: handle exception

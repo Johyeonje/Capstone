@@ -71,18 +71,15 @@
 			}
 			if (success == 1) {
 				System.out.println("로그인 성공");
-				pstmt = conn.prepareStatement(sub);
-				rs = pstmt.executeQuery();
-				OutputStream outputStream = response.getOutputStream();
-				DataOutputStream dos = new DataOutputStream(outputStream);
-				while (rs.next()) {
-					String SUB_ID = rs.getString(1);
-					String SUB_NAME = rs.getString(2);
-					dos.writeUTF(SUB_ID + "\t" + SUB_NAME);
-				}
-				dos.flush();
-				dos.close();
-				outputStream.close();
+				session.setAttribute("PRO_ID", PRO_ID);
+				session.setAttribute("PWD", PWD);
+				System.out.println((String)session.getAttribute("PRO_ID"));
+				System.out.println((String)session.getAttribute("PWD"));
+				System.out.println(session.getId());
+				Cookie c = new Cookie("Session_ID",session.getId());
+				c.setMaxAge(60*5);
+				c.setPath("/");
+				response.addCookie(c);
 			}
 			else
 				System.out.println("로그인 실패");

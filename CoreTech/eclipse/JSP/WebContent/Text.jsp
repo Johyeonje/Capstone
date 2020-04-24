@@ -32,6 +32,7 @@
             } catch (EOFException e) {
                 b.delete(b.length()-lineEnd.length(),b.length());
             }
+            b.append(lineEnd);
             System.out.print(b.toString());
             inputStream.close();
 		} catch (Exception e) {

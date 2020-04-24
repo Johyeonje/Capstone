@@ -11,13 +11,18 @@
 </head>
 <body>
 <%
+	if (session.getAttribute("PRO_ID") == null) {
+		System.out.println(session.getId());
+	    response.sendRedirect("Logout.jsp");
+	    return;
+	}
+	String PRO_ID = (String)session.getAttribute("PRO_ID");
+	String PWD = (String)session.getAttribute("PWD");
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 	String jdbc_driver = "com.mysql.cj.jdbc.Driver";
 	String jdbc_url = "jdbc:mysql://127.0.0.1/capstonedb";
-	String PRO_ID = "10001";
-	String PWD = "10001";
 	try{
 		String lineEnd = "\r\n";
 		long time = System.currentTimeMillis(); 
@@ -39,6 +44,8 @@
 			System.out.println("로그인 성공");
 			pstmt = conn.prepareStatement(sub);
 			rs = pstmt.executeQuery();
+			out.clear();
+			out=pageContext.pushBody();
 			OutputStream outputStream = response.getOutputStream();
 			DataOutputStream dos = new DataOutputStream(outputStream);
 			while (rs.next()) {

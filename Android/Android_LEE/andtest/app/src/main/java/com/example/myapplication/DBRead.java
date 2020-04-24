@@ -11,18 +11,19 @@ import java.net.URL;
 public class DBRead {
     public static class NetworkTask extends AsyncTask<Void, Void, String> {
 
-        private String url;
+        private String url,cookie;
         private Context context;
 
-        public NetworkTask(String url, Context context) {
+        public NetworkTask(String url, String cookie, Context context) {
             this.url = url;
             this.context = context;
+            this.cookie = cookie;
         }
 
         @Override
         protected String doInBackground(Void... params) {
             String result; // 요청 결과를 저장할 변수.
-            result = HttpURLConnection(url, ""); // 해당 URL로 부터 결과물을 얻어온다.
+            result = HttpURLConnection(url, "", cookie); // 해당 URL로 부터 결과물을 얻어온다.
             return result;
         }
 
@@ -33,18 +34,19 @@ public class DBRead {
             //doInBackground()로 부터 리턴된 값이 onPostExecute()의 매개변수로 넘어오므로 s를 출력한다
         }
     }
-    public static String HttpURLConnection(String urlString, String params) {
+    public static String HttpURLConnection(String urlString, String params, String cookie) {
         String lineEnd = "\r\n";
         String twoHyphens = "--";
         String boundary = "*****";
         try {
-            URL connectUrl = new URL(urlString);
+            URL connectUrl = new URL(urlString+";jsessionid="+cookie.substring(11,43));
             // HttpURLConnection 통신
             HttpURLConnection conn = (HttpURLConnection) connectUrl.openConnection();
             conn.setDoInput(true);
             conn.setDoOutput(true);
             conn.setUseCaches(false);
             conn.setRequestMethod("POST");
+            conn.setRequestProperty("Cookie",cookie);
             conn.setRequestProperty("Connection", "Keep-Alive");
             conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
             // write data
@@ -61,8 +63,7 @@ public class DBRead {
             }
             return b.toString();
         } catch (Exception e) {
-            System.out.print(e);
-            return null;
+            return e.toString();
             // TODO: handle exception
         }
     }

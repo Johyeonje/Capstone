@@ -15,30 +15,47 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import java.util.concurrent.ExecutionException;
+
 public class MainActivity extends AppCompatActivity {
     private static final int REQ_CODE_SELECT_IMAGE = 100;
+    public String cookie;
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final String[] Person = {"a","b","c","d"};
+
         checkSelfPermission();
         Button btn1 = (Button) findViewById(R.id.btn1);
+        Button btn2 = (Button) findViewById(R.id.btn2);
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                DoDBRead("http://rbghoneroom402.iptime.org:48526/JSP/DBread.jsp");
 //                DoTextUpload("http://rbghoneroom402.iptime.org:48526/JSP/Text.jsp", Person);
 //                Intent intent = new Intent(Intent.ACTION_PICK);
 //                intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
 //                startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
                 DoLogin("http://rbghoneroom402.iptime.org:48526/JSP/Login.jsp", "10001","10001");
+            }
+        });
+
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DoDBRead("http://rbghoneroom402.iptime.org:48526/JSP/DBread.jsp");
+//                Intent intent = new Intent(Intent.ACTION_PICK);
+//                intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+//                startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
             }
         });
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
@@ -107,12 +124,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void DoDBRead(String apiUrl) {
-        DBRead.NetworkTask networkTask = new DBRead.NetworkTask(apiUrl, getBaseContext());
+        DBRead.NetworkTask networkTask = new DBRead.NetworkTask(apiUrl, cookie, getBaseContext());
         networkTask.execute();
     }
 
     public void DoLogin(String apiUrl,String ID, String PWD) {
         Login.NetworkTask networkTask = new Login.NetworkTask(apiUrl, ID, PWD, getBaseContext());
-        networkTask.execute();
+        try {
+            cookie = networkTask.execute().get();
+            Toast.makeText(getBaseContext(), cookie.substring(11,43), Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Toast.makeText(getBaseContext(), e.toString(), Toast.LENGTH_SHORT).show();
+        }
+
     }
 }

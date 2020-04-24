@@ -46,7 +46,8 @@ public class TextUpload {
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Connection", "Keep-Alive");
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
-            DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
+            DataOutputStream dos;
+            dos = new DataOutputStream(conn.getOutputStream());
             // [2-2]. parameter 전달 및 데이터 읽어오기.
             for (String s : text) {
                 dos.writeUTF(s);

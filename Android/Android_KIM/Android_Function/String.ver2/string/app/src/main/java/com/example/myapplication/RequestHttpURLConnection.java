@@ -36,7 +36,7 @@ public class RequestHttpURLConnection{
     //다음은 MainActivity의 값을 가져오기 위해서 사용 하지만 실행이 안됨.
 
 
-    public String request(String _url, ContentValues _params) {
+    public String request(String _url, ContentValues _params,String Email, String ) {
 
         // HttpURLConnection 참조변수.
         HttpURLConnection urlConn = null;
