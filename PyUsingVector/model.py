@@ -66,7 +66,7 @@ class FaceEmbedder(tf.keras.Model):
         x = tf.math.l2_normalize(x, axis=1)
         return x
 
-    def get_eer(self, inputs, person_num, face_num):
+    def evaluate(self, inputs, person_num, face_num, epsilon=1e-10):
         # Get embeddings
         embeddings = self.call(inputs, training=False)
 
@@ -75,35 +75,47 @@ class FaceEmbedder(tf.keras.Model):
         centroids = np.sum(centroids, axis=1)
         centroids = centroids / np.linalg.norm(centroids, ord=2)
 
-        # Calculate score matrix
-        # shape of score matrix : [person_num*face_num, person_num]
-        score_matrix = np.dot(embeddings, centroids.T)
-        score_matrix = np.reshape(score_matrix, [-1])
-
         # Get label
         label = np.zeros(shape=[person_num, face_num, person_num], dtype=np.float32)
         for i in range(person_num):
             label[i, :, i] = 1
-        label = np.reshape(label, [-1])
+        label = np.reshape(label, [person_num * face_num, person_num])
+
+        # Calculate similarity matrix S
+        # shape of S : [train_person_num * train_face_num, train_person_num]
+        S = np.matmul(embeddings, centroids.T)
+
+        # Calculate loss
+        if self.loss_type == "ge2e":
+            # Calculate original generalized end-to-end (GE2E) loss
+            softmax = np.sum(np.exp(S), axis=-1, keepdims=True)
+            softmax = np.where(softmax > epsilon, softmax, np.zeros_like(softmax) + epsilon)
+            softmax = -S + np.log(softmax)  # log-softmax
+            loss = np.mean(label * softmax)
+        elif self.loss_type == "binary_cross_entropy":
+            # Calculate binary crossentropy GE2E loss
+            softmax = np.sum(np.exp(S), axis=-1, keepdims=True)
+            softmax = np.clip(S / softmax, epsilon, 1 - epsilon)
+            loss = -np.mean(label * np.log(softmax) + (1 - label) * np.log(1 - softmax))
 
         # Calculate accuracy
         correct_num = 0
-        for i in range(person_num*face_num):
-            if (label[i] == 0.0) and (score_matrix[i] < 0.5):
+        S = np.reshape(S, [-1])
+        label = np.reshape(label, [-1])
+        for i in range(person_num * face_num):
+            if (label[i] == 0.0) and (S[i] < 0.5):
                 correct_num += 1
-            elif (label[i] == 1.0) and (score_matrix[i] >= 0.5):
+            elif (label[i] == 1.0) and (S[i] >= 0.5):
                 correct_num += 1
-        accuracy = correct_num / (person_num*face_num)
+        accuracy = correct_num / (person_num * face_num)
 
         # Calculate EER
-        fpr, tpr, thresholds = roc_curve(label, score_matrix)
+        fpr, tpr, thresholds = roc_curve(label, S)
         fnr = 1 - tpr
         idx = np.argmin(np.abs(fnr - fpr))
-        #eer_threshold = thresholds[idx]
         eer = fnr[idx]
 
-        return accuracy, eer
-
+        return accuracy, eer, loss
 
     def train_on_batch(self, batch_x, batch_y, epsilon=1e-10):
         with tf.GradientTape() as tape:
@@ -129,17 +141,16 @@ class FaceEmbedder(tf.keras.Model):
                 loss = tf.reduce_mean(batch_y * softmax)
             elif self.loss_type == "binary_cross_entropy":
                 # Calculate binary crossentropy GE2E loss
-                softmax = tf.reduce_sum(tf.exp(S, axis=-1, keepdims=True))
-                softmax = tf.clip_by_value(S / softmax, epsilon, 1-epsilon)
-                loss = -tf.reduce_mean(batch_y * tf.math.log(softmax) + (1-batch_y) * tf.math.log(1-softmax))
+                softmax = tf.reduce_sum(tf.exp(S), axis=-1, keepdims=True)
+                softmax = tf.clip_by_value(S / softmax, epsilon, 1 - epsilon)
+                loss = -tf.reduce_mean(batch_y * tf.math.log(softmax) + (1 - batch_y) * tf.math.log(1 - softmax))
 
             # Calculate gradients
             gradients = tape.gradient(loss, self.trainable_variables)
-            #if self.apply_gradient_clipping:
+            # if self.apply_gradient_clipping:
             #    gradients = tf.clip_by_norm(gradients, clip_norm=self.gradient_clip_norm)  # gradient clipping
 
             # Apply gradients
             self.optimizer.apply_gradients(zip(gradients, self.trainable_variables))
-
 
         return loss

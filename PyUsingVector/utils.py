@@ -13,7 +13,7 @@ def get_batch(filename_dict, person_num, face_num, train=True):
     for i in range(person_num):
         for j in range(face_num):
             if train:
-                idx = np.random.randint(0, 8000)
+                idx = np.random.randint(1, 8000)
             else:
                 idx = np.random.randint(8000, 8630)
             pid = "Face" + str(idx)

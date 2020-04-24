@@ -26,8 +26,8 @@ if __name__ == "__main__":
     parser.add_argument("--log_dir", default="./logs/logs0420")
     parser.add_argument("--train_person_num", default=20, type=int, help="하나의 훈련용 배치를 구성할 사람의 수")
     parser.add_argument("--train_face_num", default=5, type=int, help="하나의 훈련용 배치를 구성할 사람마다 사용할 얼굴 사진의 수")
-    #parser.add_argument("--test_person_num", default=5, type=int, help="하나의 평가용 배치를 구성할 사람의 수")
-    #parser.add_argument("--test_face_num", default=3, type=int, help="하나의 가용 배치를 구성할 사람마다 사용할 얼굴 사진의 수")
+    parser.add_argument("--test_person_num", default=20, type=int, help="하나의 평가용 배치를 구성할 사람의 수")
+    parser.add_argument("--test_face_num", default=5, type=int, help="하나의 가용 배치를 구성할 사람마다 사용할 얼굴 사진의 수")
     args = parser.parse_args()
 
     # Set optimizer
@@ -47,7 +47,11 @@ if __name__ == "__main__":
         "gradient_clip_norm" : 1,
         "loss_type" : "ge2e",
         # "loss_type" : "binary_cross_entropy",
-        "optimizer" : optimizer
+        "optimizer" : optimizer,
+
+        "train_epoch_num": 10,
+        "evaluate_step_interval": 1000,
+        "save_chkpt_interval": 10000
     }
 
     # Get file dictionary
@@ -66,34 +70,30 @@ if __name__ == "__main__":
     writer = tf.summary.create_file_writer(logdir=args.log_dir)
 
     # Train
-    for epoch in range(10):
+    for epoch in range(config["train_epoch_num"]):
         train_batch_x = utils.get_batch(filename_dict, args.train_person_num, args.train_face_num, train=True)
 
         train_loss = model.train_on_batch(train_batch_x, batch_y)
 
-        train_acc, train_eer = model.get_eer(train_batch_x, args.train_person_num, args.train_face_num)
+        train_acc, train_eer, _ = model.evaluate(train_batch_x, args.train_person_num, args.train_face_num)
 
         with writer.as_default():
             tf.summary.scalar("Train Loss", train_loss, step=epoch)
             tf.summary.scalar("Train EER", train_eer, step=epoch)
 
-        if epoch != 0 and epoch % 1000 == 0:
-            test_loss_list = []; test_eer_list = []
+        if epoch != 0 and epoch % config["evaluate_step_interval"] == 0:
             test_batch_x = utils.get_batch(filename_dict, args.train_person_num, args.train_face_num, train=False)
-
-            test_loss = model.predict(test_batch_x)
-            test_acc, test_eer = model.get_eer(test_batch_x, args.train_person_num, args.train_face_num)
-            test_loss_list.append(test_loss)
-            test_eer_list.append(test_eer)
+            test_acc, test_eer, test_loss = model.evaluate(test_batch_x, args.test_person_num, args.test_face_num)
 
             with writer.as_default():
-                tf.summary.scalar("Test Loss", np.mean(test_loss_list), step=epoch)
-                tf.summary.scalar("Test EER", np.mean(test_eer_list), step=epoch)
+                tf.summary.scalar("Test Accuracy", test_acc, step=epoch)
+                tf.summary.scalar("Test Loss", test_loss, step=epoch)
+                tf.summary.scalar("Test EER", test_eer, step=epoch)
 
-        if epoch != 0 and epoch % 10000 == 0:
+        if epoch != 0 and epoch % config["save_chkpt_interval"] == 0:
             filepath = os.path.join(args.chkpt_dir, "chkpt-" + str(epoch))
             model.save_weights(filepath)
 
-        print("Epoch : {}, Train Loss : {}, Train Acc : {}, Train EER : {}".format(epoch, "%1.4f" % train_loss, "%1.4f" % train_acc, "%1.4f" % train_eer))
+        print("Epoch : {}, Train Loss : {}, Train Acc : {}, Train EER : {}".format(epoch, "%1.4f" % train_loss,  "%1.4f" % train_acc, "%1.4f" % train_eer))
 
     print("Optimization is Done!")
