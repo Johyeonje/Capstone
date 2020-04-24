@@ -49,7 +49,7 @@ if __name__ == "__main__":
         # "loss_type" : "binary_cross_entropy",
         "optimizer" : optimizer,
 
-        "train_epoch_num": 10,
+        "train_epoch_num": 200000,
         "evaluate_step_interval": 1000,
         "save_chkpt_interval": 10000
     }
