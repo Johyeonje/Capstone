@@ -55,7 +55,8 @@ if __name__ == "__main__":
             print(ex)
 
     #model load
-    model = build_model(model_path)
+    model = build_model()
+    model.load_weights(model_path)
 
     #create vector
     enroll_vec = model(enroll_images)
