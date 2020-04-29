@@ -71,8 +71,12 @@ class FaceEmbedder(tf.keras.Model):
         embeddings = self.call(inputs, training=False)
 
         # Get centroids
+        # 등록파트
+        # 사람별 벡터 합침
         centroids = np.reshape(embeddings, [person_num, face_num, self.embedding_dim])
+        # 더함
         centroids = np.sum(centroids, axis=1)
+        # 다 더해지면 너무 크니까 조절
         centroids = centroids / np.linalg.norm(centroids, ord=2)
 
         # Get label
@@ -83,6 +87,7 @@ class FaceEmbedder(tf.keras.Model):
 
         # Calculate similarity matrix S
         # shape of S : [train_person_num * train_face_num, train_person_num]
+        # 내적  ex ) (x1, x2), (y1, y2) => x1y1 + x2y2
         S = np.matmul(embeddings, centroids.T)
 
         # Calculate loss
