@@ -17,13 +17,14 @@ if __name__ == "__main__":  # 본 코드를 import 시에 이 코드가 자동 �
 
     train_img_dir = "../../FaceDataSet/"  # 현재 위치
     for face_num in range(1, len(os.listdir(train_img_dir+"train/")), 1):
-        load_path = "./RealTest/OrgImg"
+        load_path = "./original_img"
+        print("load")
         # train_img_list = os.listdir(load_path)
         train_img_list = glob.glob(load_path + "/*.jpg")  # .jpg로 끝나는 파일들을 모두 리스트로 읽어들임
         # print(train_data_list)
         # exit()
         # train_img_list = ["sample.jpg"]      # 이거를 직접 하나하나 입력할 필요없이 위에 glob.glob를 사용해서 만들어주면됨
-        save_path = train_img_dir + "ncrop/Face" + str(face_num)
+        save_path = "./InputImg" + str(face_num)
         input_size = (100, 100)  # resize 단계에서 미리 세로 가로 길이를 배열로 지정해놓는 것
         try:
             if not (os.path.isdir(save_path)):
