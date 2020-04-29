@@ -36,6 +36,40 @@ if __name__ == "__main__":
     enroll_images = []
     test_images = []
 
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--data_dir", default="../../FaceDataSet/ncrop", help="Data directory")
+    parser.add_argument("--chkpt_dir", default="../../FaceDataSet/train_model0420")
+    parser.add_argument("--log_dir", default="./logs/logs0420")
+    parser.add_argument("--train_person_num", default=20, type=int, help="하나의 훈련용 배치를 구성할 사람의 수")
+    parser.add_argument("--train_face_num", default=5, type=int, help="하나의 훈련용 배치를 구성할 사람마다 사용할 얼굴 사진의 수")
+    parser.add_argument("--test_person_num", default=20, type=int, help="하나의 평가용 배치를 구성할 사람의 수")
+    parser.add_argument("--test_face_num", default=5, type=int, help="하나의 가용 배치를 구성할 사람마다 사용할 얼굴 사진의 수")
+    args = parser.parse_args()
+
+    # Set optimizer
+    lr_schedule = tf.keras.optimizers.schedules.PolynomialDecay(
+        initial_learning_rate=0.01,
+        decay_steps=1000,
+        end_learning_rate=0.001
+    )
+    optimizer = tf.keras.optimizers.Adam(learning_rate=lr_schedule)
+
+    # Configuration
+    config = {
+        "train_person_num": args.train_person_num,
+        "train_face_num": args.train_face_num,
+        "embedding_dim": 256,
+        "apply_gradient_clipping": True,
+        "gradient_clip_norm": 1,
+        "loss_type": "ge2e",
+        # "loss_type" : "binary_cross_entropy",
+        "optimizer": optimizer,
+
+        "train_epoch_num": 200000,
+        "evaluate_step_interval": 1000,
+        "save_chkpt_interval": 10000
+    }
+
     # image load
     cmp_img_list = glob.glob(enroll_path + "/*.jpg")
     for i, cmp_img in enumerate(cmp_img_list):
@@ -55,11 +89,12 @@ if __name__ == "__main__":
             print(ex)
 
     #model load
-    model = build_model(model_path)
+    model = FaceEmbedder(config)
+    model.load_weights(model_path)
 
     #create vector
-    enroll_vec = model(enroll_images)
-    test_vec = model(test_images)
+    enroll_vec = model.call(enroll_images)
+    test_vec = model.call(test_images)
 
     # 등록인원과 입력인원에 대한 비교 행렬 생성
     S = np.matmul(test_vec, enroll_vec.T)
