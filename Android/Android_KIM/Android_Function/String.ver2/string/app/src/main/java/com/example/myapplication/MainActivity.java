@@ -29,15 +29,12 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import static android.os.Build.ID;
+
 public class MainActivity extends AppCompatActivity {
     Button button2;
     EditText Email,Password;
     String url = "http://rbghoneroom402.iptime.org:48526/JSP/Text.jsp";
-
-    public static String user_EMail;
-    public static String user_PassWord;
-    static String test;
-
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -47,61 +44,91 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+        //final String user_EMail;
+        //final String user_PassWord; // 액티비티의 생명주기에서 사용자의 입력값을 받고 다음 액티비티로 넘어가야 생명주기가 완성이 되는데 넘어가지 않아서 값이 입력되지 않음.
+        //final String[] user_info = new String[2];
+
         button2 = findViewById(R.id.button2);
-        Email = findViewById(R.id.E_mail);
-        Password = findViewById(R.id.PASSWORD);
-
-        user_EMail = Email.getText().toString();
-        user_PassWord = Password.getText().toString();
-        info_Book.setUser_id(user_EMail);
-        info_Book.setUser_pw(user_PassWord);
+        Email = (EditText) findViewById(R.id.E_mail);
+        Password = (EditText) findViewById(R.id.PASSWORD);
 
 
 
-        //MyApllication myApp =(MyApllication) getApplication();
-        //myApp.setGlobalString(user_EMail);
-        //Log.e("TAG", myApp.getGlobalString());
 
 
-
-        /*
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NetworkTask networkTask = new NetworkTask( url, null);
-                networkTask.execute();
-            }
-        });
-
-         */
 
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NetworkTask networkTask = new NetworkTask(url, null);
-                networkTask.execute();
-            }
-        });
-        /*
-        button3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                String sendmsg = "vision_write";
-                String result = "hi"; //자신이 보내고싶은 값을 보내시면됩니다
-                try{
-                    String rst = new NetworkTask(sendmsg).execute(result,"vision_write").get();
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
+                String[] user_info = new String[2];
+
+                String user_Email = Email.getText().toString();
+                String user_Password = Password.getText().toString();
+                user_info[0] = user_Email;
+                user_info[1] = user_Password;// 버튼을 눌렀을 때 실행이 되어야 함으로 버튼 안에서 선언을 해주어야한다.
+                Send_user("http://rbghoneroom402.iptime.org:48526/JSP/Text.jsp",user_info);
+                //NetworkTask networkTask = new NetworkTask(url, null);
+                //networkTask.execute();
             }
         });
 
-         */
 
     }
 
-    /*
+
+
+    public class NetworkTask extends AsyncTask<Void, String, String>
+    {
+        private String url;
+        private ContentValues values;
+
+        public NetworkTask(String url,ContentValues values) {
+            this.url = url;
+            this.values = values;
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            String result;
+            RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
+            result =requestHttpURLConnection.request(url, values);
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            //text1.setText(s); 다음은 AsyncTask가 끝나고  받아올 것을 보여줄 코드부분.
+        }
+    }
+
+    public void Send_user(String Url, String[] info){
+
+        LoginAnd.NetworkTask networkTask = new LoginAnd.NetworkTask(Url,info, getBaseContext());
+        networkTask.execute();
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
     public class NetworkTask extends AsyncTask<String, Void, String> {
 
         private String url;
@@ -278,37 +305,10 @@ public class MainActivity extends AppCompatActivity {
     }
 */
 
-    public class NetworkTask extends AsyncTask<Void, String, String>
-    {
-        private String url;
-        private String info;
-        private ContentValues values;
+// 다음은 입력한 값을 받아 올때 사용하는 함수. class 간의 데이터 전송이 필요하다.
+//아래 함수는 사용을 안함.
 
-        public NetworkTask(String url,ContentValues values) {
-            this.url = url;
-            this.values = values;
-        }
-
-        @Override
-        protected String doInBackground(Void... params) {
-            String result;
-            RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
-            result =requestHttpURLConnection.request(url, values);
-            return result;
-        }
-
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-
-            //text1.setText(s); 다음은 AsyncTask가 끝나고  받아올 것을 보여줄 코드부분.
-        }
-
-    }
-
-    // 다음은 입력한 값을 받아 올때 사용하는 함수. class 간의 데이터 전송이 필요하다.
-   //아래 함수는 사용을 안함.
+    /*
     public static class info_Book extends Application {
 
         public static String user_id;
@@ -330,6 +330,23 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-}
 
+     */
+
+    /*
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String sendmsg = "vision_write";
+                String result = "hi"; //자신이 보내고싶은 값을 보내시면됩니다
+                try{
+                    String rst = new NetworkTask(sendmsg).execute(result,"vision_write").get();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+
+         */
 

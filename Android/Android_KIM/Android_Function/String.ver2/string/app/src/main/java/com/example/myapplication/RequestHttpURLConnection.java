@@ -24,19 +24,20 @@ import java.util.Map;
 
 public class RequestHttpURLConnection{
 
-    String dataA = MainActivity.user_EMail;
-    String dataB = MainActivity.user_PassWord;
-    final static MainActivity mainActivity = new MainActivity();
+    //String dataA = MainActivity.user_EMail;
+    //String dataB = MainActivity.user_PassWord;
+    //final static MainActivity mainActivity = new MainActivity();
 
 
-    String userid = "agyh01001";
-    String userPassword = "1234";
+    String userid = "Test";
+    String userPassword = "Test1234";
+
     //static final String userid = MainActivity.user_EMail;
     //static final String userPassword = MainActivity.info_Book.user_pw;
     //다음은 MainActivity의 값을 가져오기 위해서 사용 하지만 실행이 안됨.
 
 
-    public String request(String _url, ContentValues _params,String Email, String ) {
+    public String request(String _url, ContentValues _params) {
 
         // HttpURLConnection 참조변수.
         HttpURLConnection urlConn = null;
@@ -89,12 +90,15 @@ public class RequestHttpURLConnection{
             urlConn.setRequestProperty("Accept_charset" , "UTF-8");
             urlConn.setRequestProperty("Context_Type","application/x-www-form-urlencoded;charset=UTF-8");
             //String login_info = MainActivity.user_info; // 메인에서 가져온 로그인 정보를 가져옴, 전역변수를 사용함. 교체 요망
-            String[] text = {userid,userPassword,dataA,dataB}; // 다음은 JSP로 넘어갈 값을 말한다.
+            String[] text = {userid,userPassword}; // 다음은 JSP로 넘어갈 값을 말한다.
             //[2-2]. parameter 전달 및 데이터 읽어온다.
             DataOutputStream dos = new DataOutputStream(urlConn.getOutputStream());
             // [2-2]. parameter 전달 및 데이터 읽어오기.
             for (String s : text) {
                 dos.writeUTF(s);
+                //dos.writeUTF(Email);
+                //dos.writeUTF(Password);
+
                 //dos.writeUTF("안녕 나는 동규야");
             }
             dos.flush(); // 출력 스트림을 플러시(비운다)하고 버퍼링 된 모든 출력 바이트를 강제 실행.
