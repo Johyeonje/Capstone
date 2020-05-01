@@ -94,7 +94,7 @@ if __name__ == "__main__":
 
     #create vector
     enroll_images = np.array(enroll_images)
-    test_vec = np.array(test_images)
+    test_images = np.array(test_images)
     enroll_vec = model.call(enroll_images)
     test_vec = model.call(test_images)
 
