@@ -115,4 +115,4 @@ if __name__ == "__main__":
         if (max_score < threshold):
             print("점수는 최대지만 threshold보다 낮음")
         else:
-            print(max_score_idx + "번째 사람이랑 같은 사람인것 같음.")
+            print(str(max_score_idx) + "번째 사람이랑 같은 사람인것 같음.")
