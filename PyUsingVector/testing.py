@@ -73,8 +73,8 @@ if __name__ == "__main__":
     # image load
     cmp_img_list = glob.glob(enroll_path + "/*.jpg")
     for i, cmp_img in enumerate(cmp_img_list):
-        cmp_img = utils.read_image(enroll_path)
-        enroll_images.append(cmp_img)
+        img = utils.read_image(cmp_img)
+        enroll_images.append(img)
 
     org_img = utils.read_image(test_path)
     face_detector = dlib.get_frontal_face_detector()
@@ -93,7 +93,7 @@ if __name__ == "__main__":
     model.load_weights(model_path)
 
     #create vector
-    enroll_images = np.stack(enroll_images)
+    enroll_images = np.array(enroll_images)
     test_images = np.array(test_images)
     print(enroll_images.shape)
     print(test_images.shape)
