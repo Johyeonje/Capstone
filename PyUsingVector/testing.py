@@ -84,7 +84,8 @@ if __name__ == "__main__":
         try:
             face = org_img[top:bottom, left:right, :]
             face = cv2.resize(face, dsize=input_size)
-            cv2.imshow("1", face)
+            cv2.imshow(str(j), face)
+            cv2.waitKey(0)
             test_images.append(face)
         except Exception as ex:
             print(ex)
