@@ -93,8 +93,8 @@ if __name__ == "__main__":
     model.load_weights(model_path)
 
     #create vector
-    enroll_images = np.array(enroll_images)
-    test_images = np.array(test_images)
+    enroll_images = np.array(enroll_images).astype(float)
+    test_images = np.array(test_images).astype(float)
     print(enroll_images.shape)
     print(test_images.shape)
     enroll_vec = model.call(enroll_images)
