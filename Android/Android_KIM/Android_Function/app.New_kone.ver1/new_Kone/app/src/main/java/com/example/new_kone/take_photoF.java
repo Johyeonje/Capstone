@@ -27,6 +27,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -66,12 +67,18 @@ public class take_photoF extends Activity {
 
    ImageView imageView1;
    EditText editText1;
+   //================15==15==15==15==15===15==========================================
+    EditText selected_date;
+    CalendarView calendarView;
+   //================15==15==15==15==15===15==========================================
     //==========================3=3=3=3=3======변경후 필요 변수=========================
     Button btn_save_photo;
     private static final int PERMISSION_CODE = 1000;
     private static final int IMAGE_CAPTURE_CODE = 1001;
     Uri image_uri;
     String Subject; // 다음 과목을 넣기 위해.
+    String selected_m;
+
     //==============================3=3=3=3=3=3= 변경후 필요변수========================
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -85,7 +92,11 @@ public class take_photoF extends Activity {
         //========================3=3=3=3=3=3=========변경후 =================================
         btn_save_photo = findViewById(R.id.CONFIRM);
         //========================3=3=3=3=3=3=========변경후 =================================
-
+        //=========액티비디로 값을 받아올때 부분===================13==13==13==13==13==13===13====================
+        Intent intent = getIntent(); // select_menu에서 보낸 값을 받아온다.
+        String selected_menu = intent.getExtras().getString("select_menu");
+        selected_m = selected_menu; // 전역 변수로 보내줌, 필요없음/
+        //====================================13==13==13==13==13==13===13====================
         //============================5=5=5=5=5=5================jsp적용 =====================
         Button Send_To_Jsp = (Button) findViewById(R.id.Send_To_JSP);
 
@@ -104,7 +115,7 @@ public class take_photoF extends Activity {
                 .permitNetwork().build());
         //============================================5=5=5=5=5=5=============================
 
-        Button btnReturn = (Button)findViewById(R.id.back1);
+        Button btnReturn = (Button) findViewById(R.id.back1);
         btnReturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,19 +129,17 @@ public class take_photoF extends Activity {
             @Override
             public void onClick(View v) {
 //다음은 카메라.저장소.인터넷 사용이 허가가 안되있을때 오류가 날 수 있음으로 허가를 받고 사용하기 위해서 행하는 것.
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){// 빌드 버젼을 체크하고
-                    if(checkSelfPermission(Manifest.permission.CAMERA) ==
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {// 빌드 버젼을 체크하고
+                    if (checkSelfPermission(Manifest.permission.CAMERA) ==
                             PackageManager.PERMISSION_DENIED ||
                             checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==  // 다음에 인터넷에 사용 허가를 받는것을 추가 하였다.~~~~~~~~ 변경 된거....
                                     PackageManager.PERMISSION_DENIED || checkSelfPermission(Manifest.permission.INTERNET) == PackageManager.PERMISSION_DENIED) {
-                        String [] permission ={Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.INTERNET};
+                        String[] permission = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.INTERNET};
                         requestPermissions(permission, PERMISSION_CODE);
-                    }
-                    else {
+                    } else {
                         open_camera();
                     }
-                }
-                else{
+                } else {
                     open_camera();
                 }
             }
@@ -138,20 +147,52 @@ public class take_photoF extends Activity {
 
         // 스피너 사용 부분 ====================================4=4=4=4=4=44=========================
 
-        final String[] Class = {"과목1","과목2","과목3","과목4","과목5"}; // 이 부분을 수정하면됨. 수정 할것은 testHere에 보관함. split를 사용하면 됨. // 다음 받아온 s를 이용하여 변경해야함.
-        final Spinner spinner = (Spinner)findViewById(R.id.class_choose);
+        final String[] Class = {"과목1", "과목2", "과목3", "과목4", "과목5"}; // 이 부분을 수정하면됨. 수정 할것은 testHere에 보관함. split를 사용하면 됨. // 다음 받아온 s를 이용하여 변경해야함.
+        final Spinner spinner = (Spinner) findViewById(R.id.class_choose);
+
+        String sub1 = "sub1";
+        String sub2 = "sub2";
+        String sub3 = "sub3";
+        String sub4 = "sub4";
+        String sub5 = "sub5";
+
+        //============================스피너 선택창======================================================
+
 
         ArrayAdapter<String> adapter;
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,Class);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Class);
         spinner.setAdapter(adapter);
-
+        // spinner.setSelection(4);
+        while (true) {
+            if (sub1.equals(selected_menu)) {
+                Toast.makeText(this, "과목1이 선택되었습니다.", Toast.LENGTH_LONG).show();
+                spinner.setSelection(0); // 스피너는 0부터 초기값이 0부터 시작됨.
+                break;
+            } else if (sub2.equals(selected_menu)) {
+                Toast.makeText(this, "과목2가 선택되었습니다.", Toast.LENGTH_LONG).show();
+                spinner.setSelection(1);
+                break;
+            } else if (sub3.equals(selected_menu)) {
+                Toast.makeText(this, "과목3이 선택되었습니다.", Toast.LENGTH_LONG).show();
+                spinner.setSelection(2);
+                break;
+            } else if (sub4.equals(selected_menu)) {
+                Toast.makeText(this, "과목4가 선택되었습니다.", Toast.LENGTH_LONG).show();
+                spinner.setSelection(3);
+                break;
+            } else if (sub5.equals(selected_menu)) {
+                Toast.makeText(this, "과목5가 선택되었습니다.", Toast.LENGTH_LONG).show();
+                spinner.setSelection(4);
+                break;
+            }
+        }
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 // i번째에 해당되는것을 선택할 수 있다.
 
-                editText1.setText("다음 과목에 대한 인증을 실행합니다:" + adapterView.getItemAtPosition(i));
+                editText1.setText("다음 과목을 인증합니다." + adapterView.getItemAtPosition(i));
                 //다음 스트링을 보내기 위해서.
 
 
@@ -171,6 +212,24 @@ public class take_photoF extends Activity {
 
         //=============================4=4=4=4=4=4=4================================================
 
+        //===============================15==15==15==15===15========================================
+        //날짜 선택 창
+        /*
+        selected_date = findViewById(R.id.selected_date);
+        calendarView = findViewById(R.id.select_date);
+
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+
+                selected_date.setText("선택된 날짜:"+ year+"/" +(month+1)+ "/" +dayOfMonth);
+
+            }
+        });
+
+         */
+
+        //===============================15==15==15==15===15========================================
     }
 
     private void open_camera() {
@@ -415,7 +474,6 @@ public class take_photoF extends Activity {
         Task Task = new Task(subject);
         Task.execute(sub,"vision_write"); // 다음 sub1이라는 데이터를 Task함수로 넘긴다. "Vision_Write"라는 이름으로.
     }
-
      */
 
 
@@ -461,11 +519,10 @@ public class take_photoF extends Activity {
             Toast.makeText(this, "권한을 모두 허용", Toast.LENGTH_SHORT).show(); }
     }
 
-
  */
     //========================5=5=5=5=55=5==========================================================규호형===============================================================
 // ==========================================11=====11==========11=======11===============문자를 보내기 위해서=====
-
+/*
     public class Task extends AsyncTask<String, Void, String> {
         String sendMsg;
         String receiveMsg;
@@ -526,21 +583,6 @@ public class take_photoF extends Activity {
 
 
     // ==========================================11=====11==========11=======11===============문자를 보내기 위해서=====
-    //========12======================오라클의 값을 사용할때
-    /*
-    String sendmsg = "vision_list";
-    String result; //전체출력 result;
-    String[] oj;
-try{
-        result  = new Task(sendmsg).execute("vision_list").get();//디비값을 가져오기
-        oj = result2.split("\t");
-    }catch (Exception e){
-        e.printStackTrace();
-    }
-
-    // 다음은 vision_list일때 모든 정보를 출력하려고
-
-     */
-    //========12==========================================
+ */
 
 }

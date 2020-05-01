@@ -58,12 +58,10 @@ public class home_pageF extends Fragment {
 
 
 
-
-
       btn1.setOnClickListener(new View.OnClickListener() {  //check 에 대한 버튼 기능 추가
           @Override
           public void onClick(View v) {
-              Intent intent = new Intent(getActivity(), take_photoF.class); //
+              Intent intent = new Intent(getActivity(), select_menuF.class); //
               startActivity(intent);
           }
       });
@@ -75,6 +73,26 @@ public class home_pageF extends Fragment {
               startActivity(intent);
           }
       });
+
+      /*
+       btn3.setOnClickListener(new View.OnClickListener() {  //check 에 대한 버튼 기능 추가
+          @Override
+          public void onClick(View v) {
+              Intent intent = new Intent(getActivity(), select_menuF.class); //
+              startActivity(intent);
+          }
+      });
+
+       */
+      /*
+      btn4.setOnClickListener(new View.OnClickListener() {  //check 에 대한 버튼 기능 추가
+          @Override
+          public void onClick(View v) {
+              Intent intent = new Intent(getActivity(), take_photoF.class); //
+              startActivity(intent);
+          }
+      });
+      */
 
     return view;
     }

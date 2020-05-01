@@ -20,9 +20,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <!--
         <activity
             android:name=".ui.login.LoginActivity"
-            android:label="@string/title_activity_login"></activity>
+            android:label="@string/title_activity_login"></activity>  // 로그인 화면을 구상할 때 필요한 액티비티
+         -->
         <!--
          API 29이상 ,android 10 부터는 보안 정책이 강화되어 외부저장소를 승인해도 안되는 경우가 있다 따라서 그 경우를 외부저장소를 사용하기 위해서
          requestLegacyExternalStorage를 승인 해줘야한다. 위를 승인하면 29이하도 작동되고 이상도 작동된다.
@@ -41,6 +43,12 @@
         <activity
             android:name=".MainActivity"
             android:label="메인 페이지" />
+        <activity
+            android:name=".select_menuF"
+            android:label="메뉴 선택 창"/>
+        <activity
+            android:name=".before_take_photo"
+            android:label="사진 찍기전 설정"/>
         <activity
             android:name=".take_photoF"
             android:label="사진 찍기" />

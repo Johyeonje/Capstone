@@ -7,7 +7,7 @@ import java.io.DataOutputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
+ // 다음은 사용을 안하는 함수.
 public class TextUpload {
 
     public static class NetworkTask extends AsyncTask<Void, Void, String> {

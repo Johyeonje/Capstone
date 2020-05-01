@@ -6,6 +6,7 @@ package com.example.new_kone;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
@@ -36,17 +37,18 @@ public class login_pageF extends Activity {
     //====================================2=2=2=2=2=================아직 확실x====================
     private final int MY_PERMISSIONS_REQUEST_CAMERA=1001;
     //====================================2=2=2=2=2==============================================
-
+    public String cookie;
     TextView signin,email_text,password_text;// xml에서 변수들을 불러올 때 처음 선언해 주는 것
     LinearLayout LinearLayout_log_in;
 
     private EditText Email_text,Password_text;
+    String url = "http://rbghoneroom402.iptime.org:48526/JSP/Login.jsp"; // 다음은 로그인 정보를 보내기 위한 주소.
 
 
     // 위에 것들은 아직 사용안함.
     // 다음은 로그인 자료를 보내기 위해 만든 변수 ===================10100====101010===10100=====101010=
     String n_Email,n_Password; // 사용자가 입력한 이메일과 패스워드를 저장하기 위해서.
-    String INFORMATION; // 사용자의 정보를 담기 위해서
+    String[] INFORMATION; // 사용자의 정보를 담기 위해서
     // ========================================10101000====1010100===101010===101010===10001=1=====
 
     @Override
@@ -90,18 +92,13 @@ public class login_pageF extends Activity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                // 다음은 아이디와 비밀번호를 보내는 구간===================================
-
+                // 다음은 아이디와 비밀번호를 보내는 구간======================================= 다음 액티비티로 넘기기 위해서.
                 String Email = Email_text.getText().toString();
                 String Password = Password_text.getText().toString();
-                String Compare = null;
+                Login(url,Email,Password);
                 // 전역변수로 사용하기 위해서 추가.==============================================
-                n_Email =Email;
-                n_Password = Password;
 
                 //============================================================================
-
                 // =======10=====10=====10=====10====10====10=============
                 /*
                 while (true) {
@@ -122,11 +119,10 @@ public class login_pageF extends Activity {
                 intent.putExtra("Password_text",Password);
 */
                 // =====================================================================
-
-                startActivity(intent);
             }
         });
-//=============10=====10=====10====10====10===10===10==== 다음은 API버전이 업그레이드 되면서 네트워크 사용이 항상 Enable로 무조건 UI스레드와 개별 적으로 하게 하는데
+//=============10=====10=====10====10====10===10===10====
+// 다음은 API버전이 업그레이드 되면서 네트워크 사용이 항상 Enable로 무조건 UI스레드와 개별 적으로 하게 하는데
         // 그것을 해제하여 UI스레드에서도 네트워크 관련 기능과 디스크 I/O를 가능하게 Disable로 바꿔주는 것이다.
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                 .permitDiskReads()
@@ -158,9 +154,66 @@ public class login_pageF extends Activity {
 
         }
     }
-    //==================================2=2=2=2=2================================================
+/*
+    public class NetworkTask extends AsyncTask<Void, Void, String>
+    {
+        private String url;
+        private ContentValues values;
 
-    //============10===========10============10===============10===========10=====================
+        public NetworkTask(String url,ContentValues values) {
+            this.url = url;
+            this.values = values;
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            String result;
+            RequestHttpURLConnection1 requestHttpURLConnection1 = new RequestHttpURLConnection1();
+            result =requestHttpURLConnection1.request(url, values);
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+        }
+
+    }
+
+ */
+
+    public void Login(String url, String ID, String PW){
+        String compare;
+        String origin ="Session_"; // login 성공시 Session값이 나옴으로 다음 값을 넣었다.
+        Login_network.NetworkTask networkTask = new Login_network.NetworkTask(url,ID,PW,getBaseContext());
+        try {
+            cookie = networkTask.execute().get();
+            Toast.makeText(getBaseContext(), cookie.substring(0,8), Toast.LENGTH_LONG).show(); // 쿠키의 1부터 7까지의 스트링을 가지고온다.Session일때 성공
+                                                                                                //다른거 뜰때는 로그인 실패.
+            compare = cookie.substring(0,8); //비교하기 위하여.
+
+            if(compare.equals(origin)){
+                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(intent);
+            }
+            else
+            {
+                return;
+            }
+
+
+
+        } catch (Exception e) {
+            Toast.makeText(getBaseContext(), e.toString(), Toast.LENGTH_LONG).show();
+        }
+
+    }
+}
+
+//==================================2=2=2=2=2================================================
+
+//============10===========10============10===============10===========10=====================
     /*
     public String HttpURLConnection(String urlString, String params, String n_Email, String n_Password) { // filename다음에 과목을 추가함.
         String lineEnd = "\r\n"; // 1.다음은 경계를 주기 위해서.
@@ -245,11 +298,10 @@ public class login_pageF extends Activity {
     }
 
      */
-    //============10===========10============10===============10===========10=====================
+//============10===========10============10===============10===========10=====================
 
     /*
     로그인 페이지를 만들때 위의 Task 방식은 필요없음. 스트링을 보내야 하는데 위의것은 파일을 보내는 것이므로 삭제 요망.
      */
 
-}
 

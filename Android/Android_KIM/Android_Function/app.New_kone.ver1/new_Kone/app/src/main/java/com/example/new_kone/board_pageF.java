@@ -39,9 +39,6 @@ public class board_pageF extends Fragment {
 
         mWebView.loadUrl("https://www.kangwon.ac.kr/www/selectBbsNttList.do?bbsNo=81&key=277&searchCtgry=%EC%B6%98%EC%B2%9C&"); // 다음 URL을 띄우겠다,
 
-
-
-
         return view;
     }
 }
