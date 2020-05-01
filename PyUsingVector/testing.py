@@ -101,7 +101,7 @@ if __name__ == "__main__":
     test_vec = model.call(test_images)
 
     # 등록인원과 입력인원에 대한 비교 행렬 생성
-    S = tf.matmul(test_vec, enroll_vec.T)
+    S = tf.matmul(test_vec, tf.transpose(enroll_vec))
 
     #get shape
     test_num, enroll_num = S.shape
