@@ -11,7 +11,7 @@ def load_image(file_name, mode=cv2.IMREAD_ANYCOLOR):
 
 if __name__ == "__main__":
     input_size = (100, 100)
-    org_img_path = "./RealTest/OrgImg/1.jpg"
+    org_img_path = "./RealTest/OrgImg/1.png"
     save_path = "./RealTest/CmpImg"
     org_img = load_image(org_img_path)
     # cv2.imshow("1", org_img)
