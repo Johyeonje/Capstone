@@ -11,9 +11,6 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-</head>
 <body>
 	<%
 		Connection conn = null;
@@ -81,8 +78,11 @@
 				c.setPath("/");
 				response.addCookie(c);
 			}
-			else
+			else {
 				System.out.println("로그인 실패");
+				System.out.println(PRO_ID + "\n" + PWD);
+				response.sendRedirect("Logout.jsp");
+			}
 		} catch (Exception e) {
 			System.out.println(e);
 		}

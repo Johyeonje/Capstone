@@ -1,50 +1,41 @@
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 import tensorflow as tf
-import utils
-import cv2
 import dlib
 import glob
 import argparse
-import os
+import sys
+import cv2
 from model import FaceEmbedder
+import utils
 import numpy as np
-
-def build_model():
-    model = tf.keras.models.Sequential()
-    model.add(tf.keras.layers.Conv2D(filters=8, kernel_size=3, activation='relu'))
-    model.add(tf.keras.layers.Conv2D(filters=8, kernel_size=3, activation='relu'))
-    model.add(tf.keras.layers.BatchNormalization())
-    model.add(tf.keras.layers.Conv2D(filters=16, kernel_size=3, activation='relu'))
-    model.add(tf.keras.layers.Conv2D(filters=16, kernel_size=3, activation='relu'))
-    model.add(tf.keras.layers.BatchNormalization())
-    model.add(tf.keras.layers.Conv2D(filters=32, kernel_size=3, activation='relu'))
-    model.add(tf.keras.layers.Conv2D(filters=64, kernel_size=3, activation='relu'))
-    model.add(tf.keras.layers.BatchNormalization())
-
-    model.add(tf.keras.layers.Flatten())
-    model.add(tf.keras.layers.Dense(units=256, activation=None))
-
-    return model
 
 
 if __name__ == "__main__":
 
     # hyperparameter
-    enroll_path = "./enroll_img"
-    test_path = "./test_img/2.jpg"
+    # file_path = sys.argv[1]
+    # file_name = sys.argv[2]
+    # PRO_ID = sys.argv[3]
+    file_path = "D:/Study/Capstone/CoreTech"
+    file_name = "1546955030.5424013.jpg"
+    PRO_ID = "10001"
+    enroll_path = "./enroll_img" + "/" + PRO_ID
+    test_path = file_path + "/" + file_name
     model_path = "../../FaceDataSet/train_model0420/chkpt-190000"
     input_size = (100, 100)
     enroll_images = []
     test_images = []
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--data_dir", default="../../FaceDataSet/ncrop", help="Data directory")
-    parser.add_argument("--chkpt_dir", default="../../FaceDataSet/train_model0420")
-    parser.add_argument("--log_dir", default="./logs/logs0420")
-    parser.add_argument("--train_person_num", default=20, type=int, help="하나의 훈련용 배치를 구성할 사람의 수")
-    parser.add_argument("--train_face_num", default=5, type=int, help="하나의 훈련용 배치를 구성할 사람마다 사용할 얼굴 사진의 수")
-    parser.add_argument("--test_person_num", default=20, type=int, help="하나의 평가용 배치를 구성할 사람의 수")
-    parser.add_argument("--test_face_num", default=5, type=int, help="하나의 가용 배치를 구성할 사람마다 사용할 얼굴 사진의 수")
-    args = parser.parse_args()
+    # parser = argparse.ArgumentParser()
+    # parser.add_argument("--data_dir", default="../../FaceDataSet/ncrop", help="Data directory")
+    # parser.add_argument("--chkpt_dir", default="../../FaceDataSet/train_model0420")
+    # parser.add_argument("--log_dir", default="./logs/logs0420")
+    # parser.add_argument("--train_person_num", default=20, type=int, help="하나의 훈련용 배치를 구성할 사람의 수")
+    # parser.add_argument("--train_face_num", default=5, type=int, help="하나의 훈련용 배치를 구성할 사람마다 사용할 얼굴 사진의 수")
+    # parser.add_argument("--test_person_num", default=20, type=int, help="하나의 평가용 배치를 구성할 사람의 수")
+    # parser.add_argument("--test_face_num", default=5, type=int, help="하나의 가용 배치를 구성할 사람마다 사용할 얼굴 사진의 수")
+    # args = parser.parse_args()
 
     # Set optimizer
     lr_schedule = tf.keras.optimizers.schedules.PolynomialDecay(
@@ -56,8 +47,8 @@ if __name__ == "__main__":
 
     # Configuration
     config = {
-        "train_person_num": args.train_person_num,
-        "train_face_num": args.train_face_num,
+        "train_person_num": 20,
+        "train_face_num": 5,
         "embedding_dim": 256,
         "apply_gradient_clipping": True,
         "gradient_clip_norm": 1,
@@ -84,27 +75,26 @@ if __name__ == "__main__":
         try:
             face = org_img[top:bottom, left:right, :]
             face = cv2.resize(face, dsize=input_size)
-            cv2.imshow(str(j), face)
             test_images.append(face)
         except Exception as ex:
             print(ex)
 
-    #model load
+    # model load
     model = FaceEmbedder(config)
     model.load_weights(model_path)
+    # model.load_weights(model_path).expect_partial()
+    # model.load_weights(model_path).assert_consumed()
 
-    #create vector
-    enroll_images = np.array(enroll_images).astype(float)
-    test_images = np.array(test_images).astype(float)
-    print(enroll_images.shape)
-    print(test_images.shape)
+    # create vector
+    enroll_images = np.array(enroll_images).astype("float32")
+    test_images = np.array(test_images).astype("float32")
     enroll_vec = model.call(enroll_images)
     test_vec = model.call(test_images)
 
     # 등록인원과 입력인원에 대한 비교 행렬 생성
     S = tf.matmul(test_vec, tf.transpose(enroll_vec))
 
-    #get shape
+    # get shape
     test_num, enroll_num = S.shape
 
     threshold = 0.5
@@ -117,3 +107,4 @@ if __name__ == "__main__":
             print("점수는 최대지만 threshold보다 낮음")
         else:
             print(str(max_score_idx) + "번째 사람이랑 같은 사람인것 같음.")
+    # os.remove(test_path)

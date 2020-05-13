@@ -50,7 +50,7 @@ if __name__ == "__main__":
     # file_path = sys.argv[1]
     # file_name = sys.argv[2]
     file_path = "D:/Study/Capstone/CoreTech"
-    file_name = "1579970655152-0.jpg"
+    file_name = "1546955030.5424013.jpg"
     predictor_model = os.path.join(file_path, "../../FaceDataSet/shape_predictor_68_face_landmarks.dat")
     cmp_img_path = os.path.join(file_path, "RealTest/CmpImg")
     org_img_path = file_path + "/" + file_name
