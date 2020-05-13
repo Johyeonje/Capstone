@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -21,12 +22,9 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
-import java.util.concurrent.ExecutionException;
-
 public class MainActivity extends AppCompatActivity {
     private static final int REQ_CODE_SELECT_IMAGE = 100;
-    public String cookie;
+    public String cookie=null;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -36,26 +34,40 @@ public class MainActivity extends AppCompatActivity {
         final String[] Person = {"a","b","c","d"};
 
         checkSelfPermission();
-        Button btn1 = (Button) findViewById(R.id.btn1);
+        final Button btn1 = (Button) findViewById(R.id.btn1);
         Button btn2 = (Button) findViewById(R.id.btn2);
+        Button btn3 = (Button) findViewById(R.id.btn3);
+        final EditText IDbox = findViewById(R.id.IDbox);
+        final EditText PWbox = findViewById(R.id.PWbox);
+        IDbox.setText("10001");
+        PWbox.setText("10001");
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                DoTextUpload("http://rbghoneroom402.iptime.org:48526/JSP/Text.jsp", Person);
-//                Intent intent = new Intent(Intent.ACTION_PICK);
-//                intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-//                startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
-                DoLogin("http://rbghoneroom402.iptime.org:48526/JSP/Login.jsp", "10001","10001");
+                if (cookie == null) {
+                    DoLogin("http://rbghoneroom402.iptime.org:48526/JSP/Login.jsp", IDbox.getText().toString(), PWbox.getText().toString());
+                    btn1.setText("LOGOUT");
+                } else {
+                    DoLogout("http://rbghoneroom402.iptime.org:48526/JSP/Logout.jsp");
+                    btn1.setText("LOGIN");
+                }
             }
         });
+
 
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DoDBRead("http://rbghoneroom402.iptime.org:48526/JSP/DBread.jsp");
-//                Intent intent = new Intent(Intent.ACTION_PICK);
-//                intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-//                startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
+            }
+        });
+        btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+                startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
             }
         });
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
@@ -114,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void DoFileUpload(String apiUrl, String absolutePath) {
-        FileUpload.NetworkTask networkTask = new FileUpload.NetworkTask(apiUrl, absolutePath, getBaseContext());
+        FileUpload.NetworkTask networkTask = new FileUpload.NetworkTask(apiUrl, absolutePath, cookie, getBaseContext());
         networkTask.execute();
     }
 
@@ -136,6 +148,11 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             Toast.makeText(getBaseContext(), e.toString(), Toast.LENGTH_SHORT).show();
         }
-
+    }
+    public void DoLogout(String apiUrl) {
+        Login.NetworkTask networkTask = new Login.NetworkTask(apiUrl, cookie, getBaseContext());
+        networkTask.execute();
+        Toast.makeText(getBaseContext(), "LogOut", Toast.LENGTH_SHORT).show();
+        cookie=null;
     }
 }

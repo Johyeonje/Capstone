@@ -14,19 +14,20 @@ import java.net.URL;
 public class FileUpload {
     public static class NetworkTask extends AsyncTask<Void, Void, String> {
 
-        private String url, fileName;
+        private String url, fileName, cookie;
         private Context context;
 
-        public NetworkTask(String url, String fileName, Context context) {
+        public NetworkTask(String url, String fileName, String cookie, Context context) {
             this.url = url;
             this.fileName = fileName;
             this.context = context;
+            this.cookie = cookie;
         }
 
         @Override
         protected String doInBackground(Void... params) {
             String result; // 요청 결과를 저장할 변수.
-            result = HttpURLConnection(url, "", fileName); // 해당 URL로 부터 결과물을 얻어온다.
+            result = HttpURLConnection(url, "", fileName, cookie ); // 해당 URL로 부터 결과물을 얻어온다.
             return result;
         }
 
@@ -38,13 +39,13 @@ public class FileUpload {
         }
     }
 
-    public static String HttpURLConnection(String urlString, String params, String fileName) {
+    public static String HttpURLConnection(String urlString, String params, String fileName, String cookie) {
         String lineEnd = "\r\n";
         String twoHyphens = "--";
         String boundary = "*****";
         try {
             FileInputStream mFileInputStream = new FileInputStream(new File(fileName));
-            URL connectUrl = new URL(urlString);
+            URL connectUrl = new URL(urlString+";jsessionid="+cookie.substring(11,43));
             // HttpURLConnection 통신
             HttpURLConnection conn = (HttpURLConnection) connectUrl.openConnection();
             conn.setDoInput(true);

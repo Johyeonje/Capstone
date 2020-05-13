@@ -13,12 +13,13 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-</head>
 <body>
 	<%
 		//이미지를 저장할 경로 입력.
+		if (session.getAttribute("PRO_ID") == null) {
+		    response.sendRedirect("Logout.jsp");
+		    return;
+		}
 		request.setCharacterEncoding("utf-8");
 		String folderTypePath = "D:/Study/Capstone/CoreTech";
 		String name = new String();
@@ -43,7 +44,8 @@
 			OutputStream outputStream = response.getOutputStream();
 			DataOutputStream dos = new DataOutputStream(outputStream);
 			Runtime runtime = Runtime.getRuntime();
-			Process process = runtime.exec("conda run -n tf python "+folderTypePath+"/Prototype.py "+folderTypePath+" "+fileName);
+			System.out.println("PYTHON 시작");
+			Process process = runtime.exec("conda run -n tf python "+folderTypePath+"/testing.py "+folderTypePath+" "+fileName+" "+session.getAttribute("PRO_ID"));
 			process.waitFor();
 			BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
 			String s;

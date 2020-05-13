@@ -38,6 +38,8 @@ public class DBRead {
         String lineEnd = "\r\n";
         String twoHyphens = "--";
         String boundary = "*****";
+        if(cookie == null)
+            return "Login Please~";
         try {
             URL connectUrl = new URL(urlString+";jsessionid="+cookie.substring(11,43));
             // HttpURLConnection 통신

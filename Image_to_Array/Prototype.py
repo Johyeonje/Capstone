@@ -25,7 +25,6 @@ def make_x_y(input_list, cmp_list, dtype=np.float32):
 
     return np.array(x).astype(dtype), num_list, x
 
-
 def build_model():
     """ Function to create model """
     model = tf.keras.models.Sequential()

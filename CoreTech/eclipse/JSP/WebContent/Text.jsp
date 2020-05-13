@@ -7,9 +7,6 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-</head>
 <body>
 	<%
 		//이미지를 저장할 경로 입력.
