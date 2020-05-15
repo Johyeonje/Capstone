@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.myapplication">
+    <!-- ===================================2=2=2=2=2========================================= -->
+    <!--
+ <uses-feature android:name="android.hardware.camera"
+        android:required="true"/>
+    -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <!--
+         API 29이상 ,android 10 부터는 보안 정책이 강화되어 외부저장소를 승인해도 안되는 경우가 있다 따라서 그 경우를 외부저장소를 사용하기 위해서
+         requestLegacyExternalStorage를 승인 해줘야한다. 위를 승인하면 29이하도 작동되고 이상도 작동된다.
+        -->
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+        <activity android:name="com.example.myapplication.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> <!-- ===================================액티비티를 추가할때 이곳에도 추가해줘야 한다. -->
+
+    </application>
+
+</manifest>
