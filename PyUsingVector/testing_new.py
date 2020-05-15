@@ -61,7 +61,7 @@ if __name__ == "__main__":
 
     org_img = utils.read_image(test_path)
     face_detector = dlib.get_frontal_face_detector()
-    detected_faces = face_detector(org_img)
+    detected_faces = face_detector(org_img, 1)
     for j, face_rect in enumerate(detected_faces):
         left, right, top, bottom = face_rect.left(), face_rect.right(), face_rect.top(), face_rect.bottom()
         try:
