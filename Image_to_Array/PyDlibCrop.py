@@ -15,8 +15,8 @@ if __name__ == "__main__":  # 본 코드를 import 시에 이 코드가 자동 �
     # 얼굴 사진 하나씩 확인해서 이름 변경
     # 전부다 불러내서 4차원 배열로 만들기
 
-    train_img_dir = "../../FaceDataSet/"  # 현재 위치
-    for face_num in range(1, len(os.listdir(train_img_dir+"train/")), 1):
+    train_img_dir = "D:/Study/All-Age-Faces Dataset/aglined faces/F"  # 현재 위치
+    for face_num in range(1, len(os.listdir(train_img_dir)), 1):
         load_path = "./RealTest/original_img/"
         print("load")
         # train_img_list = os.listdir(load_path)
