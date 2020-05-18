@@ -17,10 +17,8 @@ if __name__ == "__main__":  # 본 코드를 import 시에 이 코드가 자동 �
 
     train_img_dir = "D:/Study/All-Age-Faces Dataset/aglined faces/F"  # 현재 위치
     for face_num in range(1, len(os.listdir(train_img_dir)), 1):
-        load_path = "./RealTest/original_img/"
         print("load")
-        # train_img_list = os.listdir(load_path)
-        train_img_list = load_path + "117"  # .jpg로 끝나는 파일들을 모두 리스트로 읽어들임
+        train_img_list = glob.glob(train_img_dir)
         # print(train_data_list)
         # exit()
         # train_img_list = ["sample.jpg"]      # 이거를 직접 하나하나 입력할 필요없이 위에 glob.glob를 사용해서 만들어주면됨
@@ -41,8 +39,7 @@ if __name__ == "__main__":  # 본 코드를 import 시에 이 코드가 자동 �
                 face_detector = dlib.get_frontal_face_detector()  # dlib의 face detection 적용 -> face_rect.상하좌우 에 값이 반환되는 것으로 보임
                 detected_faces = face_detector(img, 1)  # detected_faces에 찾아진 얼굴들에 대한 좌표가 리스트로 저장되어있음
 
-                for j, face_rect in enumerate(
-                        detected_faces):  # 원본 이미지에서 뽑아낸 얼굴들 리스트에 대한 좌표값들을 하나하나 이용할 시간, j에 대해 enumerate를 사용
+                for j, face_rect in enumerate(detected_faces):
                     left, right, top, bottom = face_rect.left(), face_rect.right(), face_rect.top(), face_rect.bottom()  # 좌우상하 값을 옮겨받는다.
 
                     # print(j, left, right, top, bottom)
@@ -52,7 +49,7 @@ if __name__ == "__main__":  # 본 코드를 import 시에 이 코드가 자동 �
                         cv2.imwrite(save_path + "/detected_face-" + str(i) + ".jpg", face)
                     except Exception as ex:
                         print(ex)
-                if i >= 32:
+                if i >= 500:
                     break;
 
             # print(type(img))
