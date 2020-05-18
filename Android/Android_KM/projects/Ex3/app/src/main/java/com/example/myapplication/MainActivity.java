@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -44,6 +45,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 import static java.lang.Float.parseFloat;
 
@@ -58,8 +60,10 @@ public class MainActivity extends Activity {
     private static final int IMAGE_CAPTURE_CODE = 1001;
     Uri image_uri;
     String Subject; // 다음 과목을 넣기 위해.
+    public String downString; //받은 문자열 저장
 
     PieChart pieChart;
+    private TextView downText;
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -71,6 +75,7 @@ public class MainActivity extends Activity {
         imageView1 = findViewById(R.id.imageView1);
         btn_save_photo = findViewById(R.id.photograph);
         Button Send_To_Jsp = (Button) findViewById(R.id.send_photo);
+        downText = (TextView) findViewById(R.id.downText);
 
         /* ======================파이차트 부분==================== */
         pieChart = (PieChart)findViewById(R.id.piechart);
@@ -91,6 +96,7 @@ public class MainActivity extends Activity {
         String v1, v2, v3 ,v4 ,v5 ,v6, v7, v8, v9, v10, v11, v12; //값
 
         /* 문자열 저장 변수 */
+
         v1 = "34f"; v2 = "30f"; v3 = "15f";
         v4 = "40f"; v5 = "50f"; v6 = "70f";
         v7 = "34f"; v8 = "30f"; v9 = "15f";
@@ -163,6 +169,13 @@ public class MainActivity extends Activity {
                 }
             }
         });
+    }
+
+    private void tokenizer(){ //토큰 분리 함수
+        StringTokenizer token1 = new StringTokenizer(downString , "o");
+        while(token1.hasMoreTokens()) {
+            System.out.println(token1.nextToken() + " ");
+        }
     }
 
     private void open_camera() {
@@ -354,7 +367,9 @@ public class MainActivity extends Activity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             //doInBackground()로 부터 리턴된 값이 onPostExecute()의 매개변수로 넘어오므로 s를 출력한다.
-            Toast.makeText(getBaseContext(), "Responce : " + s, Toast.LENGTH_SHORT).show();
+            downText.setText(s);
+            downString = s;
+            tokenizer(); //받은 문자열 분리
         }
     }
 
