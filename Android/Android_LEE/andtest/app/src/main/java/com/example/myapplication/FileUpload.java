@@ -14,20 +14,21 @@ import java.net.URL;
 public class FileUpload {
     public static class NetworkTask extends AsyncTask<Void, Void, String> {
 
-        private String url, fileName, cookie;
+        private String url, fileName, cookie, SUB_ID;
         private Context context;
 
-        public NetworkTask(String url, String fileName, String cookie, Context context) {
+        public NetworkTask(String url, String fileName, String cookie, String SUB_ID, Context context) {
             this.url = url;
             this.fileName = fileName;
             this.context = context;
             this.cookie = cookie;
+            this.SUB_ID = SUB_ID;
         }
 
         @Override
         protected String doInBackground(Void... params) {
             String result; // 요청 결과를 저장할 변수.
-            result = HttpURLConnection(url, "", fileName, cookie ); // 해당 URL로 부터 결과물을 얻어온다.
+            result = HttpURLConnection(url, "", fileName, cookie, SUB_ID); // 해당 URL로 부터 결과물을 얻어온다.
             return result;
         }
 
@@ -39,7 +40,7 @@ public class FileUpload {
         }
     }
 
-    public static String HttpURLConnection(String urlString, String params, String fileName, String cookie) {
+    public static String HttpURLConnection(String urlString, String params, String fileName, String cookie, String SUB_ID) {
         String lineEnd = "\r\n";
         String twoHyphens = "--";
         String boundary = "*****";
@@ -57,7 +58,7 @@ public class FileUpload {
             // write data
             DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
             dos.writeBytes(twoHyphens + boundary + lineEnd);
-            dos.writeBytes("Content-Disposition: form-data; name=\"uploadedfile\";filename=\"" + fileName + "\"" + lineEnd);
+            dos.writeBytes("Content-Disposition: form-data; name=\"uploadedfile\";filename=\"" + SUB_ID + ".jpg\"" + lineEnd);
             dos.writeBytes(lineEnd);
             int bytesAvailable = mFileInputStream.available();
             int maxBufferSize = 1024;

@@ -44,6 +44,7 @@ class DataGenerator:
                 # Different
                 id = random.choice(self.id_list)
                 path = os.path.join(self.indir, id)
+                
                 f_name_1 = os.path.join(path, random.choice(os.listdir(path)))
                 id = random.choice(self.id_list)
                 path = os.path.join(self.indir, id)
@@ -79,7 +80,6 @@ def create_model():
     model.add(tf.keras.layers.Conv2D(128, (2, 2), activation='relu', padding='same'))
     model.add(tf.keras.layers.MaxPooling2D((2, 2)))
     model.add(tf.keras.layers.Conv2D(256, (2, 2), activation='relu', padding='same'))
-    #Switch add 512 layer at ver0417
     model.add(tf.keras.layers.MaxPooling2D((2, 2)))
     model.add(tf.keras.layers.Conv2D(512, (2, 2), activation='relu', padding='same'))
 

@@ -30,7 +30,6 @@ public class DBRead {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
             //doInBackground()로 부터 리턴된 값이 onPostExecute()의 매개변수로 넘어오므로 s를 출력한다
         }
     }
