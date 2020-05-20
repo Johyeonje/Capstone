@@ -24,7 +24,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 public class MainActivity extends AppCompatActivity {
     private static final int REQ_CODE_SELECT_IMAGE = 100;
-    public String cookie=null;
+    public String cookie=null, SUB_ID=null, SUB;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DoDBRead("http://rbghoneroom402.iptime.org:48526/JSP/DBread.jsp");
+                DoDBRead("http://rbghoneroom402.iptime.org:48526/JSP/Subject.jsp");
             }
         });
         btn3.setOnClickListener(new View.OnClickListener() {
@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void DoFileUpload(String apiUrl, String absolutePath) {
-        FileUpload.NetworkTask networkTask = new FileUpload.NetworkTask(apiUrl, absolutePath, cookie, getBaseContext());
+        FileUpload.NetworkTask networkTask = new FileUpload.NetworkTask(apiUrl, absolutePath, cookie, SUB_ID, getBaseContext());
         networkTask.execute();
     }
 
@@ -137,7 +137,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void DoDBRead(String apiUrl) {
         DBRead.NetworkTask networkTask = new DBRead.NetworkTask(apiUrl, cookie, getBaseContext());
-        networkTask.execute();
+        try {
+            SUB = networkTask.execute().get();
+            SUB_ID = SUB.substring(0,5);
+            Toast.makeText(getBaseContext(), SUB+SUB_ID, Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Toast.makeText(getBaseContext(), e.toString(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void DoLogin(String apiUrl,String ID, String PWD) {

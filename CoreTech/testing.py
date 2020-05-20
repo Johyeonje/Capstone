@@ -1,5 +1,6 @@
 import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 import tensorflow as tf
 import dlib
 import glob
@@ -10,32 +11,23 @@ from model import FaceEmbedder
 import utils
 import numpy as np
 
-
 if __name__ == "__main__":
 
     # hyperparameter
-    # file_path = sys.argv[1]
-    # file_name = sys.argv[2]
-    # PRO_ID = sys.argv[3]
-    file_path = "D:/Study/Capstone/CoreTech"
-    file_name = "1546955030.5424013.jpg"
-    PRO_ID = "10001"
-    enroll_path = "./enroll_img" + "/" + PRO_ID
+    file_path = sys.argv[1]
+    file_name = sys.argv[2]
+    STU_IDs = sys.argv[3]
+    # file_path = "D:/Study/Capstone/CoreTech"
+    # file_name = "20004.jpg"
+    # STU_IDs = "201221892201421927201421936201521889"
+    enroll_path = file_path + "/enroll_img"
     test_path = file_path + "/" + file_name
-    model_path = "../../FaceDataSet/train_model0420/chkpt-190000"
+    model_path = "D:/Study/FaceDataSet/train_model0420/chkpt-190000"
     input_size = (100, 100)
     enroll_images = []
     test_images = []
-
-    # parser = argparse.ArgumentParser()
-    # parser.add_argument("--data_dir", default="../../FaceDataSet/ncrop", help="Data directory")
-    # parser.add_argument("--chkpt_dir", default="../../FaceDataSet/train_model0420")
-    # parser.add_argument("--log_dir", default="./logs/logs0420")
-    # parser.add_argument("--train_person_num", default=20, type=int, help="하나의 훈련용 배치를 구성할 사람의 수")
-    # parser.add_argument("--train_face_num", default=5, type=int, help="하나의 훈련용 배치를 구성할 사람마다 사용할 얼굴 사진의 수")
-    # parser.add_argument("--test_person_num", default=20, type=int, help="하나의 평가용 배치를 구성할 사람의 수")
-    # parser.add_argument("--test_face_num", default=5, type=int, help="하나의 가용 배치를 구성할 사람마다 사용할 얼굴 사진의 수")
-    # args = parser.parse_args()
+    STU_ID = []
+    length = 9
 
     # Set optimizer
     lr_schedule = tf.keras.optimizers.schedules.PolynomialDecay(
@@ -61,15 +53,17 @@ if __name__ == "__main__":
         "save_chkpt_interval": 10000
     }
 
+    for i in [STU_IDs[i:i + length] for i in range(0, len(STU_IDs), length)]:
+        STU_ID.append(i)
     # image load
-    cmp_img_list = glob.glob(enroll_path + "/*.jpg")
-    for i, cmp_img in enumerate(cmp_img_list):
-        img = utils.read_image(cmp_img)
+    for i, cmp_img in enumerate(STU_ID):
+        img = utils.read_image(enroll_path + "/" + cmp_img + ".jpg")
         enroll_images.append(img)
 
     org_img = utils.read_image(test_path)
     face_detector = dlib.get_frontal_face_detector()
     detected_faces = face_detector(org_img, 1)
+
     for j, face_rect in enumerate(detected_faces):
         left, right, top, bottom = face_rect.left(), face_rect.right(), face_rect.top(), face_rect.bottom()
         try:
@@ -78,33 +72,33 @@ if __name__ == "__main__":
             test_images.append(face)
         except Exception as ex:
             print(ex)
+    if len(test_images) != 0:
+        # model load
+        model = FaceEmbedder(config)
+        model.load_weights(model_path)
+        network = model.build_network()
 
-    # model load
-    model = FaceEmbedder(config)
-    model.load_weights(model_path)
-    # model.load_weights(model_path).expect_partial()
-    # model.load_weights(model_path).assert_consumed()
+        # create vector
+        enroll_images = np.array(enroll_images).astype("float32")
+        test_images = np.array(test_images).astype("float32")
+        enroll_vec = network(enroll_images)
+        test_vec = network(test_images)
 
-    # create vector
-    enroll_images = np.array(enroll_images).astype("float32")
-    test_images = np.array(test_images).astype("float32")
-    enroll_vec = model.call(enroll_images)
-    test_vec = model.call(test_images)
+        # 등록인원과 입력인원에 대한 비교 행렬 생성
+        S = tf.matmul(test_vec, tf.transpose(enroll_vec))
 
-    # 등록인원과 입력인원에 대한 비교 행렬 생성
-    S = tf.matmul(test_vec, tf.transpose(enroll_vec))
+        # get shape
+        test_num, enroll_num = S.shape
 
-    # get shape
-    test_num, enroll_num = S.shape
-
-    threshold = 0.5
-
-    # 동일인물 확인
-    for i in range(test_num):
-        max_score_idx = np.argmax(S[i, :])
-        max_score = S[i, max_score_idx]
-        if (max_score < threshold):
-            print("점수는 최대지만 threshold보다 낮음")
-        else:
-            print(str(max_score_idx) + "번째 사람이랑 같은 사람인것 같음.")
-    # os.remove(test_path)
+        threshold = 0.5
+        # 동일인물 확인
+        for i in range(test_num):
+            max_score_idx = np.argmax(S[i, :])
+            max_score = S[i, max_score_idx]
+            if (max_score < threshold):
+                print("점수는 최대지만 threshold보다 낮음")
+            else:
+                print(STU_ID[i])
+    else:
+        print("사람 없음")
+    os.remove(test_path)

@@ -4,8 +4,6 @@ import numpy as np
 
 
 class FaceEmbedder(tf.keras.Model):
-    tf.keras.backend.set_floatx('float32')
-
     def __init__(self, config):
         super(FaceEmbedder, self).__init__()
 
@@ -67,6 +65,19 @@ class FaceEmbedder(tf.keras.Model):
         x = self.dense(x)
         x = tf.math.l2_normalize(x, axis=1)
         return x
+
+    def build_network(self):
+        inputs = tf.keras.Input(shape=[100, 100, 3], dtype=tf.float32)
+        x = self.conv1(inputs)
+        x = self.batch_norm1(x, training=False)
+        x = self.conv2(x)
+        x = self.batch_norm2(x, training=False)
+        x = self.conv3(x)
+        x = self.batch_norm3(x, training=False)
+        x = self.dense(x)
+        x = tf.math.l2_normalize(x, axis=1)
+        model = tf.keras.Model(inputs=inputs, outputs=x)
+        return model
 
     def evaluate(self, inputs, person_num, face_num, epsilon=1e-10):
         # Get embeddings

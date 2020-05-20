@@ -9,7 +9,7 @@
 <%@page import="java.io.BufferedReader"%>
 <%@page import="java.io.InputStreamReader"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=EUC-KR" import="java.sql.*"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -20,10 +20,16 @@
 		    response.sendRedirect("Logout.jsp");
 		    return;
 		}
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String jdbc_driver = "com.mysql.cj.jdbc.Driver";
+		String jdbc_url = "jdbc:mysql://127.0.0.1/capstonedb";
 		request.setCharacterEncoding("utf-8");
 		String folderTypePath = "D:/Study/Capstone/CoreTech";
 		String name = new String();
 		String fileName = new String();
+		String STU_ID = new String();
 		int sizeLimit = 20 * 1024 * 1024; // 5메가까지 제한 넘어서면 예외발생
 		try {
 			long time = System.currentTimeMillis(); 
@@ -41,18 +47,30 @@
 			System.out.println("이미지를 저장하였습니다. : " + fileName);
 			out.clear();
 			out = pageContext.pushBody();
+			Class.forName(jdbc_driver);
+			conn = DriverManager.getConnection(jdbc_url,"capstone", "1q2w3e4r");
+			//String sql = "insert into lecture values(?,?)";
+			String sub = "SELECT STU_ID FROM lecture where SUB_ID = " + fileName.substring(0,5);
+			pstmt = conn.prepareStatement(sub);
+			rs = pstmt.executeQuery();
+			out.clear();
+			out=pageContext.pushBody();
+			while (rs.next()) {
+				STU_ID = STU_ID + rs.getString(1);
+			}
+			System.out.println(STU_ID);
 			OutputStream outputStream = response.getOutputStream();
 			DataOutputStream dos = new DataOutputStream(outputStream);
 			Runtime runtime = Runtime.getRuntime();
 			System.out.println("PYTHON 시작");
-			Process process = runtime.exec("conda run -n tf python "+folderTypePath+"/testing.py "+folderTypePath+" "+fileName+" "+session.getAttribute("PRO_ID"));
+			Process process = runtime.exec("conda run -n tf python "+folderTypePath+"/testing.py "+folderTypePath+" "+fileName+" "+STU_ID);
 			process.waitFor();
 			BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
 			String s;
 			while ((s = br.readLine())!= null) {
 				if (s.length()>10) {
-					dos.writeUTF(s.substring(s.length()-10, s.length()-4));
-					System.out.println(s.substring(s.length()-10, s.length()-4));
+					dos.writeUTF(s);
+					System.out.println(s);
 				} else if(s.length() != 0){
 					dos.writeUTF(s);
 					System.out.println(s);
