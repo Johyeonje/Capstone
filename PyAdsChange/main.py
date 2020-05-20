@@ -19,10 +19,10 @@ def load_image(filename):
     return img
 
 def make_batch():
-    x = []
-    y = []
+    x = list()
+    y = list()
     batch_num = 10
-    data_path = "D:\\"      #data path
+    data_path = "D:/Study/All-Age-Faces/F_crop"      #data path
     age_list = os.listdir(data_path)
     for i in range(batch_num):
         id = random.choice(age_list)            # choice age
