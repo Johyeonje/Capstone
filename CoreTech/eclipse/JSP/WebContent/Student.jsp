@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" import="java.sql.*"
     pageEncoding="UTF-8"%>
+   <%@page import="java.io.InputStream"%>
+<%@page import="java.io.DataInputStream"%>
+<%@page import="java.io.EOFException"%>
 <%@page import="java.io.OutputStream"%>
 <%@page import="java.io.DataOutputStream"%>
 <%@page import="java.util.Date"%>
@@ -14,9 +17,14 @@
 	}
 	String PRO_ID = (String)session.getAttribute("PRO_ID");
 	String PWD = (String)session.getAttribute("PWD");
+	String SUB_ID;
+	String STU_IDs = null;
+	StringBuffer b;
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
+	out.clear();
+	out=pageContext.pushBody();
 	String jdbc_driver = "com.mysql.cj.jdbc.Driver";
 	String jdbc_url = "jdbc:mysql://127.0.0.1/capstonedb";
 	try{
@@ -24,24 +32,38 @@
 		long time = System.currentTimeMillis(); 
 		SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		String str = dayTime.format(new Date(time));
-		Class.forName(jdbc_driver);
+		InputStream inputStream = request.getInputStream();
+		DataInputStream dis = new DataInputStream(inputStream);
+        b = new StringBuffer();
+        try {
+            for (String ch; (ch = dis.readUTF()) != null;)  {
+                b.append(ch);
+                b.append(lineEnd);
+            }
+        } catch (EOFException e) {
+            b.delete(b.length()-lineEnd.length(),b.length());
+        }
+        b.append(lineEnd);
+        System.out.print(b.toString());
+        SUB_ID = b.toString();
+        Class.forName(jdbc_driver);
 		conn = DriverManager.getConnection(jdbc_url,"capstone", "1q2w3e4r");
 		//String sql = "insert into lecture values(?,?)";
-		String sub = "SELECT SUB_ID, SUB_NAME FROM SUB WHERE PRO_ID = " + PRO_ID;
+		String sub = "SELECT STU_ID FROM lecture where SUB_ID = " + SUB_ID;
 		pstmt = conn.prepareStatement(sub);
 		rs = pstmt.executeQuery();
-		out.clear();
-		out=pageContext.pushBody();
 		OutputStream outputStream = response.getOutputStream();
 		DataOutputStream dos = new DataOutputStream(outputStream);
 		while (rs.next()) {
-			String SUB_ID = rs.getString(1);
-			String SUB_NAME = rs.getString(2);
-			dos.writeUTF(SUB_ID + "\t" + SUB_NAME + lineEnd);
+			String STU_ID = rs.getString(1);
+			STU_IDs = STU_IDs + STU_ID;
+			String STU_NAME = rs.getString(2);
+			dos.writeUTF(STU_ID + "\t" + STU_NAME + lineEnd);
 		}
 		dos.flush();
 		dos.close();
 		outputStream.close();
+		session.setAttribute("STU_IDs", STU_IDs);
 	} catch (Exception e) {
 		System.out.println(e);
 	}
