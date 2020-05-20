@@ -31,14 +31,15 @@ def make_batch():
         image_id = random.choice(image_list)
         image_path = os.path.join(id_path, image_id)
         image = load_image(image_path)          # load image
-        x.append(image)
 
         # make label
         label = np.zeros(shape=[12,1], dtype=np.float32)
         label[(int(id)-1),0] = 1
-        y.append(label)
+        print(y)
 
         x, y = np.array(x), np.array(y)
+        x.append(image)
+        y.append(label)
 
         print(x.shape)
         print(y.shape)
