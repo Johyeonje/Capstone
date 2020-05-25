@@ -7,12 +7,6 @@ import tensorflow as tf
 #from sklearn.utils import shuffle
 
 
-# Set global variables
-width = 100
-height = 100
-n_channels = 3
-
-
 def load_data(path):
     data = dict()
     id_list = os.listdir(path)
@@ -29,10 +23,9 @@ def load_image(filename):
     return img
 
 
-def make_batch(id_list, data, dtype=np.float32):
+def make_batch(id_list, data, batch_num, dtype=np.float32):
     x = list()
     y = list()
-    batch_num = 10
     for i in range(batch_num):
         # make batch x
         id = random.choice(id_list)            # choice age
@@ -49,11 +42,78 @@ def make_batch(id_list, data, dtype=np.float32):
     return np.array(x).astype(dtype), np.array(y).astype(dtype)
 
 
+def build_model():
+    model = tf.keras.models.Sequential()
+    model.add(tf.keras.layers.Conv2D(8, (3, 3), activation='relu', padding='same', input_shape=(100, 100, 3)))
+    model.add(tf.keras.layers.MaxPooling2D((2, 2)))
+    model.add(tf.keras.layers.Conv2D(16, (3, 3), activation='relu', padding='same'))
+    model.add(tf.keras.layers.MaxPooling2D((2, 2)))
+    model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu', padding='same'))
+    model.add(tf.keras.layers.MaxPooling2D((2, 2)))
+    model.add(tf.keras.layers.Conv2D(64, (2, 2), activation='relu', padding='same'))
+    model.add(tf.keras.layers.Conv2D(64, (2, 2), activation='relu', padding='same'))
+    model.add(tf.keras.layers.MaxPooling2D((2, 2)))
+    model.add(tf.keras.layers.Conv2D(128, (2, 2), activation='relu', padding='same'))
+    model.add(tf.keras.layers.MaxPooling2D((2, 2)))
+    model.add(tf.keras.layers.Conv2D(256, (2, 2), activation='relu', padding='same'))
+    model.add(tf.keras.layers.MaxPooling2D((2, 2)))
+
+    # 출력층(Dense) 추가
+    model.add(tf.keras.layers.Flatten())
+    model.add(tf.keras.layers.Dense(256, activation='relu'))
+    model.add(tf.keras.layers.Dense(2, activation='softmax'))
+
+    return model
+
+
 if __name__ == "__main__":
     data_path = "D:/Study/All-Age-Faces/F_crop"      #data path
+    save_path = "/Ads_model0"       # model save path
+    log_path = "/Ads_log0"          # log save path
+
+    # parameter
+    train_epoch_num = 100000
+    test_epoch_num = 1000
 
     id_list, data = load_data(data_path)
 
-    batch_x, batch_y = make_batch(id_list, data)
-    print(batch_x.shape)
-    print(batch_y.shape)
+    model = build_model()
+    optimizer = tf.keras.optimizers.Adam()
+    loss = tf.losses.BinaryCrossentropy()
+    model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])
+
+    # Create summary writer
+    writer = tf.summary.create_file_writer(logdir=log_dir)
+
+    # load model
+    # model.load_weights(model_name)
+
+    for epoch in range(train_epoch_num):
+
+        batch_x, batch_y = make_batch(id_list, data, batch_num=50)
+        train_loss, train_acc = model.train_on_batch(batch_x, batch_y)
+
+        with writer.as_default():
+            tf.summary.scalar("Train Loss", train_loss, step=epoch)
+            tf.summary.scalar("Train Acc", train_acc, step=epoch)
+
+        if epoch != 0 and epoch % 1000 == 0:
+            test_loss_list = []
+            test_x, test_y = make_batch(id_list, data, batch_num=10)
+
+            for test_epoch in range(train_epoch_num):
+                y_pred = model.predict(batch_x)
+                test_loss = loss(batch_y, y_pred)
+                test_loss_list.append(test_loss)
+
+            with writer.as_default():
+                tf.summary.scalar("Test Loss", np.mean(test_loss_list), step=epoch)
+
+        if epoch != 0 and epoch % 10000 == 0:
+            filepath = os.path.join(save_path, "chkpt-" + str(epoch))
+            model.save_weights(filepath)
+
+        print("Epoch : {}, Train Loss : {}, Train Acc : {}".format(epoch, "%1.3f" % train_loss, "%1.3f" % train_acc))
+
+
+    print("Trainning done")
