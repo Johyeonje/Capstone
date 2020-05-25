@@ -91,11 +91,11 @@ if __name__ == "__main__":
     for epoch in range(train_epoch_num):
 
         batch_x, batch_y = make_batch(id_list, data, batch_num=50)
-        train_loss, train_acc = model.evaluate(batch_x, batch_y)
+        train_loss = model.evaluate(batch_x, batch_y)
 
         with writer.as_default():
             tf.summary.scalar("Train Loss", train_loss, step=epoch)
-            tf.summary.scalar("Train Acc", train_acc, step=epoch)
+            #tf.summary.scalar("Train Acc", train_acc, step=epoch)
 
         if epoch != 0 and epoch % 1000 == 0:
             test_loss_list = []
@@ -113,7 +113,7 @@ if __name__ == "__main__":
             filepath = os.path.join(save_path, "chkpt-" + str(epoch))
             model.save_weights(filepath)
 
-        print("Epoch : {}, Train Loss : {}, Train Acc : {}".format(epoch, "%1.3f" % train_loss, "%1.3f" % train_acc))
+        print("Epoch : {}, Train Loss : {}".format(epoch, "%1.3f" % train_loss))
 
 
     print("Trainning done")
