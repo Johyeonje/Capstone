@@ -32,7 +32,7 @@ def load_image(filename):
 def make_batch(id_list, data, dtype=np.float32):
     x = list()
     y = list()
-    batch_num = 50
+    batch_num = 10
     for i in range(batch_num):
         # make batch x
         id = random.choice(id_list)            # choice age
@@ -56,5 +56,4 @@ if __name__ == "__main__":
     id_list, data = load_data(data_path)
 
     batch_x, batch_y = make_batch(id_list, data)
-    print(x.shape)
-    print(y.shape)
+    print(batch_y.shape)
