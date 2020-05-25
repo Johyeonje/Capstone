@@ -42,10 +42,10 @@ def make_batch(id_list, data, dtype=np.float32):
         # make label
         label = np.zeros(shape=[10,1], dtype=np.float32)
         label[(int(id)-1),0] = 1
+        y.append(label)
         print(y)
 
-    print(x.shape)
-    print(y.shape)
+
 
     return np.array(x).astype(dtype), np.array(y).astype(dtype)
 
@@ -56,3 +56,5 @@ if __name__ == "__main__":
     id_list, data = load_data(data_path)
 
     batch_x, batch_y = make_batch(id_list, data)
+    print(x.shape)
+    print(y.shape)
