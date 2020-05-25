@@ -20,7 +20,7 @@ def load_data(path):
         image_name_list = os.listdir(os.path.join(path, id))
         data[id] = [load_image(os.path.join(path, id, image_name)) for image_name in image_name_list]
 
-    return data
+    return id_list, data
 
 
 def load_image(filename):
