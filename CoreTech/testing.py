@@ -94,7 +94,7 @@ if __name__ == "__main__":
             if max_score < threshold:
                 print("점수는 최대지만 threshold보다 낮음")
             else:
-                print(STU_ID[i])
+                print(STU_ID[max_score_idx])
     else:
         print("사람 없음")
     os.remove(test_path)
