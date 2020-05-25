@@ -86,7 +86,7 @@ if __name__ == "__main__":
         # get shape
         test_num, enroll_num = S.shape
 
-        threshold = 0.5
+        threshold = 0.7
         # 동일인물 확인
         for i in range(test_num):
             max_score_idx = np.argmax(S[i, :])
@@ -95,6 +95,7 @@ if __name__ == "__main__":
                 print("점수는 최대지만 threshold보다 낮음")
             else:
                 print(STU_ID[max_score_idx])
+                print(max_score)
     else:
         print("사람 없음")
     os.remove(test_path)

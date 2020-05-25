@@ -68,8 +68,8 @@ def build_model():
 
 if __name__ == "__main__":
     data_path = "D:/Study/All-Age-Faces/F_crop"      #data path
-    save_path = "/Ads_model0"       # model save path
-    log_path = "/Ads_log0"          # log save path
+    save_path = "D:/Study/All-Age-Faces/Ads_model0"       # model save path
+    log_path = "D:/Study/All-Age-Faces/Ads_log0"          # log save path
 
     # parameter
     train_epoch_num = 100000
@@ -83,7 +83,7 @@ if __name__ == "__main__":
     model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])
 
     # Create summary writer
-    writer = tf.summary.create_file_writer(logdir=log_dir)
+    writer = tf.summary.create_file_writer(logdir=log_path)
 
     # load model
     # model.load_weights(model_name)

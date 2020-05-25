@@ -11,6 +11,7 @@
 	OutputStream outputStream = response.getOutputStream();
 	DataOutputStream dos = new DataOutputStream(outputStream);
 	dos.writeUTF("LogOut");
+	System.out.println("LOGOUT");
 	session.invalidate();
 	dos.flush();
 	dos.close();

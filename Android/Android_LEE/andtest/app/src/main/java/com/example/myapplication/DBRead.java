@@ -2,7 +2,6 @@ package com.example.myapplication;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.widget.Toast;
 import java.io.DataInputStream;
 import java.io.EOFException;
 import java.net.HttpURLConnection;
@@ -62,6 +61,7 @@ public class DBRead {
             } catch (EOFException e) {
                 b.delete(b.length()-lineEnd.length(),b.length());
             }
+            dis.close();
             return b.toString();
         } catch (Exception e) {
             return e.toString();

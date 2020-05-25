@@ -24,19 +24,18 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 public class MainActivity extends AppCompatActivity {
     private static final int REQ_CODE_SELECT_IMAGE = 100;
-    public String cookie=null, SUB_ID=null, SUB;
+    public String cookie=null, SUB_ID=null, SUB, Students;;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final String[] Person = {"a","b","c","d"};
-
         checkSelfPermission();
         final Button btn1 = (Button) findViewById(R.id.btn1);
         Button btn2 = (Button) findViewById(R.id.btn2);
         Button btn3 = (Button) findViewById(R.id.btn3);
+        Button btn4 = (Button) findViewById(R.id.btn4);
         final EditText IDbox = findViewById(R.id.IDbox);
         final EditText PWbox = findViewById(R.id.PWbox);
         IDbox.setText("10001");
@@ -63,6 +62,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DoGetStudents("http://rbghoneroom402.iptime.org:48526/JSP/Student.jsp", SUB_ID);
+            }
+        });
+        btn4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_PICK);
@@ -140,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             SUB = networkTask.execute().get();
             SUB_ID = SUB.substring(0,5);
-            Toast.makeText(getBaseContext(), SUB+SUB_ID, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), SUB, Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Toast.makeText(getBaseContext(), e.toString(), Toast.LENGTH_SHORT).show();
         }
@@ -160,5 +165,15 @@ public class MainActivity extends AppCompatActivity {
         networkTask.execute();
         Toast.makeText(getBaseContext(), "LogOut", Toast.LENGTH_SHORT).show();
         cookie=null;
+    }
+
+    public void DoGetStudents(String apiUrl, String SUB_ID) {
+        Student.NetworkTask networkTask = new Student.NetworkTask(apiUrl, cookie, SUB_ID,  getBaseContext());
+        try {
+            Students = networkTask.execute().get();
+            Toast.makeText(getBaseContext(), Students, Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Toast.makeText(getBaseContext(), e.toString(), Toast.LENGTH_SHORT).show();
+        }
     }
 }

@@ -24,6 +24,7 @@
 		long time = System.currentTimeMillis(); 
 		SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		String str = dayTime.format(new Date(time));
+		System.out.println("Subject시작"+str);
 		Class.forName(jdbc_driver);
 		conn = DriverManager.getConnection(jdbc_url,"capstone", "1q2w3e4r");
 		//String sql = "insert into lecture values(?,?)";
@@ -37,7 +38,7 @@
 		while (rs.next()) {
 			String SUB_ID = rs.getString(1);
 			String SUB_NAME = rs.getString(2);
-			dos.writeUTF(SUB_ID + "\t" + SUB_NAME + lineEnd);
+			dos.writeUTF(SUB_ID + "\t" + SUB_NAME);
 		}
 		dos.flush();
 		dos.close();
