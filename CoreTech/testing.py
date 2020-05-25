@@ -86,10 +86,10 @@ if __name__ == "__main__":
         # get shape
         test_num, enroll_num = S.shape
 
-        threshold = 0.8
+        threshold = 0.5
         # 동일인물 확인
         for i in range(test_num):
-            max_score_idx = np.argmax(S[:, i])
+            max_score_idx = np.argmax(S[i, :])
             max_score = S[i, max_score_idx]
             if max_score < threshold:
                 print("점수는 최대지만 threshold보다 낮음")
