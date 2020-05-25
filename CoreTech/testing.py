@@ -1,10 +1,7 @@
 import os
-
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 import tensorflow as tf
 import dlib
-import glob
-import argparse
 import sys
 import cv2
 from model import FaceEmbedder
@@ -45,9 +42,7 @@ if __name__ == "__main__":
         "apply_gradient_clipping": True,
         "gradient_clip_norm": 1,
         "loss_type": "ge2e",
-        # "loss_type" : "binary_cross_entropy",
         "optimizer": optimizer,
-
         "train_epoch_num": 200000,
         "evaluate_step_interval": 1000,
         "save_chkpt_interval": 10000
@@ -72,6 +67,7 @@ if __name__ == "__main__":
             test_images.append(face)
         except Exception as ex:
             print(ex)
+
     if len(test_images) != 0:
         # model load
         model = FaceEmbedder(config)
@@ -95,7 +91,7 @@ if __name__ == "__main__":
         for i in range(test_num):
             max_score_idx = np.argmax(S[i, :])
             max_score = S[i, max_score_idx]
-            if (max_score < threshold):
+            if max_score < threshold:
                 print("점수는 최대지만 threshold보다 낮음")
             else:
                 print(STU_ID[i])
