@@ -56,4 +56,5 @@ if __name__ == "__main__":
     id_list, data = load_data(data_path)
 
     batch_x, batch_y = make_batch(id_list, data)
+    print(batch_x.shape)
     print(batch_y.shape)
