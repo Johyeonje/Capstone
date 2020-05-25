@@ -78,7 +78,7 @@ if __name__ == "__main__":
     id_list, data = load_data(data_path)
 
     model = build_model()
-    optimizer = tf.keras.optimizers.Adam()
+    optimizer = tf.keras.optimizers.Adam(learning_rate=0.001)
     loss = tf.losses.BinaryCrossentropy()
     model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])
 
@@ -91,7 +91,7 @@ if __name__ == "__main__":
     for epoch in range(train_epoch_num):
 
         batch_x, batch_y = make_batch(id_list, data, batch_num=50)
-        train_loss, train_acc = model.train_on_batch(batch_x, batch_y)
+        train_loss, train_acc = model.evaluate(batch_x, batch_y)
 
         with writer.as_default():
             tf.summary.scalar("Train Loss", train_loss, step=epoch)
