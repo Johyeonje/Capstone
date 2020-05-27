@@ -54,7 +54,6 @@ public class MainActivity extends Activity {
     private static final int REQ_CODE_SELECT_IMAGE = 100;
     @RequiresApi(api = Build.VERSION_CODES.M)
 
-
     ImageView imageView1;
     Button btn_save_photo;
     private static final int PERMISSION_CODE = 1000;
@@ -78,8 +77,27 @@ public class MainActivity extends Activity {
         btn_save_photo = findViewById(R.id.photograph);
         Button Send_To_Jsp = (Button) findViewById(R.id.send_photo);
         downText = (TextView) findViewById(R.id.downText);
-        pieChart = (PieChart)findViewById(R.id.piechart);
 
+        Button chart1 = findViewById(R.id.chart1);
+        Button chart2 = findViewById(R.id.chart2);
+
+        chart1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Chart1.class);
+                intent.putExtra("downString", downString);
+                startActivity(intent);
+            }
+        });
+
+        chart2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Chart2.class);
+                intent.putExtra("downString", downString);
+                startActivity(intent);
+            }
+        });
 
         Send_To_Jsp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,66 +133,6 @@ public class MainActivity extends Activity {
                 }
             }
         });
-    }
-
-    public void chartSet(String s){
-        /* ======================파이차트 부분==================== */
-
-        downString = s;
-        tokenizer(downString);
-        pieChart.setUsePercentValues(true);
-        pieChart.getDescription().setEnabled(false);
-        pieChart.setExtraOffsets(5,10,5,5);
-
-        pieChart.setDragDecelerationFrictionCoef(0.95f);
-
-        pieChart.setDrawHoleEnabled(true);
-        pieChart.setHoleColor(Color.WHITE);
-        pieChart.setTransparentCircleRadius(60f);
-
-        ArrayList<PieEntry> yValues = new ArrayList<PieEntry>();
-
-        /* 리스트에 값 삽입 */
-        yValues.add(new PieEntry(parseFloat(arr[0]+"f"),"10대 남"));
-        yValues.add(new PieEntry(parseFloat(arr[1]+"f"),"20대 남"));
-        yValues.add(new PieEntry(parseFloat(arr[2]+"f"),"30대 남"));
-        yValues.add(new PieEntry(parseFloat(arr[3]+"f"),"40대 남"));
-        yValues.add(new PieEntry(parseFloat(arr[4]+"f"),"50대 이상 남"));
-        yValues.add(new PieEntry(parseFloat(arr[5]+"f"),"10대 여"));
-        yValues.add(new PieEntry(parseFloat(arr[6]+"f"),"20대 여"));
-        yValues.add(new PieEntry(parseFloat(arr[7]+"f"),"30대 여"));
-        yValues.add(new PieEntry(parseFloat(arr[8]+"f"),"40대 여"));
-        yValues.add(new PieEntry(parseFloat(arr[9]+"f"),"50대 이상 여"));
-
-
-        Description description = new Description();
-        description.setText("Test Label"); //라벨
-        description.setTextSize(15);
-        pieChart.setDescription(description);
-
-
-        PieDataSet dataSet = new PieDataSet(yValues,"Test values");
-        dataSet.setSliceSpace(3f);
-        dataSet.setSelectionShift(1f);
-        dataSet.setColors(ColorTemplate.PASTEL_COLORS);
-
-        PieData data = new PieData((dataSet));
-        data.setValueTextSize(15f);
-        data.setValueTextColor(Color.YELLOW);
-
-        pieChart.setData(data);
-        /*================================================================ */
-    }
-
-    private void tokenizer(String s){ //토큰 분리 함수
-        Integer i=0;
-        String test = "1 2 3 4 5 6 7 8 9 10 ";
-        StringTokenizer token1 = new StringTokenizer(test , " "); //인자1: 문자열, 인자2: 분리자
-        while(token1.hasMoreTokens()) {
-            arr[i] = token1.nextToken();
-            System.out.println("arr" + i + " = " + arr[i]);
-            i++;
-        }
     }
 
     private void open_camera() {
@@ -367,7 +325,6 @@ public class MainActivity extends Activity {
             super.onPostExecute(s);
             //doInBackground()로 부터 리턴된 값이 onPostExecute()의 매개변수로 넘어오므로 s를 출력한다.
             downText.setText(s);
-            chartSet(s); //파이 차트 설정
         }
     }
 
