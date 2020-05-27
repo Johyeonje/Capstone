@@ -64,9 +64,9 @@ def build_model():
 
 
 if __name__ == "__main__":
-    data_path = "C:/FaceDataSet/F_crop"      #data path
-    save_path = "C:/FaceDataSet/All-Age-Faces/Ads_model0"       # model save path
-    log_path = "C:/FaceDataSet/All-Age-Faces/Ads_log0"          # log save path
+    data_path = "D:/Study/F_crop"      #data path
+    save_path = "D:/Study/All-Age-Faces/Ads_model0"       # model save path
+    log_path = "D:/Study/All-Age-Faces/Ads_log0"          # log save path
 
     # parameter
     train_epoch_num = 100000
