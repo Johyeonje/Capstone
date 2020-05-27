@@ -61,7 +61,7 @@ def build_model():
     # 출력층(Dense) 추가
     model.add(tf.keras.layers.Flatten())
     model.add(tf.keras.layers.Dense(256, activation='relu'))
-    model.add(tf.keras.layers.Dense(2, activation='softmax'))
+    model.add(tf.keras.layers.Dense(12, activation='softmax'))
 
     return model
 
