@@ -35,7 +35,6 @@ public class Student {
     }
 
     public static String HttpURLConnection(String urlString, String params, String cookie, String SUB_ID) {
-        String lineEnd = "\r\n";
         try {
             URL connectUrl = new URL(urlString + ";jsessionid="+cookie.substring(11,43));
             HttpURLConnection conn = (HttpURLConnection) connectUrl.openConnection();
@@ -45,26 +44,14 @@ public class Student {
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Connection", "Keep-Alive");
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
-            DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
+            TextDeliver textDeliver = new TextDeliver(conn);
+            textDeliver.append(SUB_ID);
+            textDeliver.SendText();
             // [2-2]. parameter 전달 및 데이터 읽어오기.
-            dos.writeUTF(SUB_ID);
-            StringBuffer b;
-            b = new StringBuffer();
-            DataInputStream dis = new DataInputStream(conn.getInputStream());
-            try {
-                for (String ch; (ch = dis.readUTF()) != null;)  {
-                    b.append(ch);
-                    b.append(lineEnd);
-                }
-            } catch (EOFException e) {
-                b.delete(b.length()-lineEnd.length(),b.length());
-            }
+            String text = textDeliver.GetText();
             if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
                 return null;
-            dos.flush(); // 출력 스트림을 플러시(비운다)하고 버퍼링 된 모든 출력 바이트를 강제 실행.
-            dos.close(); // 출력 스트림을 닫고 모든 시스템 자원을 해제.
-            dis.close();
-            return b.toString();
+            return text;
         } catch (Exception e) {
             return null;
             // TODO: handle exception

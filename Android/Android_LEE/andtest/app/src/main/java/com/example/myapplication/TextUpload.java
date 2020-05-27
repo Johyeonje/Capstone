@@ -45,17 +45,14 @@ public class TextUpload {
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Connection", "Keep-Alive");
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
-            DataOutputStream dos;
-            dos = new DataOutputStream(conn.getOutputStream());
+            TextDeliver SendText = new TextDeliver(conn);
             // [2-2]. parameter 전달 및 데이터 읽어오기.
             for (String s : text) {
-                dos.writeUTF(s);
+                SendText.append(s);
             }
+            SendText.SendText();
             if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
                 return null;
-
-            dos.flush(); // 출력 스트림을 플러시(비운다)하고 버퍼링 된 모든 출력 바이트를 강제 실행.
-            dos.close(); // 출력 스트림을 닫고 모든 시스템 자원을 해제.
             return Arrays.toString(text);
         } catch (Exception e) {
             return null;

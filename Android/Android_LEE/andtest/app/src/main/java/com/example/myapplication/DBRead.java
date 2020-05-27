@@ -33,8 +33,6 @@ public class DBRead {
         }
     }
     public static String HttpURLConnection(String urlString, String params, String cookie) {
-        String lineEnd = "\r\n";
-        String twoHyphens = "--";
         String boundary = "*****";
         if(cookie == null)
             return "Login Please~";
@@ -50,19 +48,9 @@ public class DBRead {
             conn.setRequestProperty("Connection", "Keep-Alive");
             conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
             // write data
-            StringBuffer b;
-            b = new StringBuffer();
-            DataInputStream dis = new DataInputStream(conn.getInputStream());
-            try {
-                for (String ch; (ch = dis.readUTF()) != null;)  {
-                    b.append(ch);
-                    b.append(lineEnd);
-                }
-            } catch (EOFException e) {
-                b.delete(b.length()-lineEnd.length(),b.length());
-            }
-            dis.close();
-            return b.toString();
+            TextDeliver GetText = new TextDeliver(conn);
+            String text = GetText.GetText();
+            return text;
         } catch (Exception e) {
             return e.toString();
             // TODO: handle exception

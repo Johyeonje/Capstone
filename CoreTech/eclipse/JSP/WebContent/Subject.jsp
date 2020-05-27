@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" import="java.sql.*"
     pageEncoding="UTF-8"%>
-<%@page import="java.io.OutputStream"%>
-<%@page import="java.io.DataOutputStream"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
+<%@page import="text.TextDeliver" %>
 <!DOCTYPE html>
 <html>
 <body>
@@ -17,6 +16,7 @@
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
+	TextDeliver textDeliver = new TextDeliver(request, response);
 	String jdbc_driver = "com.mysql.cj.jdbc.Driver";
 	String jdbc_url = "jdbc:mysql://127.0.0.1/capstonedb";
 	try{
@@ -33,16 +33,12 @@
 		rs = pstmt.executeQuery();
 		out.clear();
 		out=pageContext.pushBody();
-		OutputStream outputStream = response.getOutputStream();
-		DataOutputStream dos = new DataOutputStream(outputStream);
 		while (rs.next()) {
 			String SUB_ID = rs.getString(1);
 			String SUB_NAME = rs.getString(2);
-			dos.writeUTF(SUB_ID + "\t" + SUB_NAME);
+			textDeliver.append(SUB_ID + "\t" + SUB_NAME + lineEnd);
 		}
-		dos.flush();
-		dos.close();
-		outputStream.close();
+		textDeliver.SendText();
 	} catch (Exception e) {
 		System.out.println(e);
 	}

@@ -41,7 +41,6 @@ public class Login {
     }
 
     public static String HttpURLConnection(String urlString, String params, String ID, String PWD) { //Login 용
-        String lineEnd = "\r\n";
         String cookie=null;
         try {
             URL connectUrl = new URL(urlString);
@@ -52,10 +51,9 @@ public class Login {
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Connection", "Keep-Alive");
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
-            DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
-            // [2-2]. parameter 전달 및 데이터 읽어오기.
-            dos.writeUTF(ID);
-            dos.writeUTF(PWD);
+            TextDeliver SendText = new TextDeliver(conn);
+            SendText.append(ID + "\r\n" + PWD);
+            SendText.SendText();
             String cookieTemp = conn.getHeaderField("Set-Cookie");
             if (cookieTemp != null)
             {
@@ -63,8 +61,6 @@ public class Login {
             }
             if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
                 return null;
-            dos.flush(); // 출력 스트림을 플러시(비운다)하고 버퍼링 된 모든 출력 바이트를 강제 실행.
-            dos.close(); // 출력 스트림을 닫고 모든 시스템 자원을 해제.
             return cookie;
         } catch (Exception e) {
             return null;

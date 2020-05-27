@@ -7,6 +7,7 @@
 <%@page import="java.io.DataOutputStream"%>
 <%@page import="java.sql.*"%>
 <%@page import="java.util.StringTokenizer" %>
+<%@page import="text.TextDeliver"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -28,22 +29,10 @@
 			SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 			String str = dayTime.format(new Date(time));
 			System.out.println("login시작"+str);
-			InputStream inputStream = request.getInputStream();
-			DataInputStream dis = new DataInputStream(inputStream);
-            b = new StringBuffer();
-            try {
-                for (String ch; (ch = dis.readUTF()) != null;)  {
-                    b.append(ch);
-                    b.append(lineEnd);
-                }
-            } catch (EOFException e) {
-                b.delete(b.length()-lineEnd.length(),b.length());
-            }
-            b.append("\r\n");
-            StringTokenizer st = new StringTokenizer(b.toString());
+			TextDeliver textDeliver = new TextDeliver(request,response);
+            StringTokenizer st = new StringTokenizer(textDeliver.GetText());
             PRO_ID = st.nextToken();
             PWD = st.nextToken();
-            inputStream.close();
 		} catch (Exception e) {
 			System.out.println(e);
 			System.out.println("실패!");
@@ -70,8 +59,6 @@
 				System.out.println("로그인 성공");
 				session.setAttribute("PRO_ID", PRO_ID);
 				session.setAttribute("PWD", PWD);
-				System.out.println((String)session.getAttribute("PRO_ID"));
-				System.out.println((String)session.getAttribute("PWD"));
 				System.out.println(session.getId());
 				Cookie c = new Cookie("Session_ID",session.getId());
 				c.setMaxAge(60*5);

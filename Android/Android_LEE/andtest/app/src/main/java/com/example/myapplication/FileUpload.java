@@ -79,18 +79,9 @@ public class FileUpload {
             dos.flush();
             // finish upload...
             // get response
-            StringBuffer b;
-            b = new StringBuffer();
-            DataInputStream dis = new DataInputStream(conn.getInputStream());
-            try {
-                for (String ch; (ch = dis.readUTF()) != null;)  {
-                    b.append(ch);
-                    b.append(lineEnd);
-                }
-            } catch (EOFException e) {
-                b.delete(b.length()-lineEnd.length(),b.length());
-            }
-            return b.toString();
+            TextDeliver GetText = new TextDeliver(conn);
+            String text = GetText.GetText();
+            return text;
         } catch (Exception e) {
             System.out.print(e);
             return null;
