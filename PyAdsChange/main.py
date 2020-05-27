@@ -64,9 +64,9 @@ def build_model():
 
 
 if __name__ == "__main__":
-    data_path = "C:/FaceDataSet/F_crop"      #data path
-    save_path = "C:/FaceDataSet/All-Age-Faces/Ads_model0"       # model save path
-    log_path = "C:/FaceDataSet/All-Age-Faces/Ads_log0"          # log save path
+    data_path = "D:/Study/All-Age-Faces/M_crop"      #data path
+    save_path = "D:/Study/All-Age-Faces/Ads_model0"       # model save path
+    log_path = "D:/Study/All-Age-Faces/Ads_log0"          # log save path
 
     # parameter
     train_epoch_num = 100000
@@ -110,7 +110,7 @@ if __name__ == "__main__":
             filepath = os.path.join(save_path, "chkpt-" + str(epoch))
             model.save_weights(filepath)
 
-        print("Epoch : {}, Train Loss : {}, Train Acc : {}".format(epoch, "%1.3f" % train_loss, "%1.3f % train_acc"))
+        print("Epoch : {}, Train Loss : {}, Train Acc : {}".format(epoch, "%1.3f" % train_loss, "%1.3f" % train_acc))
 
 
     print("Trainning done")
