@@ -1,10 +1,7 @@
 package com.example.myapplication;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.widget.Toast;
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.EOFException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -14,14 +11,14 @@ public class Login {
         private String url, ID, PWD, cookie;
         private Context context;
 
-        public NetworkTask(String url, String ID, String PWD, Context context) {
+        public NetworkTask(String url, String ID, String PWD, Context context) { //Login 용
             this.url = url;
             this.ID = ID;
             this.PWD = PWD;
             this.cookie=null;
             this.context = context;
         }
-        public NetworkTask(String url, String cookie, Context context) {
+        public NetworkTask(String url, String cookie, Context context) { //Logout 용
             this.url = url;
             this.cookie = cookie;
             this.context = context;
@@ -43,7 +40,7 @@ public class Login {
         }
     }
 
-    public static String HttpURLConnection(String urlString, String params, String ID, String PWD) {
+    public static String HttpURLConnection(String urlString, String params, String ID, String PWD) { //Login 용
         String lineEnd = "\r\n";
         String cookie=null;
         try {
@@ -66,9 +63,6 @@ public class Login {
             }
             if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
                 return null;
-            StringBuffer b;
-            b = new StringBuffer();
-            DataInputStream dis = new DataInputStream(conn.getInputStream());
             dos.flush(); // 출력 스트림을 플러시(비운다)하고 버퍼링 된 모든 출력 바이트를 강제 실행.
             dos.close(); // 출력 스트림을 닫고 모든 시스템 자원을 해제.
             return cookie;
@@ -78,7 +72,7 @@ public class Login {
         }
     }
 
-    public static String HttpURLConnection(String urlString, String params, String cookie) {
+    public static String HttpURLConnection(String urlString, String params, String cookie) { //Logout 용
         String lineEnd = "\r\n";
         try {
             URL connectUrl = new URL(urlString+";jsessionid="+cookie.substring(11,43));

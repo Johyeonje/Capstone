@@ -48,6 +48,8 @@
 			DataOutputStream dos = new DataOutputStream(outputStream);
 			Runtime runtime = Runtime.getRuntime();
 			System.out.println("PYTHON 시작");
+			String command = "conda run -n tf python "+folderTypePath+"/testing.py "+folderTypePath+" "+fileName+" "+STU_IDs;
+			System.out.println(command);
 			Process process = runtime.exec("conda run -n tf python "+folderTypePath+"/testing.py "+folderTypePath+" "+fileName+" "+STU_IDs);
 			process.waitFor();
 			BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));

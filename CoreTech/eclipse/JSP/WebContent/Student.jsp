@@ -32,6 +32,7 @@
 		long time = System.currentTimeMillis(); 
 		SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		String str = dayTime.format(new Date(time));
+		System.out.println("Student시작"+str);
 		InputStream inputStream = request.getInputStream();
 		DataInputStream dis = new DataInputStream(inputStream);
         b = new StringBuffer();
@@ -48,17 +49,19 @@
         SUB_ID = b.toString();
         Class.forName(jdbc_driver);
 		conn = DriverManager.getConnection(jdbc_url,"capstone", "1q2w3e4r");
-		//String sql = "insert into lecture values(?,?)";
-		String sub = "SELECT STU_ID FROM lecture where SUB_ID = " + SUB_ID;
+		String sub = "select stu_id, stu_name from student where stu_id IN (select stu_id from lecture where sub_id = " + SUB_ID + ")";
 		pstmt = conn.prepareStatement(sub);
 		rs = pstmt.executeQuery();
 		OutputStream outputStream = response.getOutputStream();
 		DataOutputStream dos = new DataOutputStream(outputStream);
 		while (rs.next()) {
 			String STU_ID = rs.getString(1);
-			STU_IDs = STU_IDs + STU_ID;
+			if (STU_IDs == null)
+				STU_IDs = STU_ID;
+			else
+				STU_IDs = STU_IDs + STU_ID;
 			String STU_NAME = rs.getString(2);
-			dos.writeUTF(STU_ID + "\t" + STU_NAME + lineEnd);
+			dos.writeUTF(STU_ID + "\t" + STU_NAME);
 		}
 		dos.flush();
 		dos.close();
