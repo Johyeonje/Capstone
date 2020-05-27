@@ -4,7 +4,6 @@ import random
 import itertools
 import numpy as np
 import tensorflow as tf
-#from sklearn.utils import shuffle
 
 
 def load_data(path):
@@ -33,11 +32,9 @@ def make_batch(id_list, data, batch_num, dtype=np.float32):
         x.append(img_pick)
 
         # make label
-        label = np.zeros(shape=[10,1], dtype=np.float32)
-        label[(int(id)-1),0] = 1
+        label = np.zeros(shape=[10], dtype=np.float32)
+        label[(int(id))] = 1
         y.append(label)
-        print(id)
-        print(y)
 
     return np.array(x).astype(dtype), np.array(y).astype(dtype)
 
@@ -67,9 +64,9 @@ def build_model():
 
 
 if __name__ == "__main__":
-    data_path = "D:/Study/All-Age-Faces/F_crop"      #data path
-    save_path = "D:/Study/All-Age-Faces/Ads_model0"       # model save path
-    log_path = "D:/Study/All-Age-Faces/Ads_log0"          # log save path
+    data_path = "C:/FaceDataSet/F_crop"      #data path
+    save_path = "C:/FaceDataSet/All-Age-Faces/Ads_model0"       # model save path
+    log_path = "C:/FaceDataSet/All-Age-Faces/Ads_log0"          # log save path
 
     # parameter
     train_epoch_num = 100000
@@ -91,7 +88,7 @@ if __name__ == "__main__":
     for epoch in range(train_epoch_num):
 
         batch_x, batch_y = make_batch(id_list, data, batch_num=50)
-        train_loss = model.evaluate(batch_x, batch_y)
+        train_loss, train_acc = model.evaluate(batch_x, batch_y)
 
         with writer.as_default():
             tf.summary.scalar("Train Loss", train_loss, step=epoch)
@@ -113,7 +110,7 @@ if __name__ == "__main__":
             filepath = os.path.join(save_path, "chkpt-" + str(epoch))
             model.save_weights(filepath)
 
-        print("Epoch : {}, Train Loss : {}".format(epoch, "%1.3f" % train_loss))
+        print("Epoch : {}, Train Loss : {}, Train Acc : {}".format(epoch, "%1.3f" % train_loss, "%1.3f % train_acc"))
 
 
     print("Trainning done")
