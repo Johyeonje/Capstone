@@ -72,7 +72,7 @@ if __name__ == "__main__":
 
     for epoch in range(config["train_epoch_num"]):
         batch_x, batch_y = make_batch(id_list, data, batch_num=50)
-        train_loss, train_acc = model.train_on_batch(batch_x, batch_y)
+        train_loss, train_acc = model.fit(batch_x, batch_y)
 
         with writer.as_default():
             tf.summary.scalar("Train Loss", train_loss, step=epoch)
