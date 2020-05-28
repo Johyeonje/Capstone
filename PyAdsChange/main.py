@@ -94,17 +94,15 @@ if __name__ == "__main__":
             tf.summary.scalar("Train Loss", train_loss, step=epoch)
             #tf.summary.scalar("Train Acc", train_acc, step=epoch)
 
-        if epoch != 0 and epoch % 1000 == 0:
+        if epoch != 0 and epoch % 10 == 0:
             test_loss_list = []
             test_x, test_y = make_batch(id_list, data, batch_num=10)
 
-            for test_epoch in range(train_epoch_num):
-                y_pred = model.predict(batch_x)
-                test_loss = loss(batch_y, y_pred)
-                test_loss_list.append(test_loss)
+            y_pred = model.predict(test_x)
+            test_loss = loss(test_y, y_pred)
 
             with writer.as_default():
-                tf.summary.scalar("Test Loss", np.mean(test_loss_list), step=epoch)
+                tf.summary.scalar("Test Loss", test_loss, step=epoch)
 
         if epoch != 0 and epoch % 10000 == 0:
             filepath = os.path.join(save_path, "chkpt-" + str(epoch))
