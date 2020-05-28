@@ -62,7 +62,7 @@ if __name__ == "__main__":
         "train_epoch_num": 100000,
     }
 
-    model = myModel(**config)
+    model = myModel(config)
     model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])
 
     # Create summary writer
