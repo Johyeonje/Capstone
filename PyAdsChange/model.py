@@ -3,7 +3,10 @@ import numpy as np
 
 
 class myModel(tf.keras.Model):
-    def __init__(self):
+    def __init__(self, config):
+        super(myModel, self).__init__()
+        self.optimizer = config["optimizer"]
+        self.loss_type = config["loss_type"]
         # x : [B, 100, 100, 3]
         # Convolution layer
         self.conv = tf.keras.models.Sequential()
