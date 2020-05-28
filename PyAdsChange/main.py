@@ -45,13 +45,6 @@ if __name__ == "__main__":
     save_path = "D:/Study/All-Age-Faces/Ads_model0"       # model save path
     log_path = "./Ads_log0"          # log save path
 
-    config = {
-        #"loss_type": "ge2e",
-        "loss_type" : "binary_cross_entropy",
-        "optimizer": optimizer,
-        "loss" : "tf.losses.BinaryCrossentropy()",
-        "train_epoch_num": 100000,
-    }
     # parameter
     id_list, data = load_data(data_path)
     lr_schedule = tf.keras.optimizers.schedules.PolynomialDecay(
@@ -59,9 +52,17 @@ if __name__ == "__main__":
         decay_steps=1000,
         end_learning_rate=0.001
     )
-    
-    model = myModel(config)
     optimizer = tf.keras.optimizers.Adam(learning_rate=lr_schedule)
+
+    config = {
+        #"loss_type": "ge2e",
+        "loss_type" : "binary_cross_entropy",
+        "optimizer": optimizer,
+        "loss" : "tf.losses.BinaryCrossentropy()",
+        "train_epoch_num": 100000,
+    }
+
+    model = myModel(config)
     model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])
 
     # Create summary writer
