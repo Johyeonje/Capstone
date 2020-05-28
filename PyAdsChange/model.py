@@ -4,7 +4,6 @@ import numpy as np
 
 class myModel(tf.keras.Model):
     def __init__(self):
-        super(myModel, self).__init__()
         # x : [B, 100, 100, 3]
         # Convolution layer
         self.conv = tf.keras.models.Sequential()
