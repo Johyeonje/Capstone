@@ -46,10 +46,6 @@ if __name__ == "__main__":
     log_path = "./Ads_log0"          # log save path
 
     config = {
-        "train_person_num": args.train_person_num,
-        "train_face_num": args.train_face_num,
-        "apply_gradient_clipping": True,
-        "gradient_clip_norm": 1,
         #"loss_type": "ge2e",
         "loss_type" : "binary_cross_entropy",
         "optimizer": optimizer,
