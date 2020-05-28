@@ -6,7 +6,6 @@ import java.io.EOFException;
 import java.net.HttpURLConnection;
 
 public class TextDeliver {
-    private String text;
     private HttpURLConnection conn;
     private StringBuffer b = new StringBuffer();
     public TextDeliver(HttpURLConnection conn) { //텍스트 수신
@@ -46,6 +45,21 @@ public class TextDeliver {
             }
             dos.writeUTF(b.toString());
             System.out.println("보낸 문자 : \r\n" + b.toString());
+            dos.flush();
+            dos.close();
+        } catch (Exception e) {
+
+        }
+    }
+
+    public void SendText(String text) { // 저장된 텍스트 송신
+        try {
+            DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
+            if (text.substring(text.length()-2, text.length()).equals("\r\n")) { // 맨 끝 줄바꿈 제거
+                text = text.substring(0, text.length()-2);
+            }
+            dos.writeUTF(text);
+            System.out.println("보낸 문자 : \r\n" + text);
             dos.flush();
             dos.close();
         } catch (Exception e) {

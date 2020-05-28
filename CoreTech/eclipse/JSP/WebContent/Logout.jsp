@@ -8,8 +8,7 @@
 	out.clear();				//https://rainny.tistory.com/269 참고
 	out=pageContext.pushBody();
 	TextDeliver textDeliver = new TextDeliver(request,response);
-	textDeliver.append("LOGOUT");
-	textDeliver.SendText();
+	textDeliver.SendText("LOGOUT");
 	System.out.println("LOGOUT");
 	session.invalidate();
 %>

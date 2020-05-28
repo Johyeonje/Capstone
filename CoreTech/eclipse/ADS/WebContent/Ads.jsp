@@ -15,15 +15,8 @@
 <body>
 	<%
 		//이미지를 저장할 경로 입력.
-		if (session.getAttribute("PRO_ID") == null) {
-		    response.sendRedirect("Logout.jsp");
-		    return;
-		}
-		String STU_IDs = (String)session.getAttribute("STU_IDs");
-		String jdbc_driver = "com.mysql.cj.jdbc.Driver";
-		String jdbc_url = "jdbc:mysql://127.0.0.1/capstonedb";
 		request.setCharacterEncoding("utf-8");
-		String folderTypePath = "D:/Study/Capstone/CoreTech";
+		String folderTypePath = "D:/Study/Capstone/PyAdsChange";
 		String name = new String();
 		String fileName = new String();
 		int sizeLimit = 20 * 1024 * 1024; // 5메가까지 제한 넘어서면 예외발생
@@ -31,7 +24,7 @@
 			long time = System.currentTimeMillis(); 
 			SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 			String str = dayTime.format(new Date(time));
-			System.out.println("연결시작 "+str);
+			System.out.println("Ads시작 "+str);
 			MultipartRequest multi = new MultipartRequest(request, folderTypePath, sizeLimit, new DefaultFileRenamePolicy());
 			Enumeration files = multi.getFileNames();
 
@@ -46,7 +39,7 @@
 			
 			Runtime runtime = Runtime.getRuntime();
 			System.out.println("PYTHON 시작");
-			String command = "conda run -n tf python "+folderTypePath+"/testing.py "+folderTypePath+" "+fileName+" "+STU_IDs;
+			String command = "conda run -n tf python "+folderTypePath+"/testing.py ";
 			System.out.println(command);
 			Process process = runtime.exec(command);
 			process.waitFor();

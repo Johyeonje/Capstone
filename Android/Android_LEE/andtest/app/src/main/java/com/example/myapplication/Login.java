@@ -52,8 +52,7 @@ public class Login {
             conn.setRequestProperty("Connection", "Keep-Alive");
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
             TextDeliver SendText = new TextDeliver(conn);
-            SendText.append(ID + "\r\n" + PWD);
-            SendText.SendText();
+            SendText.SendText(ID + "\r\n" + PWD);
             String cookieTemp = conn.getHeaderField("Set-Cookie");
             if (cookieTemp != null)
             {
