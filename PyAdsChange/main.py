@@ -42,22 +42,18 @@ def make_batch(id_list, data, batch_num, dtype=np.float32):
 def build_model():
     model = tf.keras.models.Sequential()
     model.add(tf.keras.layers.Conv2D(8, (3, 3), activation='relu', padding='same', input_shape=(100, 100, 3)))
-    model.add(tf.keras.layers.MaxPooling2D((2, 2)))
     model.add(tf.keras.layers.Conv2D(16, (3, 3), activation='relu', padding='same'))
-    model.add(tf.keras.layers.MaxPooling2D((2, 2)))
     model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu', padding='same'))
-    model.add(tf.keras.layers.MaxPooling2D((2, 2)))
     model.add(tf.keras.layers.Conv2D(64, (2, 2), activation='relu', padding='same'))
     model.add(tf.keras.layers.Conv2D(64, (2, 2), activation='relu', padding='same'))
     model.add(tf.keras.layers.MaxPooling2D((2, 2)))
     model.add(tf.keras.layers.Conv2D(128, (2, 2), activation='relu', padding='same'))
-    model.add(tf.keras.layers.MaxPooling2D((2, 2)))
     model.add(tf.keras.layers.Conv2D(256, (2, 2), activation='relu', padding='same'))
     model.add(tf.keras.layers.MaxPooling2D((2, 2)))
 
     # 출력층(Dense) 추가
     model.add(tf.keras.layers.Flatten())
-    model.add(tf.keras.layers.Dense(256, activation='relu'))
+    model.add(tf.keras.layers.Dense(128, activation='relu'))
     model.add(tf.keras.layers.Dense(10, activation='softmax'))
 
     return model
@@ -66,16 +62,15 @@ def build_model():
 if __name__ == "__main__":
     data_path = "D:/Study/F_crop"      #data path
     save_path = "D:/Study/All-Age-Faces/Ads_model0"       # model save path
-    log_path = "D:/Study/All-Age-Faces/Ads_log0"          # log save path
+    log_path = "./Ads_log0"          # log save path
 
     # parameter
     train_epoch_num = 100000
-    test_epoch_num = 1000
 
     id_list, data = load_data(data_path)
 
     model = build_model()
-    optimizer = tf.keras.optimizers.Adam(learning_rate=0.001)
+    optimizer = tf.keras.optimizers.Adam(learning_rate=0.01)
     loss = tf.losses.BinaryCrossentropy()
     model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])
 
@@ -94,7 +89,7 @@ if __name__ == "__main__":
             tf.summary.scalar("Train Loss", train_loss, step=epoch)
             #tf.summary.scalar("Train Acc", train_acc, step=epoch)
 
-        if epoch != 0 and epoch % 10 == 0:
+        if epoch != 0 and epoch % 1000 == 0:
             test_loss_list = []
             test_x, test_y = make_batch(id_list, data, batch_num=10)
 
@@ -108,7 +103,6 @@ if __name__ == "__main__":
             filepath = os.path.join(save_path, "chkpt-" + str(epoch))
             model.save_weights(filepath)
 
-        print("Epoch : {}, Train Loss : {}, Train Acc : {}".format(epoch, "%1.3f" % train_loss, "%1.3f % train_acc"))
-
+        print("Epoch : {}, Train Loss : {}, Train Acc : {}".format(epoch, "%1.3f" % train_loss, "%1.3f" % train_acc))
 
     print("Trainning done")
