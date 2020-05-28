@@ -50,7 +50,7 @@ if __name__ == "__main__":
     input_size = (100, 100)
     id_list, data = load_data(data_path)
     
-    model = myModel()
+    model = myModel(input_size)
     lr_schedule = tf.keras.optimizers.schedules.PolynomialDecay(
         initial_learning_rate=0.01,
         decay_steps=1000,
