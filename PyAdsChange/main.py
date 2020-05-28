@@ -58,12 +58,11 @@ if __name__ == "__main__":
         #"loss_type": "ge2e",
         "loss_type" : "binary_cross_entropy",
         "optimizer": optimizer,
-        "loss" : "tf.losses.BinaryCrossentropy()",
         "train_epoch_num": 100000,
     }
 
     model = myModel(config)
-    model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])
+    model.compile(optimizer=optimizer, loss=config["loss_type"], metrics=['accuracy'])
 
     # Create summary writer
     writer = tf.summary.create_file_writer(logdir=log_path)
