@@ -42,18 +42,16 @@ def make_batch(id_list, data, batch_num, dtype=np.float32):
 def build_model():
     model = tf.keras.models.Sequential()
     model.add(tf.keras.layers.Conv2D(8, (3, 3), activation='relu', padding='same', input_shape=(100, 100, 3)))
+    model.add(tf.keras.layers.Conv2D(8, (3, 3), activation='relu', padding='same'))
+    model.add(tf.keras.layers.Conv2D(16, (3, 3), activation='relu', padding='same'))
+    model.add(tf.keras.layers.BatchNormalization())
     model.add(tf.keras.layers.Conv2D(16, (3, 3), activation='relu', padding='same'))
     model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu', padding='same'))
-    model.add(tf.keras.layers.Conv2D(64, (2, 2), activation='relu', padding='same'))
-    model.add(tf.keras.layers.Conv2D(64, (2, 2), activation='relu', padding='same'))
-    model.add(tf.keras.layers.MaxPooling2D((2, 2)))
-    model.add(tf.keras.layers.Conv2D(128, (2, 2), activation='relu', padding='same'))
-    model.add(tf.keras.layers.Conv2D(256, (2, 2), activation='relu', padding='same'))
-    model.add(tf.keras.layers.MaxPooling2D((2, 2)))
+    model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu', padding='same'))
+    model.add(tf.keras.layers.BatchNormalization())
 
     # 출력층(Dense) 추가
     model.add(tf.keras.layers.Flatten())
-    model.add(tf.keras.layers.Dense(128, activation='relu'))
     model.add(tf.keras.layers.Dense(10, activation='softmax'))
 
     return model
