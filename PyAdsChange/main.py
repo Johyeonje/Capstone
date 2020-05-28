@@ -62,7 +62,8 @@ if __name__ == "__main__":
     }
 
     model = myModel(config)
-    model.compile(optimizer=optimizer, loss=config["loss_type"], metrics=['accuracy'])
+    loss = tf.losses.BinaryCrossentropy()
+    model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])
 
     # Create summary writer
     writer = tf.summary.create_file_writer(logdir=log_path)
@@ -72,7 +73,7 @@ if __name__ == "__main__":
 
     for epoch in range(config["train_epoch_num"]):
         batch_x, batch_y = make_batch(id_list, data, batch_num=50)
-        model.fit(batch_x, batch_y, epoch=1)
+        model.fit(batch_x, batch_y, epochs=1)
 
         with writer.as_default():
             tf.summary.scalar("Train Loss", train_loss, step=epoch)
