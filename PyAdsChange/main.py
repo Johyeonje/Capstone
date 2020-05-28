@@ -4,6 +4,7 @@ import random
 import itertools
 import numpy as np
 import tensorflow as tf
+from model import myModel
 
 
 def load_data(path):
@@ -39,22 +40,6 @@ def make_batch(id_list, data, batch_num, dtype=np.float32):
     return np.array(x).astype(dtype), np.array(y).astype(dtype)
 
 
-def build_model():
-    model = tf.keras.models.Sequential()
-    model.add(tf.keras.layers.Conv2D(8, (3, 3), activation='relu', padding='same', input_shape=(100, 100, 3)))
-    model.add(tf.keras.layers.Conv2D(8, (3, 3), activation='relu', padding='same'))
-    model.add(tf.keras.layers.Conv2D(16, (3, 3), activation='relu', padding='same'))
-    model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu', padding='same'))
-    model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu', padding='same'))
-    model.add(tf.keras.layers.Conv2D(128, (3, 3), activation='relu', padding='same'))
-
-    # 출력층(Dense) 추가
-    model.add(tf.keras.layers.Flatten())
-    model.add(tf.keras.layers.Dense(10, activation='softmax'))
-
-    return model
-
-
 if __name__ == "__main__":
     data_path = "D:/Study/All-Age-Faces/M_crop"      #data path
     save_path = "D:/Study/All-Age-Faces/Ads_model0"       # model save path
@@ -64,8 +49,8 @@ if __name__ == "__main__":
     train_epoch_num = 100000
 
     id_list, data = load_data(data_path)
-
-    model = build_model()
+    
+    model = myModel()
     lr_schedule = tf.keras.optimizers.schedules.PolynomialDecay(
         initial_learning_rate=0.01,
         decay_steps=1000,
