@@ -72,7 +72,7 @@ if __name__ == "__main__":
         end_learning_rate=0.001
     )
     optimizer = tf.keras.optimizers.Adam(learning_rate=lr_schedule)
-    loss = tf.keras.losses.BinaryCrossentropy()
+    loss = tf.losses.BinaryCrossentropy()
     model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])
 
     # Create summary writer
@@ -83,18 +83,15 @@ if __name__ == "__main__":
 
     for epoch in range(train_epoch_num):
         batch_x, batch_y = make_batch(id_list, data, batch_num=50)
-        train_loss, train_acc = model.train_on_batch(batch_x, batch_y)
+        train_loss = model.train_on_batch(batch_x, batch_y)
 
         with writer.as_default():
             tf.summary.scalar("Train Loss", train_loss, step=epoch)
             tf.summary.scalar("Train Acc", train_acc, step=epoch)
 
         if epoch != 0 and epoch % 1000 == 0:
-            test_loss_list = []
             test_x, test_y = make_batch(id_list, data, batch_num=10)
-
-            y_pred = model.predict(test_x)
-            test_loss = loss(test_y, y_pred)
+            test_loss, test_acc = model.evaluate(test_x, test_y)
 
             with writer.as_default():
                 tf.summary.scalar("Test Loss", test_loss, step=epoch)
