@@ -44,11 +44,9 @@ def build_model():
     model.add(tf.keras.layers.Conv2D(8, (3, 3), activation='relu', padding='same', input_shape=(100, 100, 3)))
     model.add(tf.keras.layers.Conv2D(8, (3, 3), activation='relu', padding='same'))
     model.add(tf.keras.layers.Conv2D(16, (3, 3), activation='relu', padding='same'))
-    model.add(tf.keras.layers.BatchNormalization())
-    model.add(tf.keras.layers.Conv2D(16, (3, 3), activation='relu', padding='same'))
     model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu', padding='same'))
     model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu', padding='same'))
-    model.add(tf.keras.layers.BatchNormalization())
+    model.add(tf.keras.layers.Conv2D(128, (3, 3), activation='relu', padding='same'))
 
     # 출력층(Dense) 추가
     model.add(tf.keras.layers.Flatten())
@@ -58,7 +56,7 @@ def build_model():
 
 
 if __name__ == "__main__":
-    data_path = "D:/Study/F_crop"      #data path
+    data_path = "D:/Study/All-Age-Faces/M_crop"      #data path
     save_path = "D:/Study/All-Age-Faces/Ads_model0"       # model save path
     log_path = "./Ads_log0"          # log save path
 
@@ -85,7 +83,7 @@ if __name__ == "__main__":
 
     for epoch in range(train_epoch_num):
         batch_x, batch_y = make_batch(id_list, data, batch_num=50)
-        train_loss, train_acc = model.evaluate(batch_x, batch_y)
+        train_loss, train_acc = model.train_on_batch(batch_x, batch_y)
 
         with writer.as_default():
             tf.summary.scalar("Train Loss", train_loss, step=epoch)
