@@ -42,4 +42,6 @@ class myModel(tf.keras.Model):
 
     def train_on_batch(self, batch_x, batch_y):
         y_pred = self.call(batch_x, training=True)
-
+        loss = self.loss(batch_y, y_pred)
+        
+        return loss

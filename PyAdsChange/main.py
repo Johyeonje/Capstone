@@ -45,19 +45,27 @@ if __name__ == "__main__":
     save_path = "D:/Study/All-Age-Faces/Ads_model0"       # model save path
     log_path = "./Ads_log0"          # log save path
 
+    config = {
+        "train_person_num": args.train_person_num,
+        "train_face_num": args.train_face_num,
+        "apply_gradient_clipping": True,
+        "gradient_clip_norm": 1,
+        #"loss_type": "ge2e",
+        "loss_type" : "binary_cross_entropy",
+        "optimizer": optimizer,
+        "loss" : "tf.losses.BinaryCrossentropy()",
+        "train_epoch_num": 100000,
+    }
     # parameter
-    train_epoch_num = 100000
-    input_size = (100, 100)
     id_list, data = load_data(data_path)
-    
-    model = myModel(input_size)
     lr_schedule = tf.keras.optimizers.schedules.PolynomialDecay(
         initial_learning_rate=0.01,
         decay_steps=1000,
         end_learning_rate=0.001
     )
+    
+    model = myModel(config)
     optimizer = tf.keras.optimizers.Adam(learning_rate=lr_schedule)
-    loss = tf.losses.BinaryCrossentropy()
     model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])
 
     # Create summary writer
