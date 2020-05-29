@@ -38,6 +38,7 @@ public class Login_network {
     public static String HttpURLConnection(String urlString, String params, String ID, String PWD) {
         String lineEnd = "\r\n";
         String cookie = null;
+        String fail = "fail";
         try {
             URL connectUrl = new URL(urlString);
             HttpURLConnection conn = (HttpURLConnection) connectUrl.openConnection();
@@ -58,6 +59,7 @@ public class Login_network {
             }
             if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
                 return null;
+            /*
             StringBuffer b;
             b = new StringBuffer();
             DataInputStream dis = new DataInputStream(conn.getInputStream());
@@ -69,6 +71,8 @@ public class Login_network {
 //            } catch (EOFException e) {
 //                b.delete(b.length()-lineEnd.length(),b.length());
 //            }
+
+             */
             dos.flush(); // 출력 스트림을 플러시(비운다)하고 버퍼링 된 모든 출력 바이트를 강제 실행.
             dos.close(); // 출력 스트림을 닫고 모든 시스템 자원을 해제.
             return cookie;

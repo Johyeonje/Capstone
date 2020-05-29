@@ -3,6 +3,7 @@ package com.example.new_kone;
 //import android.app.Fragment;
 //import android.support.v4.app.Fragment;
 //import android.support.annotation.Nullable;
+import android.content.Context;
 import android.net.Uri;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,13 +21,19 @@ import android.widget.Toast;
 
 public class home_pageF extends Fragment {
 
+
+    private Context context;
     private WebView mWebView;
     private WebSettings mWebSettings;
     String Session_key;
 
+    private static final String mKEY = "Session_k"; // 다음 스트링을 변수로 일단 임시로 넣는다.
 
-    public static androidx.fragment.app.Fragment newInstance() {
+    public static androidx.fragment.app.Fragment newInstance(String session_k) {
         home_pageF fragment = new home_pageF();
+        Bundle mSession = new Bundle();
+        mSession.putString(mKEY, session_k);
+        fragment.setArguments(mSession);
         return fragment;
     }
 
@@ -39,13 +46,15 @@ public class home_pageF extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) { // 다음 화면이 띄워지고 실행하는 부분 Activity에서 oncreate부분에 사용하는 것들을 이 곳에 넣으면 된다.
 
+        context = container.getContext();
         View view = inflater.inflate(R.layout.home_page,container,false);
       Button btn1 = (Button)view.findViewById(R.id.take_photo);
       Button btn2 = (Button)view.findViewById(R.id.confirm);
       Button btn3 = (Button)view.findViewById(R.id.edit_attendance);
       Button btn4 = (Button)view.findViewById(R.id.setting);
 
-
+      Session_key = getArguments().getString(mKEY); // 값 들어옴 확인o
+      //Toast.makeText(context,Session_key,Toast.LENGTH_LONG).show(); // 세션값 들어옴 확인o
 
       mWebView = (WebView)view.findViewById(R.id.Kangwon);
       mWebView.setWebViewClient(new WebViewClient());
@@ -53,19 +62,13 @@ public class home_pageF extends Fragment {
       mWebSettings.setJavaScriptEnabled(true);
       mWebView.loadUrl("https://www.kangwon.ac.kr/www/index.do");
 
-      Bundle extra = this.getArguments();
-      if(extra != null){
-          extra = getArguments();
-          Session_key = extra.getString("Session_key");
-      }
-
-
       btn1.setOnClickListener(new View.OnClickListener() {  //check 에 대한 버튼 기능 추가
           @Override
           public void onClick(View v) {
-              String Send_Session_key;
+              String Send_Session_key = Session_key; // 값 들어옴 확인o
+              //Toast.makeText(context,Send_Session_key,Toast.LENGTH_LONG).show();
               Intent intent = new Intent(getActivity(), select_menuF.class); //
-              intent.putExtra("Session_key", Session_key);
+              intent.putExtra("Session_key", Send_Session_key);
               startActivity(intent);
           }
       });

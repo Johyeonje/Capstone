@@ -19,12 +19,16 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <CalendarView
-            android:id="@+id/select_date"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="15">
-        </CalendarView>
+            android:layout_height="wrap_content">
+            <CalendarView
+                android:id="@+id/select_date"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="15">
+            </CalendarView>
+        </ScrollView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -35,11 +39,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
+
                 <ScrollView
                     android:id="@+id/student_info"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent">                    -
                     <!--여기에 학생들을 TextView형식으로 넣기만 하면된다.-->
+
                     <LinearLayout
                         android:id="@+id/can_see_student"
                         android:layout_width="match_parent"
@@ -58,6 +64,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textSize="15dp"
                     android:text="과목을 선택해주세요.">
                 </EditText>
                 <EditText
@@ -65,6 +72,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textSize="15dp"
                     android:text="날짜를 선택해주세요.">
                 </EditText>
             </LinearLayout>

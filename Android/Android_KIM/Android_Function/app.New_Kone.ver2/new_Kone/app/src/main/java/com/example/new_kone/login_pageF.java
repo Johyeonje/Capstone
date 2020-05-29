@@ -51,7 +51,7 @@ public class login_pageF extends Activity {
     // 위에 것들은 아직 사용안함.
     // 다음은 로그인 자료를 보내기 위해 만든 변수 ===================10100====101010===10100=====101010=
     String n_Email,n_Password; // 사용자가 입력한 이메일과 패스워드를 저장하기 위해서.
-    String[] INFORMATION; // 사용자의 정보를 담기 위해서
+    String user_Key; // 사용자의 정보를 담기 위해서
     // ========================================10101000====1010100===101010===101010===10001=1=====
 
     @Override
@@ -167,20 +167,26 @@ public class login_pageF extends Activity {
         try {
             cookie = networkTask.execute().get();
             Toast.makeText(getBaseContext(), cookie.substring(0,8), Toast.LENGTH_SHORT).show(); // 쿠키의 1부터 7까지의 스트링을 가지고온다.Session일때 성공
-                                                                                                //다른거 뜰때는 로그인 실패.
-            compare = cookie.substring(0,8); //비교하기 위하여.
-            if(compare.equals(origin)){
-                Toast.makeText(this,"환영합니다",Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                Session_key = cookie;
-                send_key(Session_key); // 프래그먼트로 값을 전달하는 함수.
-                startActivity(intent);
-            }
-            else
-            {
-                Toast.makeText(this,"아이디 or 비밀번호가 맞지 않습니다.",Toast.LENGTH_LONG).show();
-                return;
-            }
+
+          //if(cookie.equals("fail"))
+          ///{
+            //  Toast.makeText(this, "서버 접속이 되지 않았습니다", Toast.LENGTH_LONG).show();
+          //}
+         // else {//다른거 뜰때는 로그인 실패.
+              compare = cookie.substring(0, 8); //비교하기 위하여.
+              if (compare.equals(origin)) {
+                  Toast.makeText(this, "환영합니다", Toast.LENGTH_LONG).show();
+                  Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                  Session_key = cookie;
+                  //System.out.println(Session_key); 세션키의 값을 가지고 있음
+                  //send_key(Session_key); // 프래그먼트로 값을 전달하는 함수.
+                  intent.putExtra("Session_key", Session_key);
+                  startActivity(intent);
+              } else {
+                  Toast.makeText(this, "아이디 or 비밀번호가 맞지 않습니다.", Toast.LENGTH_LONG).show();
+                  return;
+              }
+          //}
 
 
 
@@ -189,9 +195,11 @@ public class login_pageF extends Activity {
         }
 
     }
+    /*
     public void send_key(String Session_key)
     {
 
+        System.out.println(Session_key);
         Bundle bundle = new Bundle();
         bundle.putString("Session_key",Session_key);
         home_pageF home_pageF = new home_pageF();
@@ -199,6 +207,7 @@ public class login_pageF extends Activity {
 
         //intent.putExtra("Session_key",Session_key); // 받아온 아이디
     }
+     */
 }
 
 //==================================2=2=2=2=2================================================

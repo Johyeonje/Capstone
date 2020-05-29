@@ -3,44 +3,28 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="1">
+
+        <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="수업을 선택해주세요"
         android:textColor="#000000"
         android:textSize="45dp">
-    </TextView>
-    <Button
-        android:layout_marginTop="50dp"
-        android:id="@+id/subject1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="과목1" />
 
-    <Button
-        android:id="@+id/subject2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="과목2" />
+         </TextView>
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/subject3"
+    <LinearLayout
+        android:id="@+id/select_menu"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="과목3" />
-
-    <Button
-        android:id="@+id/subject4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="과목4" />
-
-    <Button
-        android:id="@+id/subject5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="과목5" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="200">
+    </LinearLayout>
 
 </LinearLayout>

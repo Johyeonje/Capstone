@@ -10,10 +10,13 @@ package com.example.new_kone;
 //import android.support.v7.app.AppCompatActivity;\
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -34,6 +37,7 @@ public class MainActivity extends AppCompatActivity {  // AppCompatActivity는 �
     private ArrayList<Fragment> fList; // 위에 탭을 관리하기 위해 선언
     private WebView mWebView;
     private WebSettings mWebSettings;
+    String Session_k;
 
     @Override // 위에서 상속을 받는 다는 뜻
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +59,14 @@ public class MainActivity extends AppCompatActivity {  // AppCompatActivity는 �
         bar.addTab(tab2);
         bar.addTab(tab3);
 
+
+        // 아래는 Login 화면에서 넘겨 받은 Session_key 정보
+        Intent intent = getIntent();
+        Session_k = intent.getExtras().getString("Session_key"); // 세션값이 넘어온것 확인 o.
+
         fList = new ArrayList<Fragment>();
 
-        fList.add(home_pageF.newInstance());
+        fList.add(home_pageF.newInstance(Session_k));
         fList.add(board_pageF.newInstance());
         fList.add(calendar_pageF.newInstance());
 
@@ -65,6 +74,9 @@ public class MainActivity extends AppCompatActivity {  // AppCompatActivity는 �
 
         CustomFragmentPagerAdapter adapter = new CustomFragmentPagerAdapter(fm, fList);
         mViewPager.setAdapter(adapter);
+
+        //Bundle bundle = new Bundle();
+        //bundle.putString("Session_key",Session_k);
 
     }
 
