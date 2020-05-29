@@ -1,5 +1,4 @@
 import tensorflow as tf
-import utils
 import cv2
 import dlib
 import glob
@@ -8,30 +7,19 @@ from model import myModel
 import numpy as np
 
 
-def load_image(filename):
-    img = cv2.imread(filename, flags=cv2.IMREAD_COLOR).astype(np.float32)
-    img /= 255.0
-    return img
+def read_image(filepath, mode=cv2.IMREAD_ANYCOLOR):
+    image = cv2.imread(filepath, mode)
+    return image
 
 
 if __name__ == "__main__":
 
     # hyperparameter
-    test_path = ""
-    model_path = ""
+    test_path = "D:/Study/Capstone/PyAdsChange/test_img/1.jpg"
+    model_path = "D:/Study/All-Age-Faces/Ads_model0/chkpt-500"
     input_size = (100, 100)
     test_images = []
     result_list = []
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--data_dir", default="../../FaceDataSet/ncrop", help="Data directory")
-    parser.add_argument("--chkpt_dir", default="../../FaceDataSet/train_model0420")
-    parser.add_argument("--log_dir", default="./logs/logs0420")
-    parser.add_argument("--train_person_num", default=20, type=int, help="하나의 훈련용 배치를 구성할 사람의 수")
-    parser.add_argument("--train_face_num", default=5, type=int, help="하나의 훈련용 배치를 구성할 사람마다 사용할 얼굴 사진의 수")
-    parser.add_argument("--test_person_num", default=20, type=int, help="하나의 평가용 배치를 구성할 사람의 수")
-    parser.add_argument("--test_face_num", default=5, type=int, help="하나의 가용 배치를 구성할 사람마다 사용할 얼굴 사진의 수")
-    args = parser.parse_args()
 
     # Set optimizer
     lr_schedule = tf.keras.optimizers.schedules.PolynomialDecay(
@@ -43,19 +31,12 @@ if __name__ == "__main__":
 
     # Configuration
     config = {
-        "train_person_num": args.train_person_num,
-        "train_face_num": args.train_face_num,
-        "embedding_dim": 256,
-        "apply_gradient_clipping": True,
-        "gradient_clip_norm": 1,
-        "loss_type": "ge2e",
-        # "loss_type" : "binary_cross_entropy",
+        # "loss_type": "ge2e",
+        "loss_type": "binary_cross_entropy",
         "optimizer": optimizer,
-
-        "train_epoch_num": 100000
     }
 
-    org_img = load_image(test_path)
+    org_img = read_image(test_path)
     face_detector = dlib.get_frontal_face_detector()
     detected_faces = face_detector(org_img, 1)
     for j, face_rect in enumerate(detected_faces):
@@ -64,6 +45,7 @@ if __name__ == "__main__":
             face = org_img[top:bottom, left:right, :]
             face = cv2.resize(face, dsize=input_size)
             cv2.imshow(str(j), face)
+            cv2.waitKey(0)
             test_images.append(face)
         except Exception as ex:
             print(ex)

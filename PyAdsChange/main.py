@@ -87,7 +87,7 @@ if __name__ == "__main__":
             with writer.as_default():
                 tf.summary.scalar("Test Loss", test_loss, step=epoch)
 
-        if epoch != 0 and epoch % 10000 == 0:
+        if epoch != 0 and epoch % 500 == 0:
             filepath = os.path.join(save_path, "chkpt-" + str(epoch))
             model.save_weights(filepath)
 
