@@ -56,7 +56,7 @@ if __name__ == "__main__":
     model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])
 
     #create vector
-    test_images = np.array(test_images).astype(float)
+    test_images = np.array(test_images).astype(float) / 255
     print(test_images.shape)
 
     S = model.predict(test_images)
