@@ -11,6 +11,7 @@ public class TextDeliver {
 	private StringBuffer b = new StringBuffer();
 	private HttpServletRequest request;
 	private HttpServletResponse response;
+	
 	public TextDeliver(HttpServletRequest request, HttpServletResponse response) { //텍스트 수신
 		this.request = request;
 		this.response = response;
@@ -56,7 +57,7 @@ public class TextDeliver {
 		}
 	}
 	
-	public void SendText(String text) { // 저장된 텍스트 송신
+	public void SendText(String text) { // 텍스트 송신
         try {
             DataOutputStream dos = new DataOutputStream(response.getOutputStream());
             if (text.substring(text.length()-2, text.length()).equals("\r\n")) { // 맨 끝 줄바꿈 제거

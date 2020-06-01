@@ -39,7 +39,7 @@
 			
 			Runtime runtime = Runtime.getRuntime();
 			System.out.println("PYTHON 시작");
-			String command = "conda run -n tf python "+folderTypePath+"/testing.py ";
+			String command = "conda run -n tf python "+folderTypePath+"/testing.py " + folderTypePath + " " + fileName;
 			System.out.println(command);
 			Process process = runtime.exec(command);
 			process.waitFor();

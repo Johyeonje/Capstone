@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<servers>
-  <server auto-publish-setting="1" hostname="Cloud" id="Cloud Foundry" name="Cloud Foundry" runtime-id="Cloud Foundry" server-type="org.cloudfoundry.appcloudserver.10" server-type-id="org.cloudfoundry.appcloudserver.10" start-timeout="600" stop-timeout="60" timestamp="1">
-    <list key="modules" value0="JSP::org.eclipse.jst.jee.server:JSP::jst.web::3.0"/>
-  </server>
-</servers>
