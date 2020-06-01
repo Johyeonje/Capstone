@@ -13,6 +13,18 @@ def load_image(filename):
     return img
 
 
+def get_acc(y_pred, y_true):
+    acc = tf.reduce_mean(
+        tf.cast(
+            tf.equal(
+                tf.argmax(y_pred, axis=1),
+                tf.argmax(y_true, axis=1)
+            ), tf.float32
+        )
+    )
+    return acc
+
+
 def load_data(data_dir):
     data = dict()
     id_list = os.listdir(data_dir)
@@ -57,17 +69,16 @@ if __name__ == "__main__":
         end_learning_rate=0.001
     )
     optimizer = tf.keras.optimizers.Adam(learning_rate=lr_schedule)
-
+    loss = tf.losses.BinaryCrossentropy()
     config = {
         #"loss_type": "ge2e",
         "loss_type" : "binary_cross_entropy",
         "optimizer": optimizer,
         "train_epoch_num": 100000,
     }
-
     model = myModel(config)
-    model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=lr_schedule),
-                  loss=tf.losses.BinaryCrossentropy(), metrics=['accuracy'])
+    # model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=lr_schedule),
+    #               loss=tf.losses.BinaryCrossentropy(), metrics=['accuracy'])
 
     # Create summary writer
     writer = tf.summary.create_file_writer(logdir=log_path)
@@ -83,8 +94,7 @@ if __name__ == "__main__":
             loss_value = loss(logits, batch_y)
             grads = tape.gradient(loss_value, model.trainable_variables)
             optimizer.apply_gradients(zip(grads, model.trainable_variables))
-
-        _, train_acc = model.evaluate(batch_x, batch_y)
+            train_acc = get_acc(logits, batch_y)
 
         with writer.as_default():
             tf.summary.scalar("Train Loss", loss_value, step=epoch)
