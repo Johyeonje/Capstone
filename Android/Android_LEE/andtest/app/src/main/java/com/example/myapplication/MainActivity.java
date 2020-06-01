@@ -101,7 +101,8 @@ public class MainActivity extends AppCompatActivity {
                 String img_path = null;
 
                 img_path = getImagePathToUri(data.getData()); //이미지의 URI를 얻어 경로값으로 반환.
-                DoFileUpload("http://rbghoneroom402.iptime.org:48526/JSP/Test.jsp", img_path);  //해당 함수를 통해 이미지 전송.
+                //DoFileUpload("http://rbghoneroom402.iptime.org:48526/JSP/Test.jsp", img_path);  //해당 함수를 통해 이미지 전송.
+                DoFileUpload("http://rbghoneroom402.iptime.org:48526/ADS/Ads.jsp", img_path);
 
                 //이미지를 비트맵형식으로 반환
                 Bitmap image_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());

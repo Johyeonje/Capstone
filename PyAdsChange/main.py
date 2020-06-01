@@ -112,6 +112,6 @@ if __name__ == "__main__":
             filepath = os.path.join(save_path, "chkpt-" + str(epoch))
             model.save_weights(filepath)
 
-        print("Epoch : {}, Train Loss : {}, Train Acc : {}".format(epoch, "%1.3f" % train_loss, "%1.3f" % train_acc))
+        print("Epoch : {}, Train Loss : {}, Train Acc : {}".format(epoch, "%1.3f" % loss_value, "%1.3f" % train_acc))
 
     print("Trainning done")

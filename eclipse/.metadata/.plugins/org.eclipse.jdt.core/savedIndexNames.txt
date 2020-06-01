@@ -1,6 +1,0 @@
-INDEX VERSION 1.131+C:\Users\samsung\Documents\GitHub\Capstone\eclipse\.metadata\.plugins\org.eclipse.jdt.core
-661600371.index
-1644693714.index
-1067094681.index
-980213512.index
-1248545562.index
