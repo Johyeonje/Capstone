@@ -46,7 +46,8 @@ def make_batch(id_list, data, batch_num, dtype=np.float32):
         # make batch x
         id = random.choice(id_list)            # choice age
         img_pick = random.choice(data[id])
-        x.append(img_pick)
+        picked_image = load_image(img_pick)
+        x.append(picked_image)
 
         # make label
         label = np.zeros(shape=[10], dtype=np.float32)
