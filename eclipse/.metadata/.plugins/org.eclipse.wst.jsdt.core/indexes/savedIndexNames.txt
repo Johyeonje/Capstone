@@ -1,7 +1,0 @@
-INDEX VERSION 1.4+C:\Users\samsung\Documents\GitHub\Capstone\eclipse\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-661600371.index
-2787922423.index
-123126828.index
-2987616177.index
-2972702617.index
-1541018989.index

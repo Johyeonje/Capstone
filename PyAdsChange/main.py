@@ -7,20 +7,36 @@ import tensorflow as tf
 from model import myModel
 
 
-def load_data(path):
-    data = dict()
-    id_list = os.listdir(path)
-    for id in id_list:
-        image_name_list = os.listdir(os.path.join(path, id))
-        data[id] = [load_image(os.path.join(path, id, image_name)) for image_name in image_name_list]
-
-    return id_list, data
-
-
 def load_image(filename):
     img = cv2.imread(filename, flags=cv2.IMREAD_COLOR).astype(np.float32)
     img /= 255.0
     return img
+
+
+def get_acc(y_pred, y_true):
+    acc = tf.reduce_mean(
+        tf.cast(
+            tf.equal(
+                tf.argmax(y_pred, axis=1),
+                tf.argmax(y_true, axis=1)
+            ), tf.float32
+        )
+    )
+    return acc
+
+
+def load_data(data_dir):
+    data = dict()
+    id_list = os.listdir(data_dir)
+    for id in id_list:
+        tmp = []
+        path = os.path.join(data_dir, id)
+        for filename in os.listdir(path):
+            filepath = os.path.join(path, filename)
+            tmp.append(filepath)
+        data[id] = tmp
+
+    return id_list, data
 
 
 def make_batch(id_list, data, batch_num, dtype=np.float32):
@@ -30,7 +46,8 @@ def make_batch(id_list, data, batch_num, dtype=np.float32):
         # make batch x
         id = random.choice(id_list)            # choice age
         img_pick = random.choice(data[id])
-        x.append(img_pick)
+        picked_image = load_image(img_pick)
+        x.append(picked_image)
 
         # make label
         label = np.zeros(shape=[10], dtype=np.float32)
@@ -53,17 +70,16 @@ if __name__ == "__main__":
         end_learning_rate=0.001
     )
     optimizer = tf.keras.optimizers.Adam(learning_rate=lr_schedule)
-
+    loss = tf.losses.BinaryCrossentropy()
     config = {
         #"loss_type": "ge2e",
         "loss_type" : "binary_cross_entropy",
         "optimizer": optimizer,
         "train_epoch_num": 100000,
     }
-
     model = myModel(config)
-    loss = tf.losses.BinaryCrossentropy()
-    model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])
+    # model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=lr_schedule),
+    #               loss=tf.losses.BinaryCrossentropy(), metrics=['accuracy'])
 
     # Create summary writer
     writer = tf.summary.create_file_writer(logdir=log_path)
@@ -72,12 +88,17 @@ if __name__ == "__main__":
     # model.load_weights(model_name)
 
     for epoch in range(config["train_epoch_num"]):
-        batch_x, batch_y = make_batch(id_list, data, batch_num=50)
-        model.fit(batch_x, batch_y, epochs=1)
-        train_loss, train_acc = model.evaluate(batch_x, batch_y)
+        batch_x, batch_y = make_batch(id_list, data, batch_num=100)
+
+        with tf.GradientTape() as tape:
+            logits = model(batch_x)
+            loss_value = loss(logits, batch_y)
+            grads = tape.gradient(loss_value, model.trainable_variables)
+            optimizer.apply_gradients(zip(grads, model.trainable_variables))
+            train_acc = get_acc(logits, batch_y)
 
         with writer.as_default():
-            tf.summary.scalar("Train Loss", train_loss, step=epoch)
+            tf.summary.scalar("Train Loss", loss_value, step=epoch)
             tf.summary.scalar("Train Acc", train_acc, step=epoch)
 
         if epoch != 0 and epoch % 1000 == 0:
@@ -87,10 +108,10 @@ if __name__ == "__main__":
             with writer.as_default():
                 tf.summary.scalar("Test Loss", test_loss, step=epoch)
 
-        if epoch != 0 and epoch % 500 == 0:
+        if epoch != 0 and epoch % 5000 == 0:
             filepath = os.path.join(save_path, "chkpt-" + str(epoch))
             model.save_weights(filepath)
 
-        print("Epoch : {}, Train Loss : {}, Train Acc : {}".format(epoch, "%1.3f" % train_loss, "%1.3f" % train_acc))
+        print("Epoch : {}, Train Loss : {}, Train Acc : {}".format(epoch, "%1.3f" % loss_value, "%1.3f" % train_acc))
 
     print("Trainning done")

@@ -2,6 +2,7 @@ import tensorflow as tf
 import cv2
 import dlib
 import glob
+import sys
 import argparse
 from model import myModel
 import numpy as np
@@ -15,7 +16,9 @@ def read_image(filepath, mode=cv2.IMREAD_ANYCOLOR):
 if __name__ == "__main__":
 
     # hyperparameter
-    test_path = "D:/Study/Capstone/PyAdsChange/test_img/1.jpg"
+    file_path = sys.argv[1]
+    file_name = sys.argv[2]
+    test_path = file_path + "/" + file_name
     model_path = "D:/Study/All-Age-Faces/Ads_model0/chkpt-500"
     input_size = (100, 100)
     test_images = []
@@ -44,8 +47,6 @@ if __name__ == "__main__":
         try:
             face = org_img[top:bottom, left:right, :]
             face = cv2.resize(face, dsize=input_size)
-            cv2.imshow(str(j), face)
-            cv2.waitKey(0)
             test_images.append(face)
         except Exception as ex:
             print(ex)
@@ -56,8 +57,7 @@ if __name__ == "__main__":
     model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])
 
     #create vector
-    test_images = np.array(test_images).astype(float)
-    print(test_images.shape)
+    test_images = np.array(test_images).astype(float) / 255
 
     S = model.predict(test_images)
 
@@ -67,4 +67,4 @@ if __name__ == "__main__":
     for i in range(len(test_images)):
         max_score_idx = np.argmax(S[i, :])
         result_list.append(max_score_idx)
-        print(result_list)
+        print(max_score_idx)
