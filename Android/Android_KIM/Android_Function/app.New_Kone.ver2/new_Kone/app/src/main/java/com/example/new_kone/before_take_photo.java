@@ -13,9 +13,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -39,9 +41,11 @@ public class before_take_photo extends Activity {
     //==========================3=3=3=3=3======변경후 필요 변수=========================
         Button next_step;
         String choose_Subject; // 다음 과목을 넣기 위해, 다음 사진 찍는 곳으로 넘겨준다.
-        String selected_m,sub_student_info,choose_date; // selected_m
-                                                        // sub_student_info : 가져온 학생들의 값.
-                                                        // choose_date
+        String sub_student_info,choose_date,choose_class_code,session_key; //
+    // sub_student_info : 가져온 학생들의 값.
+    // choose_date
+    // choose_class_code : 결정 과목 코드
+    // session_key : 세션키저장
 
     //==============================3=3=3=3=3=3= 변경후 필요변수========================
     //================================7=7=7=7=7=7=7=7==============스크롤바 학생을 넣는 방법=====
@@ -66,6 +70,7 @@ public class before_take_photo extends Activity {
         int convert_class_nuber_to_int = Integer.parseInt(class_number);
         String selected_menu = intent.getExtras().getString("Select_menu"); // 정상적인 값 확인 O 받은 값 = 코드랑 과목명이 들어옴.
         final String Session_key = intent.getExtras().getString("Session_key"); // 정상적인 값 확인 O
+        session_key = Session_key;
         String User_subject = intent.getExtras().getString("All_subject"); // 정상적인 값 확인 O
 
         String code_and_subject[] = selected_menu.split("\t");
@@ -74,39 +79,6 @@ public class before_take_photo extends Activity {
         Student_info(url,Session_key,code);
         //selected_m = selected_menu;
         //sub_student_info = student_list; // 선택된 과목의 학생 목록
-
-        //+=====================================학생 정보 보이는 LinearLayout=====================
-/*
-        final ScrollView student_scroll = (ScrollView) findViewById(R.id.student_info);
-
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT); // 만든 LinearLayout의 가로 길이와 세로 길이를 정한다.
-        String[] student_list = sub_student_info.split("\\n+");// "\\n+"는 줄바꿈을 확인하기위한 문자.
-
-        for(int i=0;i<student_list.length;i++) { // Class의 길이 만큼 읽는다. 과목 만큼 버튼이 생성된다.
-
-            LinearLayout student_list_inner = new LinearLayout(this);
-            student_list_inner.setOrientation(LinearLayout.VERTICAL);
-
-            //final Button btn = new Button(this); // 버튼을 새로 생성한다.
-            final TextView textview = new TextView(this); // 새로운 텍스트 뷰 생성.
-
-            textview.setText(student_list[i]);
-            textview.setTextSize(20);
-            textview.setLayoutParams(params);
-
-            final String set_menu = student_list[i];
-            student_list_inner.addView(textview);
-            student_scroll.addView(student_list_inner);
-
-        }
-
-
-
-
- */
-        //======================================학생 정보 보이는 ==================================
-        //====================================13==13==13==13==13==13===13====================
 
         Button btnReturn = (Button) findViewById(R.id.back1);
         btnReturn.setOnClickListener(new View.OnClickListener() {
@@ -147,6 +119,8 @@ public class before_take_photo extends Activity {
 
                 Divide_Code_Subject_name = choose_Subject.split("\t");
                 String code = Divide_Code_Subject_name[0];
+
+                choose_class_code = code;
                 String subject = Divide_Code_Subject_name[1];
 
                 Toast.makeText(getBaseContext(),"다음과목을 인증합니다 : "+subject,Toast.LENGTH_LONG).show();
@@ -189,9 +163,10 @@ public class before_take_photo extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), take_photoF.class); // 다음 값을 액티비티에서 액티비티로 넘겨줌
-                intent.putExtra("select_menu",selected_m); // 다음 다시 선택된 수업을 파악한다.
-                intent.putExtra("sub_student",sub_student_info); // 수업 1을 듣는 학생들을 다음과 같이 보낸다. 전체 스트링으로
-                intent.putExtra("choose_date",choose_date);
+                intent.putExtra("select_menu_code",choose_class_code); // 수업의 코드
+                intent.putExtra("select_menu",choose_Subject); // 수업 명
+                intent.putExtra("session_key",session_key);
+                //intent.putExtra("choose_date",choose_date);
                 startActivity(intent);
             }
         });
@@ -203,24 +178,71 @@ public class before_take_photo extends Activity {
         final LinearLayout student_scroll = (LinearLayout) findViewById(R.id.can_see_student);
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT); // 만든 LinearLayout의 가로 길이와 세로 길이를 정한다.
+                LinearLayout.LayoutParams.MATCH_PARENT); // 만든 LinearLayout의 가로 길이와 세로 길이를 정한다.
         String[] student_list = sub_student_info.split("\\n+");// "\\n+"는 줄바꿈을 확인하기위한 문자.
 
+
+
+
         for(int i=0;i<student_list.length;i++) { // Class의 길이 만큼 읽는다. 과목 만큼 버튼이 생성된다.
+            //final Button btn = new Button(this); // 버튼을 새로 생성한다.
 
             LinearLayout student_list_inner = new LinearLayout(this);
             student_list_inner.setOrientation(LinearLayout.VERTICAL);
 
-            //final Button btn = new Button(this); // 버튼을 새로 생성한다.
             final TextView textview = new TextView(this); // 새로운 텍스트 뷰 생성.
+            //final CheckBox checkbox = new CheckBox(this);
+            final RadioButton radioButton = new RadioButton(this);
+            final RadioButton radioButton1 = new RadioButton(this);
+            final RadioButton radioButton2 = new RadioButton(this);
 
             textview.setText(student_list[i]);
             textview.setTextSize(20);
             textview.setLayoutParams(params);
 
-            final String set_menu = student_list[i];
+            final String set_menu = student_list[i]; // 몇번째 학생인지.
             student_list_inner.addView(textview);
+
+
+            LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT);
+
+            LinearLayout state = new LinearLayout(this);
+            state.setOrientation(LinearLayout.HORIZONTAL);
+
+
+            radioButton.setText("출석");
+            radioButton.setLayoutParams(params);
+            student_list_inner.addView(radioButton);
+
+            radioButton1.setText("지각");
+            radioButton1.setLayoutParams(params);
+            student_list_inner.addView(radioButton1);
+
+            radioButton2.setText("결석");
+            radioButton2.setLayoutParams(params);
+            student_list_inner.addView(radioButton2);
+
+
             student_scroll.addView(student_list_inner);
+
+
+
+            /*
+            checkbox.setText("출석");
+            checkbox.setTextSize(20);
+            checkbox.setLayoutParams(params);
+            student_list_inner.addView(checkbox);
+            student_scroll.addView(student_list_inner);
+
+            checkbox.setOnClickListener(new View.OnClickListener() { // 다음 check 박스가 선택이 되는 방법.
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+
+             */
 
         }
 

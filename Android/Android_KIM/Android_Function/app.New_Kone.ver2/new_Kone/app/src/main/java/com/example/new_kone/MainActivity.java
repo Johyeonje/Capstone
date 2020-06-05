@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity {  // AppCompatActivity는 �
         // 아래는 Login 화면에서 넘겨 받은 Session_key 정보
         Intent intent = getIntent();
         Session_k = intent.getExtras().getString("Session_key"); // 세션값이 넘어온것 확인 o.
-
         fList = new ArrayList<Fragment>();
 
         fList.add(home_pageF.newInstance(Session_k));

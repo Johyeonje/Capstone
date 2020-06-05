@@ -1,7 +1,7 @@
 package com.example.new_kone;
 
 //import android.support.annotation.RequiresApi;
-// 사용 안함.
+
 import android.os.Build;
 import android.util.Log;
 import androidx.annotation.RequiresApi;
@@ -73,7 +73,4 @@ public class RequestHttpURLConnection {
             // TODO: handle exception
         }
     }
-
-
-
 }

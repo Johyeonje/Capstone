@@ -5,7 +5,7 @@ package com.example.new_kone;
 //import android.support.annotation.RequiresApi;
 //import android.support.v4.app.ActivityCompat;
 //import android.support.v4.content.ContextCompat;
-// 위의 import는 예전 버젼들의 import문들 현재는 androidx 버젼의 import문들이 들어간다.
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.ContentValues;
@@ -65,12 +65,11 @@ public class take_photoF extends Activity {
 
 //==================================================5=5=5=5=5=5====================================규호형===============================================
 
-   ImageView imageView1;
-   EditText editText1;
-   //================15==15==15==15==15===15==========================================
+    ImageView imageView1;
+    //================15==15==15==15==15===15==========================================
     EditText selected_date;
     CalendarView calendarView;
-   //================15==15==15==15==15===15==========================================
+    //================15==15==15==15==15===15==========================================
     //==========================3=3=3=3=3======변경후 필요 변수=========================
     Button btn_save_photo;
     private static final int PERMISSION_CODE = 1000;
@@ -78,6 +77,9 @@ public class take_photoF extends Activity {
     Uri image_uri;
     String Subject; // 다음 과목을 넣기 위해.
     String selected_m;
+    String selected_m_c;
+    String session_key;
+    String student_list;
 
     //==============================3=3=3=3=3=3= 변경후 필요변수========================
 
@@ -88,17 +90,22 @@ public class take_photoF extends Activity {
         setContentView(R.layout.take_photo);
 
         imageView1 = findViewById(R.id.imageView1);
-        editText1 = findViewById(R.id.select_class);
+        EditText show_class_name = findViewById(R.id.select_class);
         //========================3=3=3=3=3=3=========변경후 =================================
         btn_save_photo = findViewById(R.id.CONFIRM);
         //========================3=3=3=3=3=3=========변경후 =================================
         //=========액티비디로 값을 받아올때 부분===================13==13==13==13==13==13===13====================
         Intent intent = getIntent(); // select_menu에서 보낸 값을 받아온다.
-        String selected_menu = intent.getExtras().getString("select_menu");
-        selected_m = selected_menu; // 전역 변수로 보내줌, 필요없음/
+        selected_m = intent.getExtras().getString("select_menu");
+        selected_m_c = intent.getExtras().getString("select_menu_code");
+        session_key = intent.getExtras().getString("session_key");
+
+
         //====================================13==13==13==13==13==13===13====================
         //============================5=5=5=5=5=5================jsp적용 =====================
         Button Send_To_Jsp = (Button) findViewById(R.id.Send_To_JSP);
+
+        show_class_name.setText("최종적으로 선택된 과목:" + selected_m);
 
         Send_To_Jsp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +113,8 @@ public class take_photoF extends Activity {
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
                 startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
+
+                finish();
             }
         });
 
@@ -145,91 +154,7 @@ public class take_photoF extends Activity {
             }
         });
 
-        // 스피너 사용 부분 ====================================4=4=4=4=4=44=========================
 
-        final String[] Class = {"과목1", "과목2", "과목3", "과목4", "과목5"}; // 이 부분을 수정하면됨. 수정 할것은 testHere에 보관함. split를 사용하면 됨. // 다음 받아온 s를 이용하여 변경해야함.
-        final Spinner spinner = (Spinner) findViewById(R.id.class_choose);
-
-        String sub1 = "sub1";
-        String sub2 = "sub2";
-        String sub3 = "sub3";
-        String sub4 = "sub4";
-        String sub5 = "sub5";
-
-        //============================스피너 선택창======================================================
-
-
-        ArrayAdapter<String> adapter;
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Class);
-        spinner.setAdapter(adapter);
-        // spinner.setSelection(4);
-        while (true) {
-            if (sub1.equals(selected_menu)) {
-                Toast.makeText(this, "과목1이 선택되었습니다.", Toast.LENGTH_LONG).show();
-                spinner.setSelection(0); // 스피너는 0부터 초기값이 0부터 시작됨.
-                break;
-            } else if (sub2.equals(selected_menu)) {
-                Toast.makeText(this, "과목2가 선택되었습니다.", Toast.LENGTH_LONG).show();
-                spinner.setSelection(1);
-                break;
-            } else if (sub3.equals(selected_menu)) {
-                Toast.makeText(this, "과목3이 선택되었습니다.", Toast.LENGTH_LONG).show();
-                spinner.setSelection(2);
-                break;
-            } else if (sub4.equals(selected_menu)) {
-                Toast.makeText(this, "과목4가 선택되었습니다.", Toast.LENGTH_LONG).show();
-                spinner.setSelection(3);
-                break;
-            } else if (sub5.equals(selected_menu)) {
-                Toast.makeText(this, "과목5가 선택되었습니다.", Toast.LENGTH_LONG).show();
-                spinner.setSelection(4);
-                break;
-            }
-        }
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-// i번째에 해당되는것을 선택할 수 있다.
-
-                editText1.setText("다음 과목을 인증합니다." + adapterView.getItemAtPosition(i));
-                //다음 스트링을 보내기 위해서.
-
-
-                //Intent intent = new Intent(getApplicationContext(),sendEmailPasswordF.class);
-                String sClass  = spinner.getSelectedItem().toString(); // 다음 스피너에 선택된 변수를 가지고 온다. sClass에.
-                //intent.putExtra("sClass",sClass); // 위의 sClass를 가져와 다음 액티비티로 넘기기 위해 가져온다.
-                Subject = sClass; //전역변수 Subject에 다음 스피너에서 고른 클래스가 들어간다.
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                //아무것도 선택이 안됬을때 설정을 넣는 곳.
-            }
-        });
-
-
-        //=============================4=4=4=4=4=4=4================================================
-
-        //===============================15==15==15==15===15========================================
-        //날짜 선택 창
-        /*
-        selected_date = findViewById(R.id.selected_date);
-        calendarView = findViewById(R.id.select_date);
-
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-
-                selected_date.setText("선택된 날짜:"+ year+"/" +(month+1)+ "/" +dayOfMonth);
-
-            }
-        });
-
-         */
-
-        //===============================15==15==15==15===15========================================
     }
 
     private void open_camera() {
@@ -242,6 +167,7 @@ public class take_photoF extends Activity {
         startActivityForResult(cameraIntent, IMAGE_CAPTURE_CODE); // 다음 결과 값을 받고 새로운 액티비티를 생성하기 위해 다음과 같은걸 쓴다.
     }
 
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -251,9 +177,8 @@ public class take_photoF extends Activity {
                 if (grantResults.length > 0 && grantResults[0] ==
                         PackageManager.PERMISSION_GRANTED) {
                     open_camera();
-                }
-                else{
-                    Toast.makeText(this,"저장소와 카메라를 허용승인이 필요합니다.",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "저장소와 카메라를 허용승인이 필요합니다.", Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -262,17 +187,15 @@ public class take_photoF extends Activity {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
-    protected void onActivityResult(int requestCode, int resultCode,Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //===============================================================================================나의 코드
         if (resultCode == RESULT_OK) // 카메라에 기본 탑재가 되어있다. 사진을 찍고 그 사진을 사용하기를 원하면 Result_ok를 가져온다.
         {
             imageView1.setImageURI(image_uri); // 비트맵 객체를 이용해서 보여줌.
-            Toast.makeText(this,"출석체크 사진을 저장하였습니다.",Toast.LENGTH_SHORT).show();
-        }
-        else
-        {
-            Toast.makeText(this,"출석체크 사진이 찍히지 않았습니다.",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "출석체크 사진을 저장하였습니다.", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "출석체크 사진이 찍히지 않았습니다.", Toast.LENGTH_SHORT).show();
         }
         //===============================================================================================나의 코드
         //=================================================5=5=5=5=5=55===================================규호형===================================================
@@ -281,11 +204,10 @@ public class take_photoF extends Activity {
         if (requestCode == REQ_CODE_SELECT_IMAGE) {
             if (resultCode == Activity.RESULT_OK) {
                 try {
-                    String img_path=null;
+                    String img_path = null;
                     img_path = getImagePathToUri(data.getData()); //이미지의 URI를 얻어 경로값으로 반환.
                     String subject = Subject;
                     //아래 함수가 사진을 보내기위한 함수,
-                    DoTextUpload("http://rbghoneroom402.iptime.org:48526/JSP/Test.jsp", subject); // 해당 함수를 통해 텍스트를 전송한다. 다음 url로 다음 subject의 값을 넘긴다.
                     DoFileUpload("http://rbghoneroom402.iptime.org:48526/JSP/Test.jsp", img_path);  //해당 함수를 통해 이미지 전송.  경로를 설정. 다음 JSP로 보내기위한.
 
 
@@ -293,19 +215,10 @@ public class take_photoF extends Activity {
                     //    과목을 먼저 선정을 하여 다음
                     //
                     //
-                    //===================위의 놀리 이유 ===========
+                    //===================위의 논리 이유 ===========
                     //DoStringUpload(subject); // 과목을 가져온다.
                     //=====================11===========11===========11==========11==========11=================================
-                    /*
-                    String sendmsg = "vision_write";
-                    String result = "값"; //자신이 보내고싶은 값을 보내시면됩니다
-                    try{
-                        String rst = new Task(sendmsg).execute(result,"vision_write").get();
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
 
-                     */
                     Toast.makeText(getBaseContext(), "img_path : " + img_path, Toast.LENGTH_SHORT).show(); //다음 이미지 저장공간 경로를 보여줌.
                     //=================11============11=============11===============11=========11===============================다음은 텍스트를 보내기 위해서
                     //이미지를 비트맵형식으로 반환 . 아래는 그냥 이미지 사진을 줄여서 비트맵에 보여주기 위한 거 =========================9=9=9=9=9=====
@@ -324,125 +237,12 @@ public class take_photoF extends Activity {
             }
         }
 
-        //========================13====13====13===13====13===13========TextUpload====================
-        /*
-        public void DoTextUpload(String apiUrl, String[] text) {
-            TextUpload.NetworkTask networkTask = new TextUpload.NetworkTask(apiUrl, text, getBaseContext());
-            networkTask.execute();
-        }
-         */
-        //=========================13====13=====13====13====13===13====13=============================
         super.onActivityResult(requestCode, resultCode, data); // super는 부모에게 있는 변수를 사용하기 위해 있는 선언자이다.
 
         //=================================================5=5=5=5=5=55=5======================================규호형==========================-====================
     }
 
     //=====================5=5=5=5=55===============jsp 연동 ======================================= 규호형================================================================
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT) // 다음 버전에서 사용할 수 있다는 뜻.
-    public String HttpURLConnection(String urlString, String params, String fileName) {
-        String lineEnd = "\r\n";
-        String twoHyphens = "--";
-        String boundary = "*****";
-        try {
-            FileInputStream mFileInputStream = new FileInputStream(new File(fileName));
-            URL connectUrl = new URL(urlString);
-            Log.d("Test", "mFileInputStream  is " + mFileInputStream);
-            // HttpURLConnection 통신
-            HttpURLConnection conn = (HttpURLConnection) connectUrl.openConnection();
-            conn.setDoInput(true);
-            conn.setDoOutput(true);
-            conn.setUseCaches(false);
-            conn.setRequestMethod("POST");
-            //conn.setRequestProperty("Accept-Charset", "UTF-8"); // Accept-Charset 설정.
-            //conn.setRequestProperty("Context_Type", "text/html; charset=UTF-8");
-            conn.setRequestProperty("Connection", "Keep-Alive");
-            conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
-            // write data
-
-            /*
-            DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
-            dos.writeBytes(twoHyphens + boundary + lineEnd);
-            dos.writeBytes("Content-Disposition: form-data; name=\"uploadedfile\";filename=\"" + fileName + "\"" + lineEnd);
-            dos.writeBytes(lineEnd);
-            int bytesAvailable = mFileInputStream.available();
-            int maxBufferSize = 1024;
-            int bufferSize = Math.min(bytesAvailable, maxBufferSize);
-            byte[] buffer = new byte[bufferSize];
-            int bytesRead = mFileInputStream.read(buffer, 0, bufferSize);
-            Log.d("Test", "image byte is " + bytesRead);
-            // read image
-            while (bytesRead > 0) {
-                dos.write(buffer, 0, bufferSize);
-                bytesAvailable = mFileInputStream.available();
-                bufferSize = Math.min(bytesAvailable, maxBufferSize);
-                bytesRead = mFileInputStream.read(buffer, 0, bufferSize);
-            }
-            dos.writeBytes(lineEnd);
-            dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
-            // close streams
-            Log.e("Test", "File is written");
-            mFileInputStream.close();
-            dos.flush();
-            // finish upload...
-            // get response
-            StringBuffer b;
-            try (InputStream is = conn.getInputStream()) {
-                b = new StringBuffer();
-                for (int ch = 0; (ch = is.read()) != -1; ) {
-                    b.append((char) ch);
-                }
-                is.close();
-            }
-            Log.e("Test", b.toString());
-            return b.toString();
-
-        } catch (Exception e) {
-            Log.d("Test", "exception " + e.getMessage());
-            return null;
-            // TODO: handle exception
-        }
-             */
-            DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
-            dos.writeBytes(twoHyphens + boundary + lineEnd);
-            dos.writeBytes("Content-Disposition: form-data; name=\"uploadedfile\";filename=\"" + fileName + "\"" + lineEnd);
-            dos.writeBytes(lineEnd);
-            int bytesAvailable = mFileInputStream.available();
-            int maxBufferSize = 1024;
-            int bufferSize = Math.min(bytesAvailable, maxBufferSize);
-            byte[] buffer = new byte[bufferSize];
-            int bytesRead = mFileInputStream.read(buffer, 0, bufferSize);
-            // read image
-            while (bytesRead > 0) {
-                dos.write(buffer, 0, bufferSize);
-                bytesAvailable = mFileInputStream.available();
-                bufferSize = Math.min(bytesAvailable, maxBufferSize);
-                bytesRead = mFileInputStream.read(buffer, 0, bufferSize);
-            }
-            dos.writeBytes(lineEnd);
-            dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
-            // close streams
-            mFileInputStream.close();
-            dos.flush();
-            // finish upload...
-            // get response
-            StringBuffer b;
-            b = new StringBuffer();
-            DataInputStream dis = new DataInputStream(conn.getInputStream());
-            try {
-                for (String ch; (ch = dis.readUTF()) != null;)  {
-                    b.append(ch);
-                    b.append(lineEnd);
-                }
-            } catch (EOFException e) {
-                b.delete(b.length()-lineEnd.length(),b.length());
-            }
-            return b.toString();
-        } catch (Exception e) {
-            System.out.print(e);
-            return null;
-            // TODO: handle exception
-        }
-    }
 
 
 
@@ -454,27 +254,13 @@ public class take_photoF extends Activity {
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         //이미지의 경로 값
         String imgPath = cursor.getString(column_index);
-        Log.d("test", imgPath);
         return imgPath; // imgPath를 가져온다.
     }
 
     public void DoFileUpload(String apiUrl, String absolutePath) {
-        NetworkTask networkTask = new NetworkTask(apiUrl, absolutePath); // 다음 은 NetworkTask타입의 networkTask를 만든다는 뜻. 그리고 apiURI와 absolutewPath를 매개변수로 넣는다.
-        networkTask.execute(); // NetworkTask를 실행한다는 뜻,
+        NetworkTask networkTask = new NetworkTask(apiUrl, absolutePath);
+        networkTask.execute();
     }
-
-   public void  DoTextUpload(String apiUrl, String text){
-       // TextUpload.NetworkTask networkTask = new NetworkTask( apiUrl,text, getBaseContext());
-   }
-
-    /*
-    public void DoStringUpload(String subject){
-        String SendMsg ="vision_write";
-        String sub = subject;
-        Task Task = new Task(subject);
-        Task.execute(sub,"vision_write"); // 다음 sub1이라는 데이터를 Task함수로 넘긴다. "Vision_Write"라는 이름으로.
-    }
-     */
 
 
     public class NetworkTask extends AsyncTask<Void, Void, String> {
@@ -490,7 +276,7 @@ public class take_photoF extends Activity {
         @Override
         protected String doInBackground(Void... params) {
             String result; // 요청 결과를 저장할 변수.
-            result = HttpURLConnection (url, "", fileName); // 해당 URL로 부터 결과물을 얻어온다. //
+            result = HttpURLConnection(url, "", fileName); // 해당 URL로 부터 결과물을 얻어온다. //
             return result;
         }
 
@@ -501,6 +287,71 @@ public class take_photoF extends Activity {
             Toast.makeText(getBaseContext(), "Responce : " + s, Toast.LENGTH_SHORT).show();
         }
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT) // 다음 버전에서 사용할 수 있다는 뜻.
+    public String HttpURLConnection(String urlString, String params, String fileName) {
+        String lineEnd = "\r\n";
+        String twoHyphens = "--";
+        String boundary = "*****";
+        try {
+            FileInputStream mFileInputStream = new FileInputStream(new File(fileName));
+            URL connectUrl = new URL(urlString + ";jsessionid=" + session_key.substring(11,43));
+            // HttpURLConnection 통신
+            HttpURLConnection conn = (HttpURLConnection) connectUrl.openConnection();
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+            conn.setUseCaches(false);
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Connection", "Keep-Alive");
+            conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
+
+            DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
+            dos.writeBytes(twoHyphens + boundary + lineEnd);
+            dos.writeBytes("Content-Disposition: form-data; name=\"uploadedfile\";filename=\"" + selected_m_c +".jpg" + "\"" + lineEnd); //
+            //파일 이름 설정;
+            dos.writeBytes(lineEnd);
+            int bytesAvailable = mFileInputStream.available();
+            int maxBufferSize = 1024;
+            int bufferSize = Math.min(bytesAvailable, maxBufferSize);
+            byte[] buffer = new byte[bufferSize];
+            int bytesRead = mFileInputStream.read(buffer, 0, bufferSize);
+            // read image
+            while (bytesRead > 0) {
+                dos.write(buffer, 0, bufferSize);
+                bytesAvailable = mFileInputStream.available();
+                bufferSize = Math.min(bytesAvailable, maxBufferSize);
+                bytesRead = mFileInputStream.read(buffer, 0, bufferSize);
+            }
+            dos.writeBytes(lineEnd);
+            dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+            // close streams
+            mFileInputStream.close();
+            dos.flush();
+
+            StringBuffer b;
+            b = new StringBuffer();
+            DataInputStream dis = new DataInputStream(conn.getInputStream());
+            try {
+                for (String ch; (ch = dis.readUTF()) != null; ) {
+                    b.append(ch);
+                    b.append(lineEnd);
+                }
+            } catch (EOFException e) {
+                b.delete(b.length() - lineEnd.length(), b.length());
+            }
+            student_list = b.toString();
+            return b.toString();
+        } catch (Exception e) {
+            System.out.print(e);
+            return null;
+        }
+    }
+
+}
+
+
+
+// 저장고 1 정리 필요
 /*
     private void checkSelfPermission() {
         String temp = "";
@@ -585,4 +436,100 @@ public class take_photoF extends Activity {
     // ==========================================11=====11==========11=======11===============문자를 보내기 위해서=====
  */
 
-}
+
+
+// 저장고 정리 필요
+
+// 스피너 사용 부분 ====================================4=4=4=4=4=44=========================
+
+        /*
+        final String[] Class = {"과목1", "과목2", "과목3", "과목4", "과목5"}; // 이 부분을 수정하면됨. 수정 할것은 testHere에 보관함. split를 사용하면 됨. // 다음 받아온 s를 이용하여 변경해야함.
+        final Spinner spinner = (Spinner) findViewById(R.id.class_choose);
+
+        String sub1 = "sub1";
+        String sub2 = "sub2";
+        String sub3 = "sub3";
+        String sub4 = "sub4";
+        String sub5 = "sub5";
+
+         */
+
+//============================스피너 선택창======================================================
+
+        /*
+
+        ArrayAdapter<String> adapter;
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Class);
+        spinner.setAdapter(adapter);
+        // spinner.setSelection(4);
+        while (true) {
+            if (sub1.equals(selected_menu)) {
+                Toast.makeText(this, "과목1이 선택되었습니다.", Toast.LENGTH_LONG).show();
+                spinner.setSelection(0); // 스피너는 0부터 초기값이 0부터 시작됨.
+                break;
+            } else if (sub2.equals(selected_menu)) {
+                Toast.makeText(this, "과목2가 선택되었습니다.", Toast.LENGTH_LONG).show();
+                spinner.setSelection(1);
+                break;
+            } else if (sub3.equals(selected_menu)) {
+                Toast.makeText(this, "과목3이 선택되었습니다.", Toast.LENGTH_LONG).show();
+                spinner.setSelection(2);
+                break;
+            } else if (sub4.equals(selected_menu)) {
+                Toast.makeText(this, "과목4가 선택되었습니다.", Toast.LENGTH_LONG).show();
+                spinner.setSelection(3);
+                break;
+            } else if (sub5.equals(selected_menu)) {
+                Toast.makeText(this, "과목5가 선택되었습니다.", Toast.LENGTH_LONG).show();
+                spinner.setSelection(4);
+                break;
+            }
+        }
+
+
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+// i번째에 해당되는것을 선택할 수 있다.
+
+                editText1.setText("다음 과목을 인증합니다." + adapterView.getItemAtPosition(i));
+                //다음 스트링을 보내기 위해서.
+
+
+                //Intent intent = new Intent(getApplicationContext(),sendEmailPasswordF.class);
+                String sClass  = spinner.getSelectedItem().toString(); // 다음 스피너에 선택된 변수를 가지고 온다. sClass에.
+                //intent.putExtra("sClass",sClass); // 위의 sClass를 가져와 다음 액티비티로 넘기기 위해 가져온다.
+                Subject = sClass; //전역변수 Subject에 다음 스피너에서 고른 클래스가 들어간다.
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                //아무것도 선택이 안됬을때 설정을 넣는 곳.
+            }
+        });
+
+
+
+         */
+//=============================4=4=4=4=4=4=4================================================
+
+//===============================15==15==15==15===15========================================
+//날짜 선택 창
+        /*
+        selected_date = findViewById(R.id.selected_date);
+        calendarView = findViewById(R.id.select_date);
+
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+
+                selected_date.setText("선택된 날짜:"+ year+"/" +(month+1)+ "/" +dayOfMonth);
+
+            }
+        });
+
+         */
+
+//===============================15==15==15==15===15========================================
