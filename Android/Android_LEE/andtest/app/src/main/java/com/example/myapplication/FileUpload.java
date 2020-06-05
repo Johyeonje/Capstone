@@ -3,11 +3,10 @@ package com.example.myapplication;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -44,8 +43,9 @@ public class FileUpload {
         String lineEnd = "\r\n";
         String twoHyphens = "--";
         String boundary = "*****";
+        FileInputStream mFileInputStream = null;
         try {
-            FileInputStream mFileInputStream = new FileInputStream(new File(fileName));
+            mFileInputStream = new FileInputStream(new File(fileName));
             URL connectUrl = new URL(urlString+";jsessionid="+cookie.substring(11,43));
             // HttpURLConnection 통신
             HttpURLConnection conn = (HttpURLConnection) connectUrl.openConnection();
@@ -75,7 +75,6 @@ public class FileUpload {
             dos.writeBytes(lineEnd);
             dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
             // close streams
-            mFileInputStream.close();
             dos.flush();
             // finish upload...
             // get response
@@ -86,6 +85,14 @@ public class FileUpload {
             System.out.print(e);
             return null;
             // TODO: handle exception
+        } finally {
+            if(mFileInputStream != null) {
+                try {
+                    mFileInputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }

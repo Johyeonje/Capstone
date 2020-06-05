@@ -45,8 +45,7 @@ public class Student {
             conn.setRequestProperty("Connection", "Keep-Alive");
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
             TextDeliver textDeliver = new TextDeliver(conn);
-            textDeliver.append(SUB_ID);
-            textDeliver.SendText();
+            textDeliver.SendText(SUB_ID);
             // [2-2]. parameter 전달 및 데이터 읽어오기.
             String text = textDeliver.GetText();
             if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)

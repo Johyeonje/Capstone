@@ -34,7 +34,7 @@ class myModel(tf.keras.Model):
         # Last layer
         self.last = tf.keras.models.Sequential()
         self.last.add(tf.keras.layers.Flatten())
-        self.last.add(tf.keras.layers.Dense(10), activation='softmax')
+        self.last.add(tf.keras.layers.Dense(10, activation='softmax'))
 
     def call(self, x, training=False):
         x = self.conv(x)
