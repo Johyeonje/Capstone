@@ -78,8 +78,8 @@ if __name__ == "__main__":
         "train_epoch_num": 100000,
     }
     model = myModel(config)
-    # model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=lr_schedule),
-    #               loss=tf.losses.BinaryCrossentropy(), metrics=['accuracy'])
+    model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=lr_schedule),
+                  loss=tf.losses.BinaryCrossentropy(), metrics=['accuracy'])
 
     # Create summary writer
     writer = tf.summary.create_file_writer(logdir=log_path)

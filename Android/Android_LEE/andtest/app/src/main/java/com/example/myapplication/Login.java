@@ -54,7 +54,7 @@ public class Login {
             TextDeliver SendText = new TextDeliver(conn);
             SendText.SendText(ID + "\r\n" + PWD);
             String cookieTemp = conn.getHeaderField("Set-Cookie");
-            if (cookieTemp != null)
+            if ((cookieTemp != null) && cookieTemp.substring(0,9).equals("Session_ID"))
             {
                 cookie = cookieTemp;
             }

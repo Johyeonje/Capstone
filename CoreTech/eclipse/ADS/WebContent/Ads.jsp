@@ -19,7 +19,7 @@
 		String folderTypePath = "D:/Study/Capstone/PyAdsChange";
 		String name = new String();
 		String fileName = new String();
-		int sizeLimit = 20 * 1024 * 1024; // 5메가까지 제한 넘어서면 예외발생
+		int sizeLimit = 20 * 1024 * 1024; // 20메가까지 제한 넘어서면 예외발생
 		try {
 			long time = System.currentTimeMillis(); 
 			SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");

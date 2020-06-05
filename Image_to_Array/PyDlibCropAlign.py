@@ -21,14 +21,14 @@ if __name__ == "__main__":  # 본 코드를 import 시에 이 코드가 자동 �
     face_detector = dlib.get_frontal_face_detector()  # dlib의 face detection 적용 -> face_rect.상하좌우 에 값이 반환되는 것으로 보임
     face_pose_predictor = dlib.shape_predictor(predictor_model)
     face_aligner = openface.AlignDlib(predictor_model)
-    for face_num in range(1901, len(os.listdir(train_img_dir+"train/")), 1):
-        load_path = train_img_dir + "train/Face" + str(face_num)
+    for face_num in range(1, len(os.listdir(train_img_dir+"train/")), 1):
+        load_path = train_img_dir + "test/Test" + str(face_num)
         # train_img_list = os.listdir(load_path)
         train_img_list = glob.glob(load_path + "/*.jpg")  # .jpg로 끝나는 파일들을 모두 리스트로 읽어들임
         # print(train_data_list)
         # exit()
         # train_img_list = ["sample.jpg"]		# 이거를 직접 하나하나 입력할 필요없이 위에 glob.glob를 사용해서 만들어주면됨
-        save_path = train_img_dir + "aligned/Face" + str(face_num)
+        save_path = train_img_dir + "aligned_test/Test" + str(face_num)
         try:
             if not (os.path.isdir(save_path)):
                 os.makedirs(os.path.join(save_path))
