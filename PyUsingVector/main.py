@@ -56,12 +56,10 @@ if __name__ == "__main__":
 
     # Get file dictionary
     filename_dict = get_filename_dict(args.data_dir)
-    load_model_path = ""
 
     # Build model
     model = FaceEmbedder(config)
     model.compile(optimizer=optimizer, loss='ge2e', metrics=['accuracy'])
-    model.load_weights(load_model_path)
     # Create label
     batch_y = np.zeros(shape=[args.train_person_num, args.train_face_num, args.train_person_num], dtype=np.float32)
     for i in range(args.train_person_num):
