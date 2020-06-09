@@ -13,8 +13,9 @@ def load_image(file_name, mode=cv2.IMREAD_ANYCOLOR):
 
 if __name__ == "__main__":
 
-    predictor_model ="../../FaceDataSet/shape_predictor_68_face_landmarks.dat"
-    train_img_dir = "../../FaceDataSet/"
+    predictor_model ="D:/Study/FaceDataSet/shape_predictor_68_face_landmarks.dat"
+    train_img_dir = "D:/Study/FaceDataSet/"
+    save_path = "D:/Study/Capstone/PyUsingVector/enroll_img"
 
     img = load_image(train_img_dir)
     face_detector = dlib.get_frontal_face_detector()
