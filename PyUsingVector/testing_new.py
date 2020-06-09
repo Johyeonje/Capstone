@@ -21,7 +21,7 @@ if __name__ == "__main__":
     test_images = []
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data_dir", default="../../FaceDataSet/ncrop", help="Data directory")
+    parser.add_argument("--data_dir", default="D:/Study/FaceDataSet/aligned", help="Data directory")
     parser.add_argument("--chkpt_dir", default="../../FaceDataSet/train_model0420")
     parser.add_argument("--log_dir", default="./logs/logs0420")
     parser.add_argument("--train_person_num", default=20, type=int, help="하나의 훈련용 배치를 구성할 사람의 수")

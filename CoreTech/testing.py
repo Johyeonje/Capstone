@@ -3,7 +3,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 import tensorflow as tf
 import dlib
 import sys
-import cv2
+import openface
 from model import FaceEmbedder
 import utils
 import numpy as np
@@ -19,7 +19,8 @@ if __name__ == "__main__":
     # STU_IDs = "201221892201421927201421936201521889"
     enroll_path = file_path + "/enroll_img"
     test_path = file_path + "/" + file_name
-    model_path = "D:/Study/FaceDataSet/train_model0420/chkpt-190000"
+    model_path = "D:/Study/FaceDataSet/aligned_model/chkpt-100000"
+    predictor_model = "D:/Study/FaceDataSet/shape_predictor_68_face_landmarks.dat"
     input_size = (100, 100)
     enroll_images = []
     test_images = []
@@ -57,14 +58,15 @@ if __name__ == "__main__":
 
     org_img = utils.read_image(test_path)
     face_detector = dlib.get_frontal_face_detector()
+    face_pose_predictor = dlib.shape_predictor(predictor_model)
+    face_aligner = openface.AlignDlib(predictor_model)
     detected_faces = face_detector(org_img, 1)
-
     for j, face_rect in enumerate(detected_faces):
         left, right, top, bottom = face_rect.left(), face_rect.right(), face_rect.top(), face_rect.bottom()
         try:
-            face = org_img[top:bottom, left:right, :]
-            face = cv2.resize(face, dsize=input_size)
-            test_images.append(face)
+            pose_landmarks = face_pose_predictor(img, face_rect)
+            alignedFace = face_aligner.align(100, img, face_rect, landmarkIndices=openface.AlignDlib.OUTER_EYES_AND_NOSE)
+            test_images.append(alignedFace)
         except Exception as ex:
             print(ex)
 

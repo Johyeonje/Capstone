@@ -2,7 +2,7 @@ import tensorflow as tf
 import utils
 import argparse
 import os
-from model import FaceEmbedder
+from model_new import FaceEmbedder
 import numpy as np
 
 
@@ -21,9 +21,9 @@ def get_filename_dict(data_dir):
 if __name__ == "__main__":
     # Parsing arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data_dir", default="../../FaceDataSet/ncrop", help="Data directory")
-    parser.add_argument("--chkpt_dir", default="../../FaceDataSet/train_model0420")
-    parser.add_argument("--log_dir", default="./logs/logs0420")
+    parser.add_argument("--data_dir", default="D:/Study/FaceDataSet/aligned", help="Data directory")
+    parser.add_argument("--chkpt_dir", default="D:/Study/FaceDataSet/aligned_model")
+    parser.add_argument("--log_dir", default="D:/Study/Capstone/PyUsingVector/logs/aligned")
     parser.add_argument("--train_person_num", default=20, type=int, help="하나의 훈련용 배치를 구성할 사람의 수")
     parser.add_argument("--train_face_num", default=5, type=int, help="하나의 훈련용 배치를 구성할 사람마다 사용할 얼굴 사진의 수")
     parser.add_argument("--test_person_num", default=20, type=int, help="하나의 평가용 배치를 구성할 사람의 수")
@@ -56,12 +56,12 @@ if __name__ == "__main__":
 
     # Get file dictionary
     filename_dict = get_filename_dict(args.data_dir)
-    load_model_path = ""
+    load_model_path = "D:/Study/FaceDataSet/aligned_model"
 
     # Build model
     model = FaceEmbedder(config)
     model.compile(optimizer=optimizer, loss='ge2e', metrics=['accuracy'])
-    model.load_weights(load_model_path)
+    #model.load_weights(load_model_path)
     # Create label
     batch_y = np.zeros(shape=[args.train_person_num, args.train_face_num, args.train_person_num], dtype=np.float32)
     for i in range(args.train_person_num):
