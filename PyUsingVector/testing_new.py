@@ -70,7 +70,7 @@ if __name__ == "__main__":
         left, right, top, bottom = face_rect.left(), face_rect.right(), face_rect.top(), face_rect.bottom()
         try:
             pose_landmarks = face_pose_predictor(img, face_rect)
-            alignedFace = face_aligner.align(200, img, face_rect,
+            alignedFace = face_aligner.align(100, img, face_rect,
                                              landmarkIndices=openface.AlignDlib.OUTER_EYES_AND_NOSE)
             cv2.imshow(str(j), alignedFace)
             test_images.append(alignedFace)
