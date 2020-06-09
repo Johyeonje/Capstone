@@ -15,6 +15,7 @@ if __name__ == "__main__":
 
     predictor_model ="../../FaceDataSet/shape_predictor_68_face_landmarks.dat"
     train_img_dir = "../../FaceDataSet/"
+    save_path = ""
 
     img = load_image(train_img_dir)
     face_detector = dlib.get_frontal_face_detector()
