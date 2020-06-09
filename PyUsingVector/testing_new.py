@@ -4,6 +4,7 @@ import cv2
 import dlib
 import glob
 import argparse
+import openface
 import os
 from model_new import FaceEmbedder
 import numpy as np
@@ -13,14 +14,14 @@ if __name__ == "__main__":
 
     # hyperparameter
     enroll_path = "./enroll_img"
-    test_path = "./test_img/6.png"
+    test_path = "./test_img/2.jpg"
     model_path = "../../FaceDataSet/train_model0420/chkpt-190000"
     input_size = (100, 100)
     enroll_images = []
     test_images = []
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data_dir", default="../../FaceDataSet/ncrop", help="Data directory")
+    parser.add_argument("--data_dir", default="D:/Study/FaceDataSet/aligned", help="Data directory")
     parser.add_argument("--chkpt_dir", default="../../FaceDataSet/train_model0420")
     parser.add_argument("--log_dir", default="./logs/logs0420")
     parser.add_argument("--train_person_num", default=20, type=int, help="하나의 훈련용 배치를 구성할 사람의 수")
@@ -54,6 +55,7 @@ if __name__ == "__main__":
     }
 
     # image load
+    predictor_model ="../../FaceDataSet/shape_predictor_68_face_landmarks.dat"
     cmp_img_list = glob.glob(enroll_path + "/*.jpg")
     for i, cmp_img in enumerate(cmp_img_list):
         img = utils.read_image(cmp_img)
@@ -61,14 +63,17 @@ if __name__ == "__main__":
 
     org_img = utils.read_image(test_path)
     face_detector = dlib.get_frontal_face_detector()
+    face_pose_predictor = dlib.shape_predictor(predictor_model)
+    face_aligner = openface.AlignDlib(predictor_model)
     detected_faces = face_detector(org_img, 1)
     for j, face_rect in enumerate(detected_faces):
         left, right, top, bottom = face_rect.left(), face_rect.right(), face_rect.top(), face_rect.bottom()
         try:
-            face = org_img[top:bottom, left:right, :]
-            face = cv2.resize(face, dsize=input_size)
-            cv2.imshow(str(j), face)
-            test_images.append(face)
+            pose_landmarks = face_pose_predictor(img, face_rect)
+            alignedFace = face_aligner.align(200, img, face_rect,
+                                             landmarkIndices=openface.AlignDlib.OUTER_EYES_AND_NOSE)
+            cv2.imshow(str(j), alignedFace)
+            test_images.append(alignedFace)
         except Exception as ex:
             print(ex)
 

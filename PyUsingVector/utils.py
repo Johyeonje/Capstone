@@ -4,6 +4,7 @@ import cv2
 
 def read_image(filepath, mode=cv2.IMREAD_ANYCOLOR):
     image = cv2.imread(filepath, mode)
+    image = cv2.resize(image, dsize=(100,100))
     return image
 
 
@@ -25,4 +26,3 @@ def get_batch(filename_dict, person_num, face_num, train=True):
     batch_x = np.reshape(batch_x, [person_num*face_num, 100, 100, 3])
 
     return batch_x
-
