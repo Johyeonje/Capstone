@@ -14,3 +14,9 @@
 .cxx
 CAT_data_model/mnist_train.csv
 Inputimage_test/mnist_train.csv
+.scannerwork/.sonar_lock
+Android/Android_LEE/andtest/.scannerwork/.sonar_lock
+Android/Android_LEE/andtest/sonar-project.properties
+CoreTech/.scannerwork/.sonar_lock
+CoreTech/.scannerwork/report-task.txt
+CoreTech/sonar-project.properties

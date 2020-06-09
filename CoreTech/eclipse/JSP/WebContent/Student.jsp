@@ -33,7 +33,7 @@
         SUB_ID = textDeliver.GetText();
         Class.forName(jdbc_driver);
 		conn = DriverManager.getConnection(jdbc_url,"capstone", "1q2w3e4r");
-		String sub = "select stu_id, stu_name from student where stu_id IN (select stu_id from lecture where sub_id = " + SUB_ID + ")";
+		String sub = "select s.stu_id, s.stu_name, l.flag from student as s join lecture as l on l.stu_id = s.stu_id where l.sub_id = " + SUB_ID;
 		pstmt = conn.prepareStatement(sub);
 		rs = pstmt.executeQuery();
 		while (rs.next()) {
@@ -43,7 +43,8 @@
 			else
 				STU_IDs = STU_IDs + STU_ID;
 			String STU_NAME = rs.getString(2);
-			textDeliver.append(STU_ID + "\t" + STU_NAME + lineEnd);
+			String FLAG = rs.getString(3);
+			textDeliver.append(STU_ID + "\t" + STU_NAME + " " + FLAG + lineEnd);
 		}
 		textDeliver.SendText();
 		session.setAttribute("STU_IDs", STU_IDs);
