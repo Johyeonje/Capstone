@@ -60,6 +60,8 @@ if __name__ == "__main__":
     cmp_img_list = glob.glob(enroll_path + "/*.jpg")
     for i, cmp_img in enumerate(cmp_img_list):
         img = utils.read_image(cmp_img)
+        cv2.imshow(str(i), img)
+        cv2.waitKey(0)
         enroll_images.append(img)
 
     org_img = utils.read_image(test_path)
@@ -74,6 +76,7 @@ if __name__ == "__main__":
             alignedFace = face_aligner.align(100, img, face_rect,
                                              landmarkIndices=openface.AlignDlib.OUTER_EYES_AND_NOSE)
             cv2.imshow(str(j), alignedFace)
+            cv2.waitKey(0)
             test_images.append(alignedFace)
         except Exception as ex:
             print(ex)
