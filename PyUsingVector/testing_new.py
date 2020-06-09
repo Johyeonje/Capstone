@@ -14,8 +14,8 @@ if __name__ == "__main__":
 
     # hyperparameter
     enroll_path = "./enroll_img"
-    test_path = "./test_img/2.jpg"
-    model_path = "../../FaceDataSet/aligned_model/chkpt-120000"
+    test_path = "./test_img/1.jpg"
+    model_path = "../../FaceDataSet/aligned_model/chkpt-100000"
     input_size = (100, 100)
     enroll_images = []
     test_images = []
