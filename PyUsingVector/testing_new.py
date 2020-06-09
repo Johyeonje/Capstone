@@ -66,15 +66,18 @@ if __name__ == "__main__":
 
     org_img = utils.read_image(test_path)
     face_detector = dlib.get_frontal_face_detector()
+    face_pose_predictor = dlib.shape_predictor(predictor_model)
+    face_aligner = openface.AlignDlib(predictor_model)
     detected_faces = face_detector(org_img, 1)
     for j, face_rect in enumerate(detected_faces):
         left, right, top, bottom = face_rect.left(), face_rect.right(), face_rect.top(), face_rect.bottom()
         try:
-            face = img[top:bottom, left:right, :]  # 좌표값들을 통해서 실제 얼굴이 있는 위치를 범위로 뽑아내는 것
-            face = cv2.resize(face, dsize=input_size)
-            cv2.imshow(str(j*10), face)
+            pose_landmarks = face_pose_predictor(org_img, face_rect)
+            alignedFace = face_aligner.align(100, org_img, face_rect,
+                                             landmarkIndices=openface.AlignDlib.OUTER_EYES_AND_NOSE)
+            cv2.imshow(str(j*10), alignedFace)
             cv2.waitKey(0)
-            test_images.append(face)
+            test_images.append(alignedFace)
         except Exception as ex:
             print(ex)
 
