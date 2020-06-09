@@ -15,15 +15,16 @@ if __name__ == "__main__":
     # hyperparameter
     enroll_path = "./enroll_img"
     test_path = "./test_img/2.jpg"
-    model_path = "../../FaceDataSet/train_model0420/chkpt-190000"
+    model_path = "../../FaceDataSet/aligned_model/chkpt-120000"
     input_size = (100, 100)
     enroll_images = []
     test_images = []
 
     parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser()
     parser.add_argument("--data_dir", default="D:/Study/FaceDataSet/aligned", help="Data directory")
-    parser.add_argument("--chkpt_dir", default="../../FaceDataSet/train_model0420")
-    parser.add_argument("--log_dir", default="./logs/logs0420")
+    parser.add_argument("--chkpt_dir", default="D:/Study/FaceDataSet/aligned_model")
+    parser.add_argument("--log_dir", default="D:/Study/Capstone/PyUsingVector/logs/aligned")
     parser.add_argument("--train_person_num", default=20, type=int, help="하나의 훈련용 배치를 구성할 사람의 수")
     parser.add_argument("--train_face_num", default=5, type=int, help="하나의 훈련용 배치를 구성할 사람마다 사용할 얼굴 사진의 수")
     parser.add_argument("--test_person_num", default=20, type=int, help="하나의 평가용 배치를 구성할 사람의 수")
