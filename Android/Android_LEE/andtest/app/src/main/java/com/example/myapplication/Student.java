@@ -2,9 +2,6 @@ package com.example.myapplication;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.EOFException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 

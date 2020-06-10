@@ -14,7 +14,7 @@ def load_image(file_name, mode=cv2.IMREAD_ANYCOLOR):
 if __name__ == "__main__":
 
     predictor_model ="D:/Study/FaceDataSet/shape_predictor_68_face_landmarks.dat"
-    train_img_dir = "D:/Study/FaceDataSet/"
+    train_img_dir = "D:/Study/Capstone/Image_to_Array/RealTest/OrgImg/2.jpg"
     save_path = "D:/Study/Capstone/PyUsingVector/enroll_img"
 
     img = load_image(train_img_dir)
@@ -27,6 +27,6 @@ if __name__ == "__main__":
         try:
             pose_landmarks = face_pose_predictor(img, face_rect)
             alignedFace = face_aligner.align(100, img, face_rect, landmarkIndices=openface.AlignDlib.OUTER_EYES_AND_NOSE)
-            cv2.imwrite(save_path + "/detected_face-" + str(i) + ".jpg", alignedFace)
+            cv2.imwrite(save_path + "/detected_face-" + str(j) + ".jpg", alignedFace)
         except Exception as ex:
             print(ex)

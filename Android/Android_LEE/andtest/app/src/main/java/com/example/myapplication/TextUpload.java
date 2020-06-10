@@ -3,7 +3,6 @@ package com.example.myapplication;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
-import java.io.DataOutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Arrays;
