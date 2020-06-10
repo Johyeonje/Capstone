@@ -14,20 +14,25 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 
@@ -47,7 +52,9 @@ public class before_take_photo extends Activity {
         String sub_student_info,choose_date,choose_class_code,session_key; //
         String Result; // take_photo 부분에서 학생의 데이터를 받아온다.
         String checked_student_list;
-        String Progress,Progress1; // 정주행인지 역주행인지 파악.
+        String Progress="0",Progress1="0"; // 정주행인지 역주행인지 파악.
+        String before_change_check,change_check,student_id; // 바뀔때 필요한 변경값, 해당 학번
+        String[] A; // 다음 배열에 저장하기
     // sub_student_info : 가져온 학생들의 값.
     // choose_date
     // choose_class_code : 결정 과목 코드
@@ -206,23 +213,27 @@ public class before_take_photo extends Activity {
 
 
         // 순서=====================================================================================
+/*
+        String sub = null;
 
         if(Progress.equals("0")&&Progress1.equals("0")) //  a x, b ,c x
         {
-
+            Toast.makeText(this,"잘못된 접근 방식입니다.",Toast.LENGTH_LONG).show();
         }
-        else if(Progress.equals("0")&&Progress1.equals("1")) // a x,b ← c
+        else if(Progress.equals("0")&&Progress1.equals("1")) // a x,b ← c   // 역순으로 체크된 정보를 읽어 올때.
         {
-
+            sub = checked_student_list;
         }
-        else if(Progress.equals("1")&&Progress1.equals("0")) // a → b ,c x
+        else if(Progress.equals("1")&&Progress1.equals("0")) // a → b ,c x // 단순 정보를 읽어 올때
         {
-
+            sub = sub_student_info;
         }
         else if(Progress.equals("1")&&Progress1.equals("1"))// a and b ← c
         {
-
+            Toast.makeText(this,"잘못된 접근 방식입니다.",Toast.LENGTH_LONG).show();
         }
+
+ */
         //==========================================================================================
 
         String[] student_list = sub_student_info.split("\\n+");// "\\n+"는 줄바꿈을 확인하기위한 문자.
@@ -230,16 +241,21 @@ public class before_take_photo extends Activity {
         for(int i=0;i<student_list.length;i++) { // Class의 길이 만큼 읽는다. 과목 만큼 버튼이 생성된다.
             //final Button btn = new Button(this); // 버튼을 새로 생성한다.
 
+            //A = student_list.length; // 총 몇개의 학생 리스트를 만들지 줄의 갯수를 알려줌.
+
             LinearLayout student_list_inner = new LinearLayout(this);
             student_list_inner.setOrientation(LinearLayout.HORIZONTAL);
 
             LinearLayout state = new LinearLayout(this);
             state.setOrientation(LinearLayout.HORIZONTAL);
-            String check_number = null;
+            String check_number = "0";
 
 
             String[] student_list_and_check = student_list[i].split(" "); // 학번,이름 그리고 출석여부를 나누기위한 함수. student_list_and_check는 계속 초기화됨.
             check_number = student_list_and_check[1];
+            before_change_check = check_number; // 마지막 학생의 값만 저장이되어 삭제함
+            String[] studentid = student_list_and_check[0].split("\t");
+            student_id = studentid[0]; // 마지막 학생의 값만 저장이되어 삭제함
             final TextView textview = new TextView(this); // 새로운 텍스트 뷰 생성.
             //{
                 textview.setText(student_list_and_check[0]);
@@ -247,12 +263,7 @@ public class before_take_photo extends Activity {
                 textview.setLayoutParams(params);
             //}
             String[] devide_student_code = student_list_and_check[0].split("\t"); // i 번째 학생의 학번과 이름을 나누기. 0 번째 학번 1번째 이름 들어감.
-            code_and_studentcode_and_checkinfo = code_and_studentcode_and_checkinfo.concat(subject_code);
-            code_and_studentcode_and_checkinfo = code_and_studentcode_and_checkinfo.concat("\t");
-            code_and_studentcode_and_checkinfo = code_and_studentcode_and_checkinfo.concat(devide_student_code[0]);// i번째 학생의 코드 첨가.
-            code_and_studentcode_and_checkinfo = code_and_studentcode_and_checkinfo.concat("\t");
-            code_and_studentcode_and_checkinfo = code_and_studentcode_and_checkinfo.concat(check_number);
-            code_and_studentcode_and_checkinfo = code_and_studentcode_and_checkinfo.concat("\r\n");
+
 
             //{
             final String set_menu = student_list[i]; // 몇번째 학생인지.
@@ -263,23 +274,63 @@ public class before_take_photo extends Activity {
             final RadioButton radioButton1 = new RadioButton(this);
             final RadioButton radioButton2 = new RadioButton(this);
 
+            final RadioGroup group = new RadioGroup(this);
+            group.setId(i); // group의 아이디는 i이다. 총 I개의 줄이 생긴다.
+            group.setOrientation(LinearLayout.HORIZONTAL);
+            group.addView(radioButton);
+            group.addView(radioButton1);
+            group.addView(radioButton2);
+
+
+
+            group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+
+
+
+
+
+                    if(checkedId == radioButton.getId())
+                    {
+                        Toast.makeText(before_take_photo.this,"출석 선택",Toast.LENGTH_SHORT).show();
+                        change_check = "0";
+                        Integer Line = group.getId();
+                        make_data(change_check,student_id,before_change_check);
+                    }
+                    else if(checkedId == radioButton1.getId())
+                    {
+                        Toast.makeText(before_take_photo.this,"지각 선택",Toast.LENGTH_SHORT).show();
+                        change_check = "1";
+                        //make_data(change_check,checkedId);
+                        make_data(change_check,student_id,before_change_check);
+                    }
+                    else if(checkedId == radioButton2.getId()) {
+                        Toast.makeText(before_take_photo.this, "결석 선택", Toast.LENGTH_SHORT).show();
+                        change_check = "2";
+                        make_data(change_check,student_id,before_change_check);
+                        //make_data(change_check,checkedId); // 바뀔 수업과 선택한 checkedID를 보내준다. 몇번째 인지
+                    }
+                }
+            });
+
+            //check_number = change_check;
+
             radioButton.setText("출석");
             radioButton.setLayoutParams(params);
-            //radioButton.setChecked(false);
-            radioButton.setClickable(false);
-            student_list_inner.addView(radioButton);
+            radioButton.setSelected(true);
 
             radioButton1.setText("지각");
             radioButton1.setLayoutParams(params);
-            //radioButton1.setChecked(false);
-            radioButton1.setClickable(false);
-            student_list_inner.addView(radioButton1);
+            radioButton1.setSelected(true);
 
             radioButton2.setText("결석");
             radioButton2.setLayoutParams(params);
-            //radioButton2.setChecked(true);
-            radioButton2.setClickable(false);
-            student_list_inner.addView(radioButton2);
+            radioButton2.setSelected(true);
+
+            student_list_inner.addView(group);
+
 
             // 마지막 학생은 출결여부뒤에 \r이 안붙기때문에 조건 추가.
             if(check_number.equals("0\r")){
@@ -313,35 +364,41 @@ public class before_take_photo extends Activity {
                 radioButton2.setChecked(true);
             }
 
+            // 서버에 보낼 스트링을 만드는 구간.
 
-            //}
+            code_and_studentcode_and_checkinfo = code_and_studentcode_and_checkinfo.concat(subject_code);
+            code_and_studentcode_and_checkinfo = code_and_studentcode_and_checkinfo.concat("\t");
+            code_and_studentcode_and_checkinfo = code_and_studentcode_and_checkinfo.concat(devide_student_code[0]);// i번째 학생의 코드 첨가.
+            code_and_studentcode_and_checkinfo = code_and_studentcode_and_checkinfo.concat("\t");
+            code_and_studentcode_and_checkinfo = code_and_studentcode_and_checkinfo.concat(change_check); //check_number
+            code_and_studentcode_and_checkinfo = code_and_studentcode_and_checkinfo.concat("\r\n");
+
+            //int a = code_and_studentcode_and_checkinfo.length();
+
+
+
 
             student_scroll.addView(student_list_inner);
             student_scroll.addView(state);
 
-
-
-            /*
-            checkbox.setText("출석");
-            checkbox.setTextSize(20);
-            checkbox.setLayoutParams(params);
-            student_list_inner.addView(checkbox);
-            student_scroll.addView(student_list_inner);
-
-            checkbox.setOnClickListener(new View.OnClickListener() { // 다음 check 박스가 선택이 되는 방법.
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
-
-             */
         }
 
-        //======================================학생 정보 보이는 ==================================
+        A = code_and_studentcode_and_checkinfo.split("\r\n"); // 학생의 정보를 각각 배열에 저장함.
 
+
+        //======================================학생 정보 보이는 ==================================
     }
 
+    /*
+    class choose_class implements CompoundButton.OnCheckedChangeListener{
+
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+        }
+    }
+
+     */
 
 public void Student_info(String url,String session_key,String code){ // 다음은 학생을 가지고와서 스크롤 뷰에 띄우기 위해.
 
@@ -350,7 +407,6 @@ public void Student_info(String url,String session_key,String code){ // 다음�
         Request_class_student_network.NetworkTask networkTask = new Request_class_student_network.NetworkTask(url,session_key,getBaseContext(),code);
         try {
             Student_list = networkTask.execute().get(); // 학생 리스트 값 받아옴.
-            //Toast.makeText(this, Student_list,Toast.LENGTH_LONG).show();
             sub_student_info = Student_list; // 학번,학생이름,출석여부
 
         } catch (Exception e) {
@@ -359,4 +415,25 @@ public void Student_info(String url,String session_key,String code){ // 다음�
         }
 
     }
+    public void make_data(String change_check,String student_id,String before_change_check){
+
+    /*
+    String[] subjectcode_and_student_code_check = A[Line].split(" "); // 바뀌어야할 학생의 정보중 과목 코드랑 출석여부를 갈라놓음.
+        before_change_check  = subjectcode_and_student_code_check[1];
+    subjectcode_and_student_code_check[1] = subjectcode_and_student_code_check[1].replace(before_change_check,change_check);
+        A[Line] = Arrays.toString(subjectcode_and_student_code_check);
+
+
+     */
+
+    //int value = Integer.parseInt(change_check);
+
+    code_and_studentcode_and_checkinfo = code_and_studentcode_and_checkinfo.replaceAll(student_id+"\t"+before_change_check,
+            student_id+"\t"+change_check);  //   문자열을 변경할때 사용.
+
+    }
+
 }
+
+
+//before값이랑 id값이 동일한 값으로 계속 나옴.
