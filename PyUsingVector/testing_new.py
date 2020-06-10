@@ -14,16 +14,17 @@ if __name__ == "__main__":
 
     # hyperparameter
     enroll_path = "./enroll_img"
-    test_path = "./test_img/2.jpg"
-    model_path = "../../FaceDataSet/train_model0420/chkpt-190000"
+    test_path = "./test_img/8.png"
+    model_path = "../../FaceDataSet/aligned_model/chkpt-100000"
     input_size = (100, 100)
     enroll_images = []
     test_images = []
 
     parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser()
     parser.add_argument("--data_dir", default="D:/Study/FaceDataSet/aligned", help="Data directory")
-    parser.add_argument("--chkpt_dir", default="../../FaceDataSet/train_model0420")
-    parser.add_argument("--log_dir", default="./logs/logs0420")
+    parser.add_argument("--chkpt_dir", default="D:/Study/FaceDataSet/aligned_model")
+    parser.add_argument("--log_dir", default="D:/Study/Capstone/PyUsingVector/logs/aligned")
     parser.add_argument("--train_person_num", default=20, type=int, help="하나의 훈련용 배치를 구성할 사람의 수")
     parser.add_argument("--train_face_num", default=5, type=int, help="하나의 훈련용 배치를 구성할 사람마다 사용할 얼굴 사진의 수")
     parser.add_argument("--test_person_num", default=20, type=int, help="하나의 평가용 배치를 구성할 사람의 수")
@@ -59,6 +60,8 @@ if __name__ == "__main__":
     cmp_img_list = glob.glob(enroll_path + "/*.jpg")
     for i, cmp_img in enumerate(cmp_img_list):
         img = utils.read_image(cmp_img)
+        # cv2.imshow(str(i), img)
+        # cv2.waitKey(0)
         enroll_images.append(img)
 
     org_img = utils.read_image(test_path)
@@ -69,10 +72,11 @@ if __name__ == "__main__":
     for j, face_rect in enumerate(detected_faces):
         left, right, top, bottom = face_rect.left(), face_rect.right(), face_rect.top(), face_rect.bottom()
         try:
-            pose_landmarks = face_pose_predictor(img, face_rect)
-            alignedFace = face_aligner.align(200, img, face_rect,
+            pose_landmarks = face_pose_predictor(org_img, face_rect)
+            alignedFace = face_aligner.align(100, org_img, face_rect,
                                              landmarkIndices=openface.AlignDlib.OUTER_EYES_AND_NOSE)
             cv2.imshow(str(j), alignedFace)
+            cv2.waitKey(0)
             test_images.append(alignedFace)
         except Exception as ex:
             print(ex)
@@ -105,4 +109,4 @@ if __name__ == "__main__":
         if (max_score < threshold):
             print("점수는 최대지만 threshold보다 낮음")
         else:
-            print(str(max_score_idx) + "번째 사람이랑 같은 사람인것 같음.")
+            print(str(cmp_img_list[max_score_idx]) + "번째 사람이랑 같은 사람인것 같음.")

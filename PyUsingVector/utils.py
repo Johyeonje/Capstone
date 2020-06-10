@@ -4,7 +4,6 @@ import cv2
 
 def read_image(filepath, mode=cv2.IMREAD_ANYCOLOR):
     image = cv2.imread(filepath, mode)
-    image = cv2.resize(image, dsize=(100,100))
     return image
 
 
