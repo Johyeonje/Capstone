@@ -84,7 +84,6 @@ public class take_photoF extends Activity {
     String checked_student_list;// 학생들 출석여부.
     String subject_code; // 과목코드.
     String url = "http://rbghoneroom402.iptime.org:48526/JSP/DBwrite.jsp";
-    String Progress = "1";
 
     //==============================3=3=3=3=3=3= 변경후 필요변수========================
 
@@ -123,7 +122,7 @@ public class take_photoF extends Activity {
 
                 Intent intent1 = new Intent(getApplicationContext(), before_take_photo.class);
                 intent1.putExtra("student_list",checked_student_list);
-                intent1.putExtra("Progress",Progress);
+                //intent1.putExtra("Progress",Progress);
 
                 finish();
             }

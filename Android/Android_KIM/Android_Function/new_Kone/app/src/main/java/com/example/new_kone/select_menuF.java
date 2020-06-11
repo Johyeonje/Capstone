@@ -17,7 +17,7 @@ import java.util.concurrent.ExecutionException;
 
 public class select_menuF extends Activity {
     String User_Class;
-    String Progress = "0"; // 기본적인 순서 select_menuF → berfore_take_photo로 갈때.
+    //String Progress = "0"; // 기본적인 순서 select_menuF → berfore_take_photo로 갈때.
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,7 +63,7 @@ public class select_menuF extends Activity {
                     intent.putExtra("Select_menu",set_menu); // 다음 "select_menu"라는 이름으로 set_menu를 넣고 다음 액티비티를 연다.
                     intent.putExtra("Session_key",Session_key); // 세션키를 넘겨준다.
                     intent.putExtra("All_subject",User_Class);
-                    intent.putExtra("progress",Progress);
+                    //intent.putExtra("progress",Progress);
                     startActivity(intent);
 
                 }
