@@ -19,7 +19,7 @@ if __name__ == "__main__":
     # STU_IDs = "201221892201421927201421936201521889"
     enroll_path = file_path + "/enroll_img"
     test_path = file_path + "/" + file_name
-    model_path = "D:/Study/FaceDataSet/aligned_model/chkpt-100000"
+    model_path = "D:/Study/FaceDataSet/aligned_model/chkpt-80000"
     predictor_model = "D:/Study/FaceDataSet/shape_predictor_68_face_landmarks.dat"
     input_size = (100, 100)
     enroll_images = []
@@ -88,7 +88,7 @@ if __name__ == "__main__":
         # get shape
         test_num, enroll_num = S.shape
 
-        threshold = 0.7
+        threshold = 0.5
         # 동일인물 확인
         for i in range(test_num):
             max_score_idx = np.argmax(S[i, :])

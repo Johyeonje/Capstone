@@ -67,6 +67,13 @@
             android:text = "UPLOAD"
             />
     </LinearLayout>
+    <Button
+        android:id="@+id/btn5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:text = "UPDATE FACE"
+        />
 
 
 
