@@ -17,7 +17,7 @@ import java.util.concurrent.ExecutionException;
 
 public class select_menuF extends Activity {
     String User_Class;
-    //String Progress = "0"; // 기본적인 순서 select_menuF → berfore_take_photo로 갈때.
+    String checked = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,8 +43,10 @@ public class select_menuF extends Activity {
 
             final Button btn = new Button(this); // 버튼을 새로 생성한다.
 
+            String[] subject_name = Class[i].split("\t");
+
             btn.setId(Class_number);
-            btn.setText(Class[i]);
+            btn.setText(subject_name[1]);
             btn.setTextSize(40);
             btn.setLayoutParams(params);
 
@@ -63,7 +65,7 @@ public class select_menuF extends Activity {
                     intent.putExtra("Select_menu",set_menu); // 다음 "select_menu"라는 이름으로 set_menu를 넣고 다음 액티비티를 연다.
                     intent.putExtra("Session_key",Session_key); // 세션키를 넘겨준다.
                     intent.putExtra("All_subject",User_Class);
-                    //intent.putExtra("progress",Progress);
+                    intent.putExtra("checked",checked);
                     startActivity(intent);
 
                 }

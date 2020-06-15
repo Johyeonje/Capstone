@@ -50,7 +50,7 @@ public class home_pageF extends Fragment {
         View view = inflater.inflate(R.layout.home_page,container,false);
       Button btn1 = (Button)view.findViewById(R.id.take_photo);
       Button btn2 = (Button)view.findViewById(R.id.confirm);
-      Button btn3 = (Button)view.findViewById(R.id.edit_attendance);
+      Button btn3 = (Button)view.findViewById(R.id.Face_Upload);
       Button btn4 = (Button)view.findViewById(R.id.setting);
 
       Session_key = getArguments().getString(mKEY); // 값 들어옴 확인o
@@ -81,8 +81,8 @@ public class home_pageF extends Fragment {
           }
       });
 
-      /*
-       btn3.setOnClickListener(new View.OnClickListener() {  //check 에 대한 버튼 기능 추가
+
+       btn3.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
               Intent intent = new Intent(getActivity(), select_menuF.class); //
@@ -90,7 +90,6 @@ public class home_pageF extends Fragment {
           }
       });
 
-       */
       /*
       btn4.setOnClickListener(new View.OnClickListener() {  //check 에 대한 버튼 기능 추가
           @Override

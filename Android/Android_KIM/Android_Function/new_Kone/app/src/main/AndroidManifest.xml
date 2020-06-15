@@ -55,6 +55,9 @@
         <activity
             android:name=".confirm_the_attendF"
             android:label="출석확인하기" />
+        <activity
+            android:name=".student_uploadF"
+            android:label="학생 등록하기"/>
     </application>
 
 </manifest>

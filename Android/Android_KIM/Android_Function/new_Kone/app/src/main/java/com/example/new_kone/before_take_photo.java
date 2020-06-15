@@ -51,12 +51,12 @@ public class before_take_photo extends Activity {
         String choose_Subject; // 다음 과목을 넣기 위해, 다음 사진 찍는 곳으로 넘겨준다.
         String sub_student_info,choose_date,choose_class_code,session_key; //
         String Result; // take_photo 부분에서 학생의 데이터를 받아온다.
-        String checked_student_list;
-        String Progress="0",Progress1="0"; // 정주행인지 역주행인지 파악.
+        Integer checked_student_list;
         String before_change_check,change_check,student_id; // 바뀔때 필요한 변경값, 해당 학번
-        String[] A; // 다음 배열에 저장하기
+        String Class_number; // 다음 배열에 저장하기
         String change_info; // 수정에 필요한 수정된값.
         Integer Student_value; // 수정에 필요한 몇번째 값이 수정이 되야하는지.
+        String[] checked_list;
         int B; // 학생이 몇번 나오는지.
 
     // sub_student_info : 가져온 학생들의 값.
@@ -83,24 +83,19 @@ public class before_take_photo extends Activity {
         //=========액티비디로 값을 받아올때 부분===================13==13==13==13==13==13===13====================
         final String url = "http://rbghoneroom402.iptime.org:48526/JSP/Student.jsp"; // 과목 정보를 받아올 JSP 정보를 입력한다.
         Intent intent = getIntent(); // select_menu에서 보낸 값을 받아온다. // take_photo에서의 값을 가져온다.
-        String class_number =intent.getExtras().getString("class_number");
-        int convert_class_nuber_to_int = Integer.parseInt(class_number);
-        String selected_menu = intent.getExtras().getString("Select_menu"); // 정상적인 값 확인 O 받은 값 = 코드랑 과목명이 들어옴.
+
+        Class_number =intent.getExtras().getString("class_number"); // 수업 코드:몇번째인지.
+        int convert_class_nuber_to_int = Integer.parseInt(Class_number);
+        final String selected_menu = intent.getExtras().getString("Select_menu"); // 정상적인 값 확인 O 받은 값 = 코드랑 과목명이 들어옴.
         final String Session_key = intent.getExtras().getString("Session_key"); // 정상적인 값 확인 O
-        Progress = intent.getExtras().getString("Progress");
-
-        Intent intent1 = getIntent();
-        checked_student_list = intent1.getExtras().getString("student_list"); // take_photo에서 받은 값.
-        Progress1 = intent1.getExtras().getString("Progress");
-
         session_key = Session_key;
-        String User_subject = intent.getExtras().getString("All_subject"); // 정상적인 값 확인 O
-
-
+        final String User_subject = intent.getExtras().getString("All_subject"); // 정상적인 값 확인 O
         // 학생 check정보를 수정하기위해 포함.
         String result = intent.getExtras().getString("student_list");
         Result = result;// take_photo에서 받은 값을 저장한다.
+        final String checked = intent.getExtras().getString("checked");
 
+        //Toast.makeText(before_take_photo.this,"다음이 왔습니다"+"\r\n" + checked,Toast.LENGTH_LONG).show(); // 값 넘어온거 확인.
 
         String code_and_subject[] = selected_menu.split("\t"); // 교과목코드,과목이름.
         String code = code_and_subject[0];
@@ -170,6 +165,8 @@ public class before_take_photo extends Activity {
 
 
 
+
+
         //=============================4=4=4=4=4=4=4================================================
 
         //===============================15==15==15==15===15========================================
@@ -194,13 +191,16 @@ public class before_take_photo extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), take_photoF.class); // 다음 값을 액티비티에서 액티비티로 넘겨줌
+                intent.putExtra("class_number",Class_number);
                 intent.putExtra("select_menu_code",choose_class_code); // 수업의 코드
                 intent.putExtra("select_menu",choose_Subject); // 수업 명
                 intent.putExtra("session_key",session_key);//세션키
-                //intent.putExtra("student_list_info",sub_student_info);
+                intent.putExtra("User_subject",User_subject);
+                intent.putExtra("selected_menu",selected_menu);
                 intent.putExtra("student_list_info",code_and_studentcode_and_checkinfo); // 안된면  code_and_studentcode_and_checkinfo 넣기
                 //intent.putExtra("choose_date",choose_date);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -215,17 +215,32 @@ public class before_take_photo extends Activity {
                 LinearLayout.LayoutParams.WRAP_CONTENT); // 만든 LinearLayout의 가로 길이와 세로 길이를 정한다. 설정을 이렇게 한다는 뜻이다.
 
 
+//==========================================
+        /*
+        if(checked_student_list == null)
+        {}
+        else
+        {
+            checked_student_list
+        }
 
 
+         */
 
         //==========================================================================================
+        if(checked == null){
 
+        }
+        else if(checked != null)
+        {
+            checked_list = checked.split("\r\n") ; // 사진으로 확인 된 값들.
+            checked_student_list = checked_list.length; // 확인 된 값들의 수.
+        }
         String[] student_list = sub_student_info.split("\\n+");// "\\n+"는 줄바꿈을 확인하기위한 문자.
 
         for(int i=0;i<student_list.length;i++) { // Class의 길이 만큼 읽는다. 과목 만큼 버튼이 생성된다.
             //final Button btn = new Button(this); // 버튼을 새로 생성한다.
             B= student_list.length;
-            //A = student_list.length; // 총 몇개의 학생 리스트를 만들지 줄의 갯수를 알려줌.
             LinearLayout student_list_inner = new LinearLayout(this);
             student_list_inner.setOrientation(LinearLayout.HORIZONTAL);
 
@@ -233,8 +248,23 @@ public class before_take_photo extends Activity {
             state.setOrientation(LinearLayout.HORIZONTAL);
             String check_number = "0";
 
-
             String[] student_list_and_check = student_list[i].split(" "); // 학번,이름 그리고 출석여부를 나누기위한 함수. student_list_and_check는 계속 초기화됨.
+
+            if(checked == null)
+            {
+            }
+            else if(checked != null)
+            {
+                for(int k=0;k<checked_student_list;k++)
+                {
+                    if(student_list_and_check[0].contains(checked_list[k]))
+                    {
+                        student_list_and_check[1] = "0";
+                    }
+                }
+            }
+
+
             check_number = student_list_and_check[1];
             before_change_check = check_number; // 마지막 학생의 값만 저장이되어 삭제함
             String[] studentid = student_list_and_check[0].split("\t");
@@ -287,18 +317,18 @@ public class before_take_photo extends Activity {
 
                     if(checkedId == radioButton.getId())
                     {
-                        Toast.makeText(before_take_photo.this,"출석 선택",Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(before_take_photo.this,"출석 선택",Toast.LENGTH_SHORT).show();
                         change_check = "0";
                         make_data(change_check,student_value);
                     }
                     else if(checkedId == radioButton1.getId())
                     {
-                        Toast.makeText(before_take_photo.this,"지각 선택",Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(before_take_photo.this,"지각 선택",Toast.LENGTH_SHORT).show();
                         change_check = "1";
                         make_data(change_check,student_value);
                     }
                     else if(checkedId == radioButton2.getId()) {
-                        Toast.makeText(before_take_photo.this, "결석 선택", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(before_take_photo.this, "결석 선택", Toast.LENGTH_SHORT).show();
                         change_check = "2";
                         make_data(change_check,student_value);
                     }
@@ -320,7 +350,6 @@ public class before_take_photo extends Activity {
             radioButton2.setSelected(true);
 
             student_list_inner.addView(group);
-
 
             // 마지막 학생은 출결여부뒤에 \r이 안붙기때문에 조건 추가.
             if(check_number.equals("0\r")){
@@ -364,9 +393,6 @@ public class before_take_photo extends Activity {
             code_and_studentcode_and_checkinfo = code_and_studentcode_and_checkinfo.concat("\r\n");
 
             //int a = code_and_studentcode_and_checkinfo.length();
-
-
-
 
             student_scroll.addView(student_list_inner);
             student_scroll.addView(state);
@@ -424,10 +450,7 @@ public void Student_info(String url,String session_key,String code){ // 다음�
         }
     }
 
-
 }
-
-
 //before값이랑 id값이 동일한 값으로 계속 나옴.
 //
 //
