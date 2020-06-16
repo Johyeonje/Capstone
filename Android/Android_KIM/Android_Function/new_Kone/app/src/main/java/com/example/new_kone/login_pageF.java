@@ -1,9 +1,5 @@
 package com.example.new_kone;
 
-//import android.support.v4.app.ActivityCompat;
-//import android.support.v4.content.ContextCompat;
-
-
 import android.Manifest;
 import android.app.Activity;
 import android.content.ContentValues;
@@ -168,11 +164,6 @@ public class login_pageF extends Activity {
             cookie = networkTask.execute().get();
             Toast.makeText(getBaseContext(), cookie.substring(0,8), Toast.LENGTH_SHORT).show(); // 쿠키의 1부터 7까지의 스트링을 가지고온다.Session일때 성공
 
-          //if(cookie.equals("fail"))
-          ///{
-            //  Toast.makeText(this, "서버 접속이 되지 않았습니다", Toast.LENGTH_LONG).show();
-          //}
-         // else {//다른거 뜰때는 로그인 실패.
               compare = cookie.substring(0, 8); //비교하기 위하여.
               if (compare.equals(origin)) {
                   Toast.makeText(this, "환영합니다", Toast.LENGTH_LONG).show();
@@ -181,12 +172,12 @@ public class login_pageF extends Activity {
                   //System.out.println(Session_key); 세션키의 값을 가지고 있음
                   //send_key(Session_key); // 프래그먼트로 값을 전달하는 함수.
                   intent.putExtra("Session_key", Session_key);
+                  intent.putExtra("UserID",ID);
                   startActivity(intent);
               } else {
                   Toast.makeText(this, "아이디 or 비밀번호가 맞지 않습니다.", Toast.LENGTH_LONG).show();
                   return;
               }
-          //}
 
 
 
@@ -195,19 +186,7 @@ public class login_pageF extends Activity {
         }
 
     }
-    /*
-    public void send_key(String Session_key)
-    {
 
-        System.out.println(Session_key);
-        Bundle bundle = new Bundle();
-        bundle.putString("Session_key",Session_key);
-        home_pageF home_pageF = new home_pageF();
-        home_pageF.setArguments(bundle);
-
-        //intent.putExtra("Session_key",Session_key); // 받아온 아이디
-    }
-     */
 }
 
 //==================================2=2=2=2=2================================================
@@ -303,4 +282,16 @@ public class login_pageF extends Activity {
     로그인 페이지를 만들때 위의 Task 방식은 필요없음. 스트링을 보내야 하는데 위의것은 파일을 보내는 것이므로 삭제 요망.
      */
 
+ /*
+    public void send_key(String Session_key)
+    {
 
+        System.out.println(Session_key);
+        Bundle bundle = new Bundle();
+        bundle.putString("Session_key",Session_key);
+        home_pageF home_pageF = new home_pageF();
+        home_pageF.setArguments(bundle);
+
+        //intent.putExtra("Session_key",Session_key); // 받아온 아이디
+    }
+     */

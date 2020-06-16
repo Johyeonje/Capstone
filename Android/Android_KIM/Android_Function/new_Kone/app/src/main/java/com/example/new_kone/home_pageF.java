@@ -4,6 +4,7 @@ package com.example.new_kone;
 //import android.support.v4.app.Fragment;
 //import android.support.annotation.Nullable;
 import android.content.Context;
+import android.content.IntentSender;
 import android.net.Uri;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 
+
 public class home_pageF extends Fragment {
 
 
@@ -26,13 +28,15 @@ public class home_pageF extends Fragment {
     private WebView mWebView;
     private WebSettings mWebSettings;
     String Session_key;
+    String UserID;
 
     private static final String mKEY = "Session_k"; // 다음 스트링을 변수로 일단 임시로 넣는다.
 
-    public static androidx.fragment.app.Fragment newInstance(String session_k) {
+    public static androidx.fragment.app.Fragment newInstance(String session_k,String UserID) {
         home_pageF fragment = new home_pageF();
         Bundle mSession = new Bundle();
         mSession.putString(mKEY, session_k);
+        mSession.putString("UserID",UserID);
         fragment.setArguments(mSession);
         return fragment;
     }
@@ -54,6 +58,7 @@ public class home_pageF extends Fragment {
       Button btn4 = (Button)view.findViewById(R.id.setting);
 
       Session_key = getArguments().getString(mKEY); // 값 들어옴 확인o
+        UserID = getArguments().getString("UserID");
       //Toast.makeText(context,Session_key,Toast.LENGTH_LONG).show(); // 세션값 들어옴 확인o
 
       mWebView = (WebView)view.findViewById(R.id.Kangwon);
@@ -85,7 +90,9 @@ public class home_pageF extends Fragment {
        btn3.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-              Intent intent = new Intent(getActivity(), select_menuF.class); //
+              Intent intent = new Intent(getActivity(), student_uploadF.class);
+              intent.putExtra("Session_key", Session_key);
+              intent.putExtra("UserID",UserID);
               startActivity(intent);
           }
       });

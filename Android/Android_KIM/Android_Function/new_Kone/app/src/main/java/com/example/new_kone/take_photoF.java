@@ -124,7 +124,6 @@ public class take_photoF extends Activity {
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
                 startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
-                //finish();
             }
         });
 
@@ -139,14 +138,6 @@ public class take_photoF extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), before_take_photo.class);
-                /*
-                intent.putExtra("class_number",Class_number);
-                intent.putExtra("checked", checked);
-                intent.putExtra("select_menu",selected_m);
-                intent.putExtra("select_menu_code",selected_m_c);
-                intent.putExtra("session_key",session_key);
-                intent.putExtra("student_list_info",student_list);
-                 */
                 intent.putExtra("class_number",Class_number);
                 intent.putExtra("Select_menu",selected_menu); // 다음 "select_menu"라는 이름으로 set_menu를 넣고 다음 액티비티를 연다.
                 intent.putExtra("Session_key",session_key); // 세션키를 넘겨준다.
@@ -189,7 +180,7 @@ public class take_photoF extends Activity {
         image_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri);
-        startActivityForResult(cameraIntent, IMAGE_CAPTURE_CODE); // 다음 결과 값을 받고 새로운 액티비티를 생성하기 위해 다음과 같은걸 쓴다// .
+        //startActivityForResult(cameraIntent, IMAGE_CAPTURE_CODE); // 다음 결과 값을 받고 새로운 액티비티를 생성하기 위해 다음과 같은걸 쓴다// .
     }
 
     @Override

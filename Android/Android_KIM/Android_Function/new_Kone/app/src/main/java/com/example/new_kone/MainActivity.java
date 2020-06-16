@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {  // AppCompatActivity는 �
     private WebView mWebView;
     private WebSettings mWebSettings;
     String Session_k;
+    String UserID;
 
     @Override // 위에서 상속을 받는 다는 뜻
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,9 +64,10 @@ public class MainActivity extends AppCompatActivity {  // AppCompatActivity는 �
         // 아래는 Login 화면에서 넘겨 받은 Session_key 정보
         Intent intent = getIntent();
         Session_k = intent.getExtras().getString("Session_key"); // 세션값이 넘어온것 확인 o.
+        UserID = intent.getExtras().getString("UserID");
         fList = new ArrayList<Fragment>();
 
-        fList.add(home_pageF.newInstance(Session_k));
+        fList.add(home_pageF.newInstance(Session_k,UserID));
         fList.add(board_pageF.newInstance());
         fList.add(calendar_pageF.newInstance());
 
@@ -73,9 +75,6 @@ public class MainActivity extends AppCompatActivity {  // AppCompatActivity는 �
 
         CustomFragmentPagerAdapter adapter = new CustomFragmentPagerAdapter(fm, fList);
         mViewPager.setAdapter(adapter);
-
-        //Bundle bundle = new Bundle();
-        //bundle.putString("Session_key",Session_k);
 
     }
 
