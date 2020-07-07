@@ -25,9 +25,9 @@
 		System.out.println("Ads시작 "+str);
 		TextDeliver textDeliver = new TextDeliver(request,response);
 		name = textDeliver.GetText();
-		if (name.length() > 4) {
+		if (name.length() > 5) {
 			if (name.substring(name.length()-4, name.length()).equals(".jpg")) {
-				name = name.substring(0, name.length()-4);
+				name = name.substring(name.length()-5, name.length()-4);
 	        }
 		}
 		switch (Integer.parseInt(name)) {

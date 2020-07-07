@@ -83,8 +83,6 @@ public class TextDeliver {
 	public void copyFile(String filename, String newFilename) throws IOException {
 	    File file = new File( filename );
 	    File fileNew = new File( newFilename );
-	    System.out.println(filename);
-	    System.out.println(newFilename);
 	    FileInputStream inputStream = new FileInputStream(file);        
 	    FileOutputStream outputStream = new FileOutputStream(fileNew);
 	      
