@@ -13,14 +13,13 @@ import numpy as np
 if __name__ == "__main__":
 
     # hyperparameter
-    enroll_path = "./enroll_img"
-    test_path = "./test_img/8.png"
-    model_path = "../../FaceDataSet/aligned_model/chkpt-100000"
+    enroll_path = "D:/Study/Capstone/CoreTech/enroll_img"
+    test_path = "C:/Users/Lee/Desktop/신발.png"
+    model_path = "../../FaceDataSet/aligned_model/chkpt-80000"
     input_size = (100, 100)
     enroll_images = []
     test_images = []
 
-    parser = argparse.ArgumentParser()
     parser = argparse.ArgumentParser()
     parser.add_argument("--data_dir", default="D:/Study/FaceDataSet/aligned", help="Data directory")
     parser.add_argument("--chkpt_dir", default="D:/Study/FaceDataSet/aligned_model")
@@ -68,7 +67,9 @@ if __name__ == "__main__":
     face_detector = dlib.get_frontal_face_detector()
     face_pose_predictor = dlib.shape_predictor(predictor_model)
     face_aligner = openface.AlignDlib(predictor_model)
+
     detected_faces = face_detector(org_img, 1)
+    print(detected_faces)
     for j, face_rect in enumerate(detected_faces):
         left, right, top, bottom = face_rect.left(), face_rect.right(), face_rect.top(), face_rect.bottom()
         try:
@@ -106,7 +107,7 @@ if __name__ == "__main__":
     for i in range(test_num):
         max_score_idx = np.argmax(S[i, :])
         max_score = S[i, max_score_idx]
-        if (max_score < threshold):
+        if max_score < threshold:
             print("점수는 최대지만 threshold보다 낮음")
         else:
             print(str(cmp_img_list[max_score_idx]) + "번째 사람이랑 같은 사람인것 같음.")

@@ -14,9 +14,6 @@ if __name__ == "__main__":
     file_path = sys.argv[1]
     file_name = sys.argv[2]
     STU_IDs = sys.argv[3]
-    # file_path = "D:/Study/Capstone/CoreTech"
-    # file_name = "20004.jpg"
-    # STU_IDs = "201221892201421927201421936201521889"
     enroll_path = file_path + "/enroll_img"
     test_path = file_path + "/" + file_name
     model_path = "D:/Study/FaceDataSet/aligned_model/chkpt-80000"
@@ -60,12 +57,17 @@ if __name__ == "__main__":
     face_detector = dlib.get_frontal_face_detector()
     face_pose_predictor = dlib.shape_predictor(predictor_model)
     face_aligner = openface.AlignDlib(predictor_model)
-    detected_faces = face_detector(org_img, 1)
+    try:
+        detected_faces = face_detector(org_img, 1)
+    except Exception as ex:
+        print("사람 없음")
+        os.remove(test_path)
+        
     for j, face_rect in enumerate(detected_faces):
         left, right, top, bottom = face_rect.left(), face_rect.right(), face_rect.top(), face_rect.bottom()
         try:
-            pose_landmarks = face_pose_predictor(img, face_rect)
-            alignedFace = face_aligner.align(100, img, face_rect, landmarkIndices=openface.AlignDlib.OUTER_EYES_AND_NOSE)
+            pose_landmarks = face_pose_predictor(org_img, face_rect)
+            alignedFace = face_aligner.align(100, org_img, face_rect, landmarkIndices=openface.AlignDlib.OUTER_EYES_AND_NOSE)
             test_images.append(alignedFace)
         except Exception as ex:
             print(ex)
@@ -93,10 +95,7 @@ if __name__ == "__main__":
         for i in range(test_num):
             max_score_idx = np.argmax(S[i, :])
             max_score = S[i, max_score_idx]
-            if max_score < threshold:
-                print("점수는 최대지만 threshold보다 낮음")
-            else:
-                print(STU_ID[max_score_idx])
+            print(STU_ID[max_score_idx])
     else:
         print("사람 없음")
     os.remove(test_path)

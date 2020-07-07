@@ -9,7 +9,6 @@
 	out=pageContext.pushBody();
 	TextDeliver textDeliver = new TextDeliver(request,response);
 	textDeliver.SendText("LOGOUT");
-	System.out.println("LOGOUT");
 	session.invalidate();
 %>
 </body>

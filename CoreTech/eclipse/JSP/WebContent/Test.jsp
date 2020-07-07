@@ -51,6 +51,7 @@
 			Process process = runtime.exec(command);
 			process.waitFor();
 			BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			
 			String s;
 			TextDeliver textDeliver = new TextDeliver(request,response);
 			while ((s = br.readLine())!= null) {

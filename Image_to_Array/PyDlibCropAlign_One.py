@@ -14,7 +14,7 @@ def load_image(file_name, mode=cv2.IMREAD_ANYCOLOR):
 if __name__ == "__main__":
 
     predictor_model ="D:/Study/FaceDataSet/shape_predictor_68_face_landmarks.dat"
-    train_img_dir = "D:/Study/Capstone/Image_to_Array/RealTest/OrgImg/2.jpg"
+    train_img_dir = "D:/Study/Capstone/Image_to_Array/RealTest/OrgImg/6.jpg"
     save_path = "D:/Study/Capstone/PyUsingVector/enroll_img"
 
     img = load_image(train_img_dir)

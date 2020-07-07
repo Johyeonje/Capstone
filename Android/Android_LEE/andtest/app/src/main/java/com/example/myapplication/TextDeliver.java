@@ -52,11 +52,13 @@ public class TextDeliver {
         }
     }
 
-    public void SendText(String text) { // 저장된 텍스트 송신
+    public void SendText(String text) {
         try {
             DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
-            if (text.substring(text.length()-2, text.length()).equals("\r\n")) { // 맨 끝 줄바꿈 제거
-                text = text.substring(0, text.length()-2);
+            if(text.length()>3) {
+                if (text.substring(text.length()-2).equals("\r\n")) { // 맨 끝 줄바꿈 제거
+                    text = text.substring(0, text.length()-2);
+                }
             }
             dos.writeUTF(text);
             System.out.println("보낸 문자 : \r\n" + text);

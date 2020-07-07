@@ -46,14 +46,15 @@ public class MainActivity extends AppCompatActivity {
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                  DoADS("http://rbghoneroom402.iptime.org:48526/ADS/Ads.jsp", IDbox.getText().toString());
 //                DoTextUpload("http://rbghoneroom402.iptime.org:48526/JSP/Text.jsp", Person);
-                if (cookie == null) {
-                    DoLogin("http://rbghoneroom402.iptime.org:48526/JSP/Login.jsp", IDbox.getText().toString(), PWbox.getText().toString());
-                    btn1.setText("LOGOUT");
-                } else {
-                    DoLogout("http://rbghoneroom402.iptime.org:48526/JSP/Logout.jsp");
-                    btn1.setText("LOGIN");
-                }
+//                if (cookie == null) {
+//                    DoLogin("http://rbghoneroom402.iptime.org:48526/JSP/Login.jsp", IDbox.getText().toString(), PWbox.getText().toString());
+//                    btn1.setText("LOGOUT");
+//                } else {
+//                    DoLogout("http://rbghoneroom402.iptime.org:48526/JSP/Logout.jsp");
+//                    btn1.setText("LOGIN");
+//                }
             }
         });
         btn2.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 .permitDiskReads()
                 .permitDiskWrites()
                 .permitNetwork().build());
-}
+    }
 
     private void checkSelfPermission() {
         String temp = "";
@@ -194,6 +195,14 @@ public class MainActivity extends AppCompatActivity {
         networkTask.execute();
         Toast.makeText(getBaseContext(), "LogOut", Toast.LENGTH_SHORT).show();
         cookie=null;
+    }
+
+    public void DoADS(String apiUrl, String num) {
+        ADS.NetworkTask networkTask = new ADS.NetworkTask(apiUrl, num, getBaseContext());
+        try {
+            String received = networkTask.execute().get();
+        } catch (Exception e) {
+        }
     }
 
     public void DoGetStudents(String apiUrl, String SUB_ID) {

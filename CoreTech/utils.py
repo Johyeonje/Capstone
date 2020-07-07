@@ -2,8 +2,8 @@ import numpy as np
 import cv2
 
 
-def read_image(filepath):
-    image = cv2.imread(filepath)
+def read_image(filepath, mode=cv2.IMREAD_ANYCOLOR):
+    image = cv2.imread(filepath, mode)
     return image
 
 
